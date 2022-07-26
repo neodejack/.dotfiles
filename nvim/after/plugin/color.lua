@@ -1,4 +1,4 @@
-vim.g.neodejac_colorscheme = "gruvbox"
+vim.g.neodejac_colorscheme = "tokyonight"
 
 function ColorMyPencils()
     vim.g.gruvbox_contrast_dark = 'hard'

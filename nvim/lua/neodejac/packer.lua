@@ -28,10 +28,25 @@ return require("packer").startup(function()
     end
 }
 
+    -- lsp config
     use("neovim/nvim-lspconfig")
     use("nvim-treesitter/nvim-treesitter", {
         run = ":TSUpdate"
     })
+    use("nvim-lua/lsp_extensions.nvim")
+    use("glepnir/lspsaga.nvim")
+
+    -- nvim-cmp for lsp
+    use("hrsh7th/cmp-nvim-lsp")
+    use("hrsh7th/cmp-buffer")
+    use("hrsh7th/nvim-cmp")
+    use("L3MON4D3/LuaSnip")
+    use("saadparwaiz1/cmp_luasnip")
+    use("onsails/lspkind-nvim")
+    use("tzachar/cmp-tabnine", { run = "./install.sh", requires = 'hrsh7th/nvim-cmp'})
+
+    -- tree like symbol outline
+    use("simrat39/symbols-outline.nvim")
 
     --.md file preview
     use({

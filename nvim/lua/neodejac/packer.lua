@@ -30,11 +30,15 @@ return require("packer").startup(function()
 
     -- lsp config
     use("neovim/nvim-lspconfig")
+    use("nvim-lua/lsp_extensions.nvim")
+    use("glepnir/lspsaga.nvim")
+
+    -- nvim-treesitter
     use("nvim-treesitter/nvim-treesitter", {
         run = ":TSUpdate"
     })
-    use("nvim-lua/lsp_extensions.nvim")
-    use("glepnir/lspsaga.nvim")
+    use("nvim-treesitter/playground")
+    use("romgrk/nvim-treesitter-context")
 
     -- nvim-cmp for lsp
     use("hrsh7th/cmp-nvim-lsp")

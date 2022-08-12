@@ -11,15 +11,15 @@ local inoremap = Remap.inoremap
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Setup nvim-cmp.
-local tabnine = require("cmp_tabnine.config")
-tabnine:setup({
-	max_lines = 1000,
-	max_num_results = 20,
-	sort = true,
-	run_on_every_keystroke = true,
-	snippet_placeholder = "..",
-})
+-- -- Setup nvim-cmp.
+-- local tabnine = require("cmp_tabnine.config")
+-- tabnine:setup({
+-- 	max_lines = 1000,
+-- 	max_num_results = 20,
+-- 	sort = true,
+-- 	run_on_every_keystroke = true,
+-- 	snippet_placeholder = "..",
+-- })
 
 local cmp = require("cmp")
 local source_mapping = {
@@ -69,7 +69,7 @@ cmp.setup({
 	sources = {
 		-- tabnine completion? yayaya
 
-		{ name = "cmp_tabnine" },
+		-- { name = "cmp_tabnine" },
 
 		{ name = "nvim_lsp" },
 

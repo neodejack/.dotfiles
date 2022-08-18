@@ -51,6 +51,9 @@ return require("packer").startup(function()
     -- tree like symbol outline
     use("simrat39/symbols-outline.nvim")
 
+    -- java
+    use ('mfussenegger/nvim-jdtls')
+
     --.md file preview
     use({
         "iamcco/markdown-preview.nvim",

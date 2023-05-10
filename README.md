@@ -6,7 +6,7 @@ this repo keeps a track of how i change my setup
 ## here is how to set up a new dev box
 rename this directory from `~/.dotfiles` to `~/.config` 
 
-### iterm1
+### iterm
 import the color theme `catppuccin-macchiato.itermcolors`
 
 ### oh my zsh
@@ -24,4 +24,15 @@ eval "$(starship init zsh)"
 ```bash
 tmux source ~/.config/tmux/tmux.conf
 ```
+
+## useful tools
+1. glow
+
+this is to easily read README.md file in the terminal
+
+2. softserve
+
+git
+
+
 

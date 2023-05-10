@@ -25,6 +25,12 @@ eval "$(starship init zsh)"
 tmux source ~/.config/tmux/tmux.conf
 ```
 
+### neovim
+somehow after using the following command it worked (took this command from the packer github repo README.md)
+```bash
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+```
+
 ## useful tools
 1. glow
 

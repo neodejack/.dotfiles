@@ -1,0 +1,91 @@
+idealvimrc
+"" Source your .vimrc
+"source ~/.vimrc
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+let mapleader=" "
+
+set commentary
+set scrolloff=8
+
+
+set relativenumber
+set number
+
+
+" Do incremental searching.
+set incsearch
+
+" Ignore case when searching.
+set ignorecase
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+map <leader>r <Action>(RenameElement)
+map <leader>a <Action>(Annotate)
+map <leader>fd <Action>(ShowErrorDescription)
+map <leader>jd <Action>(GotoNextError)
+map <leader>kd <Action>(GotoPreviousError)
+map <leader>h <Action>(QuickJavaDoc)
+
+xnoremap <leader>p "_dP
+nnoremap <gd> :action GotoDeclaration<CR>
+nnoremap <c-[> :action GotoSuperMethod<CR>
+nnoremap <c-]> :action GotoImplementation<CR>
+nnoremap <c-p> :action GotoFile<CR>
+
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+
+" Find more examples here: https://jb.gg/share-ideavimrc
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+
+" ------------------------------------------------------------------------
+" NEW STUFF
+
+" Shortcut for copying to/from System Clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>P "+P
+" To copy text to the end-of-line, press Y.
+" This mapping sets up Y to be consistent with
+" the C and D operators, which act from the cursor
+" to the end of the line. The default behavior of Y
+" is to yank the whole line.
+nnoremap Y y$
+
+map <leader>f <Action>(SelectInProjectView)
+
+" Put search results in the middle of the screen
+nnoremap n nzz
+nnoremap N Nzz
+
+" Make line middle of screen after C-u or C-d
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+" Shortcut for end of line
+map H ^
+map L $
+
+" Refactoring
+nmap <Leader>rt :action Refactorings.QuickListPopupAction<CR>
+nmap csw :action Macro.surround_with_single_quote<CR>
+
+" use ideal bookmarks for marks
+set ideamarks

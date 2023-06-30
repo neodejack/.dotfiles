@@ -53,6 +53,8 @@ nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
+" vim-surround
+Plug 'tpope/vim-surround'
 
 
 " ------------------------------------------------------------------------
@@ -89,6 +91,3 @@ nmap csw :action Macro.surround_with_single_quote<CR>
 
 " use ideal bookmarks for marks
 set ideamarks
-
-" vim-surround
-set surround

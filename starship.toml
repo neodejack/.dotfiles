@@ -1,143 +1,139 @@
 [aws]
-format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+symbol = "  "
 
-[cmake]
-format = '\[[$symbol($version)]($style)\]'
+[buf]
+symbol = " "
 
-[cmd_duration]
-format = '\[[⏱ $duration]($style)\]'
-
-[cobol]
-format = '\[[$symbol($version)]($style)\]'
+[c]
+symbol = " "
 
 [conda]
-format = '\[[$symbol$environment]($style)\]'
-
-[crystal]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
 [dart]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
-[deno]
-format = '\[[$symbol($version)]($style)\]'
+[directory]
+read_only = " "
 
 [docker_context]
-format = '\[[$symbol$context]($style)\]'
-
-[dotnet]
-format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+symbol = " "
 
 [elixir]
-format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+symbol = " "
 
 [elm]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
-[erlang]
-format = '\[[$symbol($version)]($style)\]'
-
-[gcloud]
-format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+[fossil_branch]
+symbol = " "
 
 [git_branch]
-format = '\[[$symbol$branch]($style)\]'
-
-[git_status]
-format = '([\[$all_status$ahead_behind\]]($style))'
+symbol = " "
 
 [golang]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
-[helm]
-format = '\[[$symbol($version)]($style)\]'
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
 
 [hg_branch]
-format = '\[[$symbol$branch]($style)\]'
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
 [julia]
-format = '\[[$symbol($version)]($style)\]'
-
-[kotlin]
-format = '\[[$symbol($version)]($style)\]'
-
-[kubernetes]
-format = '\[[$symbol$context( \($namespace\))]($style)\]'
+symbol = " "
 
 [lua]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
 [memory_usage]
-format = '\[$symbol[$ram( | $swap)]($style)\]'
+symbol = " "
+
+[meson]
+symbol = "喝 "
 
 [nim]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
-[shell]
-format = '\[[$symbol$state( \($name\))]($style)\]'
+[nix_shell]
+symbol = " "
 
 [nodejs]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
-[ocaml]
-format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
-
-[openstack]
-format = '\[[$symbol$cloud(\($project\))]($style)\]'
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "﯑ "
+Gentoo = " "
+HardenedBSD = "ﲊ "
+Illumos = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+OracleLinux = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = " "
+Solus = "ﴱ "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
 
 [package]
-format = '\[[$symbol$version]($style)\]'
+symbol = " "
 
-[perl]
-format = '\[[$symbol($version)]($style)\]'
-
-[php]
-format = '\[[$symbol($version)]($style)\]'
-
-[pulumi]
-format = '\[[$symbol$stack]($style)\]'
-
-[purescript]
-format = '\[[$symbol($version)]($style)\]'
+[pijul_channel]
+symbol = "🪺 "
 
 [python]
-format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+symbol = " "
 
-[red]
-format = '\[[$symbol($version)]($style)\]'
+[rlang]
+symbol = "ﳒ "
 
 [ruby]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
 [rust]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
 [scala]
-format = '\[[$symbol($version)]($style)\]'
+symbol = " "
 
-[sudo]
-format = '\[[as $symbol]\]'
-
-[swift]
-format = '\[[$symbol($version)]($style)\]'
-
-[terraform]
-format = '\[[$symbol$workspace]($style)\]'
-
-[time]
-format = '\[[$time]($style)\]'
-
-[username]
-format = '\[[$user]($style)\]'
-
-[vagrant]
-format = '\[[$symbol($version)]($style)\]'
-
-[vlang]
-format = '\[[$symbol($version)]($style)\]'
-
-[zig]
-format = '\[[$symbol($version)]($style)\]'
+[spack]
+symbol = "🅢 "

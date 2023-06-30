@@ -89,3 +89,6 @@ nmap csw :action Macro.surround_with_single_quote<CR>
 
 " use ideal bookmarks for marks
 set ideamarks
+
+" vim-surround
+set surround

@@ -91,3 +91,6 @@ nmap csw :action Macro.surround_with_single_quote<CR>
 
 " use ideal bookmarks for marks
 set ideamarks
+
+" user multiple cursors"
+set multiple-cursors

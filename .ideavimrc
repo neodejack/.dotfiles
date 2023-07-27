@@ -73,6 +73,9 @@ nnoremap Y y$
 
 map <leader>f <Action>(SelectInProjectView)
 
+" show parameter info of a function
+map <leader>a <Action>(ParameterInfo)
+
 " Put search results in the middle of the screen
 nnoremap n nzz
 nnoremap N Nzz

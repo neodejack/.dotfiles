@@ -12,7 +12,7 @@ set scrolloff=8
 
 
 set relativenumber
-set number
+set nu
 
 
 " Do incremental searching.
@@ -24,17 +24,17 @@ set ignorecase
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
 map <leader>r <Action>(RenameElement)
-map <leader>a <Action>(Annotate)
-map <leader>fd <Action>(ShowErrorDescription)
-map <leader>jd <Action>(GotoNextError)
-map <leader>kd <Action>(GotoPreviousError)
-map <leader>h <Action>(QuickJavaDoc)
+nnoremap gl :action ShowErrorDescription<CR>
+map <leader>lj <Action>(GotoNextError)
+map <leader>lk <Action>(GotoPreviousError)
+map K <Action>(QuickJavaDoc)
 
 xnoremap <leader>p "_dP
-nnoremap <gd> :action GotoDeclaration<CR>
-nnoremap <c-[> :action GotoSuperMethod<CR>
-nnoremap <c-]> :action GotoImplementation<CR>
-nnoremap <c-p> :action GotoFile<CR>
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gr :action GotoDeclaration<CR>
+nnoremap gi :action GotoSuperMethod<CR>
+nnoremap gI :action GotoImplementation<CR>
+nnoremap <leader>f :action GotoFile<CR>
 
 nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
@@ -55,7 +55,8 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 " vim-surround
 Plug 'tpope/vim-surround'
-
+" Multi-cursor
+Plug 'vim-multiple-cursors'
 
 " ------------------------------------------------------------------------
 " NEW STUFF
@@ -71,10 +72,11 @@ nmap <Leader>P "+P
 " is to yank the whole line.
 nnoremap Y y$
 
-map <leader>f <Action>(SelectInProjectView)
+map <leader>e <Action>(SelectInProjectView)
 
 " show parameter info of a function
 map <leader>a <Action>(ParameterInfo)
+nnoremap gs :action ParameterInfo<CR>
 
 " Put search results in the middle of the screen
 nnoremap n nzz
@@ -90,10 +92,30 @@ map L $
 
 " Refactoring
 nmap <Leader>rt :action Refactorings.QuickListPopupAction<CR>
-nmap csw :action Macro.surround_with_single_quote<CR>
 
 " use ideal bookmarks for marks
 set ideamarks
 
-" user multiple cursors"
-set multiple-cursors
+map :WQ :wq
+map :Wq :wq
+map :W :w
+map :Q :q
+
+nnoremap gt :action GotoTypeDeclaration<CR>
+nnoremap gut :action GotoTest<CR>
+
+
+" window and tabs
+nnoremap <C-w>o :action CloseAllEditorsButActive<CR>
+nnoremap <C-w>L :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <C-w>H :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <Leader>bn :action NextTab<CR>
+nnoremap <Leader>bb :action PreviousTab<CR>
+
+nnoremap <Leader>e :action ActivateProjectToolWindow<CR>
+
+
+nnoremap <Leader>c :action CloseContent<CR>
+nnoremap <Leader>w :action SaveAll<CR>
+nnoremap <Leader>bf :action Switcher<CR>
+nnoremap <Leader>la :action ShowIntentionActions<CR>

@@ -14,17 +14,26 @@ lvim.builtin.telescope.pickers.git_files.enable_preview = true
 lvim.builtin.treesitter.rainbow.enable = true
 
 -- my kep map
-lvim.builtin.which_key.mappings["P"] = { '"_dP', "the chad paste" }
 lvim.keys.normal_mode["L"] = "$"
 lvim.keys.normal_mode["H"] = "^"
 lvim.keys.visual_mode["L"] = "$"
 lvim.keys.visual_mode["H"] = "^"
 
+lvim.builtin.which_key.mappings["P"] = lvim.builtin.which_key.mappings["p"]
+lvim.builtin.which_key.mappings["p"] = { '"_dP', "the chad paste" }
 
 -- lsp keymap
-lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "go to type definition" }
-lvim.lsp.buffer_mappings.normal_mode['gi'] = { vim.lsp.buf.implementation, "go to type definition" }
+lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "Goto type definition" }
 lvim.lsp.buffer_mappings.normal_mode['gI'] = nil
+--
+-- change default lsp quick list to telescope
+lvim.lsp.buffer_mappings.normal_mode["gr"] = {
+    ":lua require'telescope.builtin'.lsp_references()<cr>",
+    " Find references"
+}
+lvim.lsp.buffer_mappings.normal_mode['gi'] = {
+    ":lua require'telescope.builtin'.lsp_implementations()<cr>",
+    "󰰃 Find implementation" }
 
 lvim.plugins = {
     {
@@ -167,27 +176,44 @@ lvim.plugins = {
         end,
     },
     {
-        "folke/trouble.nvim",
-        cmd = "TroubleToggle",
+        "folke/persistence.nvim",
+        event = "BufReadPre",
+        config = function()
+            require("persistence").setup({
+                dir = vim.fn.expand(vim.fn.stdpath "state" .. "/sessions/"),
+                options = { "buffers", "curdir", "tabpages", "winsize" }
+            })
+        end
     },
 }
 
--- trouble plugin keymap
+-- diagnostics remap
 lvim.builtin.which_key.mappings["t"] = {
     name = "Diagnostics",
-    t = { "<cmd>TroubleToggle<cr>", "trouble" },
-    w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace" },
-    d = { "<cmd>TroubleToggle document_diagnostics<cr>", "document" },
-    q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
-    l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
-    r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
+    b = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+    w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+    j = {
+        "<cmd>lua vim.diagnostic.goto_next()<cr>",
+        "Next Diagnostic",
+    },
+    k = {
+        "<cmd>lua vim.diagnostic.goto_prev()<cr>",
+        "Prev Diagnostic",
+    }
 }
+-- remove the defalult diagnostic keymap
+lvim.builtin.which_key.mappings["l"]["j"] = {}
+lvim.builtin.which_key.mappings["l"]["k"] = {}
+lvim.builtin.which_key.mappings["l"]["d"] = {}
+lvim.builtin.which_key.mappings['l']["w"] = {}
+lvim.builtin.which_key.mappings["l"]["q"] = {}
+lvim.builtin.which_key.mappings["l"]["e"][2] = "Move Quickfix list to Telescope"
 
 -- todo plugin keymap
 lvim.builtin.which_key.mappings["sd"] = { "<cmd>TodoTelescope<cr>", "to do" }
 
--- line number color setting
 lvim.autocommands = {
+    -- line number color setting
     { { "ColorScheme" },
         {
             pattern = "*",
@@ -249,5 +275,25 @@ lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.t
 lvim.builtin.dap.active = true
 require('dap-go').setup()
 
-
 -- enable treesitter integration for the matchup plugin
+--
+
+
+-- keymap for persistence plugin
+lvim.builtin.which_key.mappings["S"] = {
+    name = "Session",
+    c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+    l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+    Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+}
+
+-- options
+lvim.builtin.project.detection_methods = { "lsp", "pattern" }
+lvim.builtin.project.patterns = {
+    ".git",
+    "package-lock.json",
+    "yarn.lock",
+    "package.json",
+    "requirements.txt",
+}
+lvim.builtin.telescope.defaults.path_display = { "truncate" }

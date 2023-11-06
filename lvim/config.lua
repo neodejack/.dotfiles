@@ -228,7 +228,8 @@ lvim.autocommands = {
 -- harpoon setting
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-lvim.builtin.which_key.mappings["a"] = {
+lvim.builtin.which_key.mappings["H"] = lvim.builtin.which_key.mappings["h"]
+lvim.builtin.which_key.mappings["h"] = {
     name = "Harpoon",
     a = { mark.add_file, "add file to harpoon" },
     h = { ui.toggle_quick_menu, "toggle quick menu" },

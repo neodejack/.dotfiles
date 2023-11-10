@@ -3,42 +3,97 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 --
-
-vim.opt.relativenumber = true
-lvim.format_on_save.enabled = true
-vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 4    -- insert 4 spaces for a tab
-lvim.transparent_window = true
-lvim.builtin.telescope.defaults.layout_config.width = 0.75
+vim.opt.relativenumber                                       = true
+lvim.format_on_save.enabled                                  = true
+vim.opt.shiftwidth                                           = 4 -- the number of spaces inserted for each indentation
+vim.opt.tabstop                                              = 4 -- insert 4 spaces for a tab
+lvim.transparent_window                                      = true
+lvim.builtin.telescope.defaults.layout_config.width          = 0.75
 lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 1
-lvim.builtin.telescope.pickers.git_files.enable_preview = true
+lvim.builtin.telescope.pickers.git_files.enable_preview      = true
+
+-- -- colorscheme
+lvim.colorscheme                                             = "catppuccin"
+lvim.builtin.lualine.options.theme                           = "catppuccin"
 
 -- my kep map
-lvim.keys.normal_mode["L"] = "$"
-lvim.keys.normal_mode["H"] = "^"
-lvim.keys.visual_mode["L"] = "$"
-lvim.keys.visual_mode["H"] = "^"
+lvim.keys.normal_mode["L"]                                   = "$"
+lvim.keys.normal_mode["H"]                                   = "^"
+lvim.keys.visual_mode["L"]                                   = "$"
+lvim.keys.visual_mode["H"]                                   = "^"
 
-lvim.builtin.which_key.mappings["P"] = lvim.builtin.which_key.mappings["p"]
-lvim.builtin.which_key.mappings["p"] = { '"_dP', "the chad paste" }
+lvim.builtin.which_key.mappings["P"]                         = lvim.builtin.which_key.mappings["p"]
+lvim.builtin.which_key.mappings["p"]                         = { '"_dP', "the chad paste" }
+lvim.builtin.which_key.vmappings["p"]                        = { '"_dP', "the chad paste" }
 
 -- lsp keymap
-lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "Goto type definition" }
-lvim.lsp.buffer_mappings.normal_mode['gI'] = nil
+lvim.lsp.buffer_mappings.normal_mode['gt']                   = { vim.lsp.buf.type_definition, "Goto type definition" }
+lvim.lsp.buffer_mappings.normal_mode['gI']                   = nil
 --
 -- change default lsp quick list to telescope
-lvim.lsp.buffer_mappings.normal_mode["gr"] = {
+lvim.lsp.buffer_mappings.normal_mode["gr"]                   = {
     ":lua require'telescope.builtin'.lsp_references()<cr>",
     "? Find references"
 }
-lvim.lsp.buffer_mappings.normal_mode['gi'] = {
+lvim.lsp.buffer_mappings.normal_mode['gi']                   = {
     ":lua require'telescope.builtin'.lsp_implementations()<cr>",
     "?? Find implementation"
 }
-
-lvim.plugins = {
+lvim.plugins                                                 = {
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavour = "mocha",             -- latte, frappe, macchiato, mocha
+                transparent_background = true, -- disables setting the background color.
+                show_end_of_buffer = false,    -- shows the '~' characters after the end of buffers
+                term_colors = false,           -- sets terminal colors (e.g. `g:terminal_color_0`)
+                dim_inactive = {
+                    enabled = true,            -- dims the background color of inactive window
+                    shade = "dark",
+                    percentage = 0.15,         -- percentage of the shade to apply to the inactive window
+                },
+                styles = {                     -- Handles the styles of general hi groups (see `:h highlight-args`):
+                    comments = { "italic" },   -- Change the style of comments
+                    conditionals = { "italic" },
+                    loops = {},
+                    functions = {},
+                    keywords = {},
+                    strings = {},
+                    variables = {},
+                    numbers = {},
+                    booleans = { "italic" },
+                    properties = { "italic" },
+                    types = {},
+                    operators = {},
+                },
+                color_overrides = {},
+                custom_highlights = {},
+                integrations = {
+                    cmp = true,
+                    gitsigns = true,
+                    nvimtree = true,
+                    treesitter = true,
+                    notify = false,
+                    mini = {
+                        enabled = true,
+                        indentscope_color = "",
+                    },
+                    harpoon = true,
+                    mason = true,
+                    neotest = true,
+                    which_key = true,
+                    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+                },
+            })
+        end
+    },
     {
         'Olical/conjure',
+        "tpope/vim-repeat",
+        "tpope/vim-surround",
         "nvim-neotest/neotest-go",
         "nvim-lua/plenary.nvim",
         "ThePrimeagen/harpoon",
@@ -64,6 +119,15 @@ lvim.plugins = {
                 pre_hook = nil,              -- Function to run before the scrolling animation starts
                 post_hook = nil,             -- Function to run after the scrolling animation ends
             })
+            -- neoscroll setting
+            local t    = {}
+            -- Syntax: t[keys] = {function, {function arguments}}
+            t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '60' } }
+            t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '60' } }
+            t['zt']    = { 'zt', { '120' } }
+            t['zz']    = { 'zz', { '120' } }
+            t['zb']    = { 'zb', { '120' } }
+            require('neoscroll.config').set_mappings(t)
         end
     },
     {
@@ -91,7 +155,7 @@ lvim.plugins = {
         dependencies = {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim"
-        }, 
+        },
         config = function()
             -- get neotest namespace (api call creates or returns namespace)
             local neotest_ns = vim.api.nvim_create_namespace("neotest")
@@ -196,10 +260,19 @@ lvim.plugins = {
             })
         end
     },
+    {
+        "nvim-telescope/telescope-project.nvim",
+        event = "BufWinEnter",
+    },
+}
+
+-- telescope projects
+lvim.builtin.which_key.mappings["s"]["p"]                    = {
+    "<cmd>lua require'telescope'.extensions.project.project{}<CR>", "Projects"
 }
 
 -- diagnostics remap
-lvim.builtin.which_key.mappings["t"] = {
+lvim.builtin.which_key.mappings["t"]                         = {
     name = "Diagnostics",
     b = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
@@ -214,17 +287,17 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 
 -- remove the defalult diagnostic keymap
-lvim.builtin.which_key.mappings["l"]["j"] = {}
-lvim.builtin.which_key.mappings["l"]["k"] = {}
-lvim.builtin.which_key.mappings["l"]["d"] = {}
-lvim.builtin.which_key.mappings['l']["w"] = {}
-lvim.builtin.which_key.mappings["l"]["q"] = {}
-lvim.builtin.which_key.mappings["l"]["e"][2] = "Move Quickfix list to Telescope"
+lvim.builtin.which_key.mappings["l"]["j"]                    = {}
+lvim.builtin.which_key.mappings["l"]["k"]                    = {}
+lvim.builtin.which_key.mappings["l"]["d"]                    = {}
+lvim.builtin.which_key.mappings['l']["w"]                    = {}
+lvim.builtin.which_key.mappings["l"]["q"]                    = {}
+lvim.builtin.which_key.mappings["l"]["e"][2]                 = "Move Quickfix list to Telescope"
 
 -- todo plugin keymap
-lvim.builtin.which_key.mappings["sd"] = { "<cmd>TodoTelescope<cr>", "to do" }
+lvim.builtin.which_key.mappings["sd"]                        = { "<cmd>TodoTelescope<cr>", "to do" }
 
-lvim.autocommands = {
+lvim.autocommands                                            = {
     -- line number color setting
     { { "ColorScheme" },
         {
@@ -238,10 +311,10 @@ lvim.autocommands = {
 }
 
 -- harpoon setting
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
-lvim.builtin.which_key.mappings["H"] = lvim.builtin.which_key.mappings["h"]
-lvim.builtin.which_key.mappings["h"] = {
+local mark                                                   = require("harpoon.mark")
+local ui                                                     = require("harpoon.ui")
+lvim.builtin.which_key.mappings["H"]                         = lvim.builtin.which_key.mappings["h"]
+lvim.builtin.which_key.mappings["h"]                         = {
     name = "Harpoon",
     a = { mark.add_file, "add file to harpoon" },
     h = { ui.toggle_quick_menu, "toggle quick menu" },
@@ -254,19 +327,6 @@ lvim.builtin.which_key.mappings["h"] = {
 
 }
 
--- neoscroll setting
-require('neoscroll').setup({
-    -- Set any options as needed
-})
-
-local t    = {}
--- Syntax: t[keys] = {function, {function arguments}}
-t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '70' } }
-t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '70' } }
-t['zt']    = { 'zt', { '120' } }
-t['zz']    = { 'zz', { '120' } }
-t['zb']    = { 'zb', { '120' } }
-require('neoscroll.config').set_mappings(t)
 
 lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" }
 lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }

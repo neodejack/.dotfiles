@@ -13,6 +13,8 @@ lvim.builtin.telescope.defaults.layout_config.width = 0.75
 lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 1
 lvim.builtin.telescope.pickers.git_files.enable_preview = true
 
+lvim.colorscheme = "catppuccin"
+
 -- my kep map
 lvim.keys.normal_mode["L"] = "$"
 lvim.keys.normal_mode["H"] = "^"
@@ -21,6 +23,7 @@ lvim.keys.visual_mode["H"] = "^"
 
 lvim.builtin.which_key.mappings["P"] = lvim.builtin.which_key.mappings["p"]
 lvim.builtin.which_key.mappings["p"] = { '"_dP', "the chad paste" }
+lvim.builtin.which_key.vmappings["p"] = { '"_dP', "the chad paste" }
 
 -- lsp keymap
 lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "Goto type definition" }
@@ -38,10 +41,16 @@ lvim.lsp.buffer_mappings.normal_mode['gi'] = {
 
 lvim.plugins = {
     {
-        'theHamsta/nvim-dap-virtual-text'
+        "catppuccin/nvim",
+        name = "catppuccin",
     },
     {
+        'theHamsta/nvim-dap-virtual-text',
         'Olical/conjure',
+        "nvim-lua/plenary.nvim",
+        "ThePrimeagen/harpoon",
+        "nvim-neotest/neotest-go",
+        "leoluz/nvim-dap-go",
     },
     {
         "ray-x/lsp_signature.nvim",
@@ -49,26 +58,19 @@ lvim.plugins = {
         config = function() require "lsp_signature".on_attach() end,
     },
     {
-        "nvim-lua/plenary.nvim",
-    },
-    {
-        "ThePrimeagen/harpoon",
-    },
-    {
         "karb94/neoscroll.nvim",
         event = "WinScrolled",
         config = function()
-            require('neoscroll').setup({
-                -- All these keys will be mapped to their corresponding default scrolling animation
-                hide_cursor = true,          -- Hide cursor while scrolling
-                stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-                use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-                respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-                cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-                easing_function = nil,       -- Default easing function
-                pre_hook = nil,              -- Function to run before the scrolling animation starts
-                post_hook = nil,             -- Function to run after the scrolling animation ends
-            })
+            -- neoscroll setting
+            require('neoscroll').setup({})
+            local t    = {}
+            -- Syntax: t[keys] = {function, {function arguments}}
+            t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '60' } }
+            t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '60' } }
+            t['zt']    = { 'zt', { '60' } }
+            t['zz']    = { 'zz', { '60' } }
+            t['zb']    = { 'zb', { '60' } }
+            require('neoscroll.config').set_mappings(t)
         end
     },
     {
@@ -96,13 +98,26 @@ lvim.plugins = {
         dependencies = {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim"
-        }
-    },
-    {
-        "nvim-neotest/neotest-go"
-    },
-    {
-        "leoluz/nvim-dap-go"
+        },
+        config = function()
+            -- get neotest namespace (api call creates or returns namespace)
+            local neotest_ns = vim.api.nvim_create_namespace("neotest")
+            vim.diagnostic.config({
+                virtual_text = {
+                    format = function(diagnostic)
+                        local message =
+                            diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+                        return message
+                    end,
+                },
+            }, neotest_ns)
+            require("neotest").setup({
+                -- your neotest config here
+                adapters = {
+                    require("neotest-go"),
+                },
+            })
+        end,
     },
     -- TODO: curretnly this is broken, will try again with the newer verion of lunarvim once released
     -- {
@@ -148,7 +163,7 @@ lvim.plugins = {
                 debug = false,           -- Print debug information
                 opacity = nil,           -- 0-100 opacity level of the floating window where 100 is fully transparent.
                 post_open_hook = nil,    -- A function taking two arguments, a buffer and a window to be ran as a hook.
-                focus_on_open = false,   -- Focus the floating window when opening it.
+                focus_on_open = true,    -- Focus the floating window when opening it.
                 dismiss_on_move = true,  -- Dismiss the floating window when moving the cursor.
                 -- You can use "default_mappings = true" setup option
                 -- Or explicitly set keybindings
@@ -245,31 +260,6 @@ lvim.builtin.which_key.mappings["h"] = {
 
 }
 
--- neoscroll setting
-require('neoscroll').setup({
-    -- Set any options as needed
-})
-
-local t    = {}
--- Syntax: t[keys] = {function, {function arguments}}
-t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '120' } }
-t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '120' } }
-t['zt']    = { 'zt', { '120' } }
-t['zz']    = { 'zz', { '120' } }
-t['zb']    = { 'zb', { '120' } }
-require('neoscroll.config').set_mappings(t)
-
--- unit test runner for go
-require("neotest").setup({
-    adapters = {
-        require("neotest-go")({
-            experimental = {
-                test_table = true,
-            },
-            args = { "-count=1", "-timeout=60s" }
-        })
-    }
-})
 
 lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" }
 lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
@@ -309,6 +299,17 @@ lvim.builtin.telescope.defaults.path_display = { "truncate" }
 -- localleader for conjure plugin
 vim.g.maplocalleader = ','
 
+-- find all files (including gitigored files)
+lvim.builtin.which_key.mappings["s"]["F"] = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
+    "Find File Everywhere" }
+lvim.builtin.which_key.mappings["s"]["G"] = {
+    function()
+        require("telescope.builtin").live_grep {
+            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        }
+    end,
+    "Grep text Everywhere",
+}
 -- turn on previewer for telescope finder
 lvim.builtin.which_key.mappings["f"] = {
     function()

@@ -13,14 +13,19 @@ lvim.builtin.telescope.defaults.layout_config.width = 0.75
 lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 1
 lvim.builtin.telescope.pickers.git_files.enable_preview = true
 
+-- this colorcheme is pronouced catpussin
 lvim.colorscheme = "catppuccin"
 
--- my kep map
+-- localleader for conjure plugin
+vim.g.maplocalleader = ','
+
+-- LH to start and end of line
 lvim.keys.normal_mode["L"] = "$"
 lvim.keys.normal_mode["H"] = "^"
 lvim.keys.visual_mode["L"] = "$"
 lvim.keys.visual_mode["H"] = "^"
 
+-- the greatest keymap ever
 lvim.builtin.which_key.mappings["P"] = lvim.builtin.which_key.mappings["p"]
 lvim.builtin.which_key.mappings["p"] = { '"_dP', "the chad paste" }
 lvim.builtin.which_key.vmappings["p"] = { '"_dP', "the chad paste" }
@@ -28,7 +33,6 @@ lvim.builtin.which_key.vmappings["p"] = { '"_dP', "the chad paste" }
 -- lsp keymap
 lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "Goto type definition" }
 lvim.lsp.buffer_mappings.normal_mode['gI'] = nil
---
 -- change default lsp quick list to telescope
 lvim.lsp.buffer_mappings.normal_mode["gr"] = {
     ":lua require'telescope.builtin'.lsp_references()<cr>",
@@ -39,6 +43,39 @@ lvim.lsp.buffer_mappings.normal_mode['gi'] = {
     "󰰃 Find implementation"
 }
 
+---- telecope stuff
+lvim.builtin.telescope.defaults.path_display = { "truncate" }
+-- telescope find all files (including gitigored files)
+lvim.builtin.which_key.mappings["s"]["F"] = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
+    "Find File Everywhere" }
+lvim.builtin.which_key.mappings["s"]["G"] = {
+    function()
+        require("telescope.builtin").live_grep {
+            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        }
+    end,
+    "Grep text Everywhere",
+}
+-- map <leader>sg to live grep text files
+lvim.builtin.which_key.mappings["s"]["g"] = lvim.builtin.which_key.mappings["s"]["t"]
+lvim.builtin.which_key.mappings["s"]["g"][2] = "Grep text"
+lvim.builtin.which_key.mappings["s"]["t"] = {}
+
+
+-- turn on previewer for telescope finder
+lvim.builtin.which_key.mappings["f"] = {
+    function()
+        require("lvim.core.telescope.custom-finders").find_project_files { previewer = true }
+    end,
+    "Find File",
+}
+
+-- make <C-p> finding files
+lvim.keys.normal_mode["<C-p>"] =
+"<cmd>lua require('lvim.core.telescope.custom-finders').find_project_files({previewer = true})<cr>"
+
+
+---- plugins
 lvim.plugins = {
     {
         "catppuccin/nvim",
@@ -174,19 +211,6 @@ lvim.plugins = {
         end
     },
     {
-        "itchyny/vim-cursorword",
-        event = { "BufEnter", "BufNewFile" },
-        config = function()
-            vim.api.nvim_command("augroup user_plugin_cursorword")
-            vim.api.nvim_command("autocmd!")
-            vim.api.nvim_command("autocmd FileType NvimTree,lspsagafinder,dashboard,vista let b:cursorword = 0")
-            vim.api.nvim_command("autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif")
-            vim.api.nvim_command("autocmd InsertEnter * let b:cursorword = 0")
-            vim.api.nvim_command("autocmd InsertLeave * let b:cursorword = 1")
-            vim.api.nvim_command("augroup END")
-        end
-    },
-    {
         "folke/todo-comments.nvim",
         event = "BufRead",
         config = function()
@@ -205,9 +229,10 @@ lvim.plugins = {
     },
 }
 
+
 -- diagnostics remap
 lvim.builtin.which_key.mappings["t"] = {
-    name = "Diagnostics",
+    name = "Diagnostics and Tests",
     b = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
     w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
     j = {
@@ -217,6 +242,13 @@ lvim.builtin.which_key.mappings["t"] = {
     k = {
         "<cmd>lua vim.diagnostic.goto_prev()<cr>",
         "Prev Diagnostic",
+    },
+    t = {
+        name = "Unit Tests",
+        -- neotest keymap
+        f = { "<cmd>lua require('neotest').run.run()<cr>", "Test Function" },
+        F = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" },
+        S = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" },
     }
 }
 -- remove the defalult diagnostic keymap
@@ -230,8 +262,8 @@ lvim.builtin.which_key.mappings["l"]["e"][2] = "Move Quickfix list to Telescope"
 -- todo plugin keymap
 lvim.builtin.which_key.mappings["sd"] = { "<cmd>TodoTelescope<cr>", "to do" }
 
+-- line number color setting
 lvim.autocommands = {
-    -- line number color setting
     { { "ColorScheme" },
         {
             pattern = "*",
@@ -251,31 +283,55 @@ lvim.builtin.which_key.mappings["h"] = {
     name = "Harpoon",
     a = { mark.add_file, "add file to harpoon" },
     h = { ui.toggle_quick_menu, "toggle quick menu" },
-    j = { function() ui.nav_file(1) end, "go to file 1" },
-    k = { function() ui.nav_file(2) end, "go to file 2" },
-    l = { function() ui.nav_file(3) end, "go to file 3" },
-    u = { function() ui.nav_file(4) end, "go to file 4" },
-    i = { function() ui.nav_file(5) end, "go to file 5" },
-    o = { function() ui.nav_file(6) end, "go to file 6" },
+    f = { function() ui.nav_file(1) end, "go to file 1" },
+    d = { function() ui.nav_file(2) end, "go to file 2" },
+    s = { function() ui.nav_file(3) end, "go to file 3" },
+    r = { function() ui.nav_file(4) end, "go to file 4" },
+    e = { function() ui.nav_file(5) end, "go to file 5" },
+    w = { function() ui.nav_file(6) end, "go to file 6" },
 
 }
 
-
-lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" }
-lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
-lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
 
 -- dap debugger keymap
 lvim.builtin.which_key.mappings["d"]["B"] = {
     "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", "Set Conditional Breakpoint" }
 -- debugger for go
+lvim.builtin.which_key.mappings["d"] = {
+    name = "Debug",
+    b = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+    B = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
+        "Set Conditional Breakpoint" },
+    k = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+    c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+    C = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run To Cursor" },
+    d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+    g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+    l = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+    j = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+    h = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+    p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
+    r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+    s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
+    q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
+    U = { "<cmd>lua require'dapui'.toggle({reset = true})<cr>", "Toggle UI" },
+}
+
 lvim.builtin.dap.active = true
 require('dap-go').setup()
 require("nvim-dap-virtual-text").setup()
 
--- enable treesitter integration for the matchup plugin
---
-
+-- automatically open and close dap ui
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+end
 
 -- keymap for persistence plugin
 lvim.builtin.which_key.mappings["S"] = {
@@ -294,35 +350,3 @@ lvim.builtin.project.patterns = {
     "package.json",
     "requirements.txt",
 }
-lvim.builtin.telescope.defaults.path_display = { "truncate" }
-
--- localleader for conjure plugin
-vim.g.maplocalleader = ','
-
--- find all files (including gitigored files)
-lvim.builtin.which_key.mappings["s"]["F"] = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
-    "Find File Everywhere" }
-lvim.builtin.which_key.mappings["s"]["G"] = {
-    function()
-        require("telescope.builtin").live_grep {
-            additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-        }
-    end,
-    "Grep text Everywhere",
-}
--- turn on previewer for telescope finder
-lvim.builtin.which_key.mappings["f"] = {
-    function()
-        require("lvim.core.telescope.custom-finders").find_project_files { previewer = true }
-    end,
-    "Find File",
-}
-
--- make <C-p> finding files
-lvim.keys.normal_mode["<C-p>"] =
-"<cmd>lua require('lvim.core.telescope.custom-finders').find_project_files({previewer = true})<cr>"
-
--- map <leader>sg to live grep text files
-lvim.builtin.which_key.mappings["s"]["g"] = lvim.builtin.which_key.mappings["s"]["t"]
-lvim.builtin.which_key.mappings["s"]["g"][2] = "Grep text"
-lvim.builtin.which_key.mappings["s"]["t"] = {}

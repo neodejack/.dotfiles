@@ -80,6 +80,16 @@ lvim.plugins = {
     {
         "catppuccin/nvim",
         name = "catppuccin",
+        config = function()
+            require("catppuccin").setup({
+                color_overrides = {
+                    all = {
+                        lavender = "#C9B8E2",
+                        yellow = "#f8dfc1"
+                    }
+                }
+            })
+        end
     },
     {
         'theHamsta/nvim-dap-virtual-text',
@@ -321,8 +331,9 @@ lvim.builtin.dap.active = true
 require('dap-go').setup()
 require("nvim-dap-virtual-text").setup()
 
--- automatically open and close dap ui
+
 local dap, dapui = require("dap"), require("dapui")
+-- automatically open and close dap ui
 dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open()
 end

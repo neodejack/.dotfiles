@@ -38,6 +38,9 @@ lvim.lsp.buffer_mappings.normal_mode['gi'] = {
 
 lvim.plugins = {
     {
+        'theHamsta/nvim-dap-virtual-text'
+    },
+    {
         'Olical/conjure',
     },
     {
@@ -272,9 +275,13 @@ lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()
 lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
 lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
 
+-- dap debugger keymap
+lvim.builtin.which_key.mappings["d"]["B"] = {
+    "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", "Set Conditional Breakpoint" }
 -- debugger for go
 lvim.builtin.dap.active = true
 require('dap-go').setup()
+require("nvim-dap-virtual-text").setup()
 
 -- enable treesitter integration for the matchup plugin
 --

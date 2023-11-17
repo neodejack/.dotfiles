@@ -28,8 +28,8 @@ lvim.keys.visual_mode["H"] = "^"
 
 -- the greatest keymap ever
 lvim.builtin.which_key.mappings["P"] = lvim.builtin.which_key.mappings["p"]
-lvim.builtin.which_key.mappings["p"] = { '"_dp', "the chad paste" }
-lvim.builtin.which_key.vmappings["p"] = { '"_dp', "the chad paste" }
+lvim.builtin.which_key.mappings["p"] = { '"_dP', "the chad paste" }
+lvim.builtin.which_key.vmappings["p"] = { '"_dP', "the chad Paste" }
 
 -- lsp keymap
 lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "Goto type definition" }
@@ -45,7 +45,7 @@ lvim.lsp.buffer_mappings.normal_mode['gi'] = {
 }
 
 ---- telecope stuff
-lvim.builtin.telescope.defaults.path_display = { "truncate" }
+-- lvim.builtin.telescope.defaults.path_display = { "truncate" }
 -- telescope find all files (including gitigored files)
 lvim.builtin.which_key.mappings["s"]["F"] = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
     "Find File Everywhere" }
@@ -66,9 +66,9 @@ lvim.builtin.which_key.mappings["s"]["t"] = {}
 -- turn on previewer for telescope finder
 lvim.builtin.which_key.mappings["f"] = {
     function()
-        require("lvim.core.telescope.custom-finders").find_project_files { previewer = true }
+        require("telescope.builtin").find_files { hidden = true, no_ignore = true }
     end,
-    "Find File",
+    "Find File Everywhere",
 }
 
 -- make <C-p> finding files

@@ -8,6 +8,7 @@ vim.opt.relativenumber = true
 lvim.format_on_save.enabled = true
 vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 4    -- insert 4 spaces for a tab
+vim.opt.colorcolumn = "100"
 lvim.transparent_window = true
 lvim.builtin.telescope.defaults.layout_config.width = 0.75
 lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 1
@@ -28,7 +29,7 @@ lvim.keys.visual_mode["H"] = "^"
 -- the greatest keymap ever
 lvim.builtin.which_key.mappings["P"] = lvim.builtin.which_key.mappings["p"]
 lvim.builtin.which_key.mappings["p"] = { '"_dP', "the chad paste" }
-lvim.builtin.which_key.vmappings["p"] = { '"_dP', "the chad paste" }
+lvim.builtin.which_key.vmappings["p"] = { '"_dP', "the chad Paste" }
 
 -- lsp keymap
 lvim.lsp.buffer_mappings.normal_mode['gt'] = { vim.lsp.buf.type_definition, "Goto type definition" }
@@ -44,7 +45,7 @@ lvim.lsp.buffer_mappings.normal_mode['gi'] = {
 }
 
 ---- telecope stuff
-lvim.builtin.telescope.defaults.path_display = { "truncate" }
+-- lvim.builtin.telescope.defaults.path_display = { "truncate" }
 -- telescope find all files (including gitigored files)
 lvim.builtin.which_key.mappings["s"]["F"] = { "<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
     "Find File Everywhere" }
@@ -65,9 +66,9 @@ lvim.builtin.which_key.mappings["s"]["t"] = {}
 -- turn on previewer for telescope finder
 lvim.builtin.which_key.mappings["f"] = {
     function()
-        require("lvim.core.telescope.custom-finders").find_project_files { previewer = true }
+        require("telescope.builtin").find_files { hidden = true, no_ignore = true }
     end,
-    "Find File",
+    "Find File Everywhere",
 }
 
 -- make <C-p> finding files
@@ -84,8 +85,8 @@ lvim.plugins = {
             require("catppuccin").setup({
                 color_overrides = {
                     all = {
-                        lavender = "#C9B8E2",
-                        yellow = "#f8dfc1"
+                        lavender = "#acb7fc",
+                        -- yellow = "#f8dfc1"
                     }
                 }
             })
@@ -211,7 +212,7 @@ lvim.plugins = {
                 opacity = nil,           -- 0-100 opacity level of the floating window where 100 is fully transparent.
                 post_open_hook = nil,    -- A function taking two arguments, a buffer and a window to be ran as a hook.
                 focus_on_open = true,    -- Focus the floating window when opening it.
-                dismiss_on_move = true,  -- Dismiss the floating window when moving the cursor.
+                dismiss_on_move = false, -- Dismiss the floating window when moving the cursor.
                 -- You can use "default_mappings = true" setup option
                 -- Or explicitly set keybindings
                 -- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
@@ -330,19 +331,6 @@ lvim.builtin.which_key.mappings["d"] = {
 lvim.builtin.dap.active = true
 require('dap-go').setup()
 require("nvim-dap-virtual-text").setup()
-
-
-local dap, dapui = require("dap"), require("dapui")
--- automatically open and close dap ui
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
 
 -- keymap for persistence plugin
 lvim.builtin.which_key.mappings["S"] = {

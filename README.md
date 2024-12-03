@@ -4,34 +4,43 @@ this repo keeps a track of how i change my setup
 (mainly neovim)
 
 ## here is how to set up a new dev box
-rename this directory from `~/.dotfiles` to `~/.config` 
+
+rename this directory from `~/.dotfiles` to `~/.config`
 
 ### iterm
+
 import the color theme `catppuccin-macchiato.itermcolors`
 
 ### oh my zsh
+
 install oh my zsh
 
 throw the following line in `~/.zshrc`
+
 ```bash
 eval "$(starship init zsh)"
 ```
 
 ### tmux
-1. install tmux and go into it  using command `tmux new`
+
+1. install tmux and go into it using command `tmux new`
 2. install the plugins by `<prefix> + I`, note that the default <prefix> is `Ctrl + b`
 3. source the config file by
+
 ```bash
 tmux source ~/.config/tmux/tmux.conf
 ```
 
 ### neovim
-somehow after using the following command it worked (took this command from the packer github repo README.md)
-```bash
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-```
+
+use lazyvim. install lazyvim first. read their offical document to intsall
+
+then copy the nvim/lua file in this repo to the nvim/lua of the new nvim install
+
+be careful of the `lazy.lua` file. maybe we need to preserve the original file.
 
 ## useful tools
+
 1. glow
 
 this is to easily read README.md file in the terminal
@@ -39,6 +48,3 @@ this is to easily read README.md file in the terminal
 2. softserve
 
 git
-
-
-

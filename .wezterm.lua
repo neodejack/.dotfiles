@@ -18,6 +18,9 @@ config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
 -- config.harfbuzz_features = { "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "calt", "dlig" }
 -- For example, changing the color scheme:
 
+--debug, run `WEZTERM_LOG=info wezterm` to see all key events
+config.debug_key_events = true
+
 config.initial_rows = 53
 config.initial_cols = 160
 config.window_decorations = "RESIZE"
@@ -99,6 +102,9 @@ config.keys = {
 	{ key = "RightArrow", mods = "ALT", action = act.MoveTabRelative(1) },
 	-- copy mode to ctrl-v
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
+	-- launcher
+	{ key = "Space", mods = "CTRL", action = wezterm.action.ShowLauncher },
+
 }
 
 -- and finally, return the configuration to wezterm

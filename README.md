@@ -48,3 +48,7 @@ this is to easily read README.md file in the terminal
 2. softserve
 
 git
+
+## symlink dotfiles
+ln -s ~/.dotfiles/.wezterm.lua ~/.wezterm.lua
+ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml

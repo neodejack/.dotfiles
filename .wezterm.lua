@@ -18,9 +18,6 @@ config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
 -- config.harfbuzz_features = { "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "calt", "dlig" }
 -- For example, changing the color scheme:
 
---debug, run `WEZTERM_LOG=info wezterm` to see all key events
-config.debug_key_events = true
-
 config.initial_rows = 53
 config.initial_cols = 160
 config.window_decorations = "RESIZE"
@@ -46,12 +43,15 @@ config.colors = {
 	},
 }
 
-config.window_padding = {
-	left = 20,
-	right = 20,
-	top = 20,
-	bottom = 5,
-}
+--debug, run `WEZTERM_LOG=info wezterm` to see all key events
+config.debug_key_events = true
+
+-- config.window_padding = {
+-- 	left = 20,
+-- 	right = 20,
+-- 	top = 20,
+-- 	bottom = 5,
+-- }
 
 config.keys = {
 	-- split pane stuff
@@ -104,7 +104,6 @@ config.keys = {
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
 	-- launcher
 	{ key = "Space", mods = "CTRL", action = wezterm.action.ShowLauncher },
-
 }
 
 -- and finally, return the configuration to wezterm

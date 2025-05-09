@@ -13,12 +13,18 @@ for module in "$ZSH_CONFIG_DIR"/*.zsh; do
   fi
 done
 
+# Enable Ctrl-x-e to edit command line in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line  # Try Ctrl+X followed by Ctrl+E
+
 # aliases
 alias zshc="nvim ~/.zshrc"
 alias ll="ls -l"
 
 #nvim as default
 alias vim="nvim"
+alias EDITOR="nvim"
 export VISUAL=nvim
 
 # gopath

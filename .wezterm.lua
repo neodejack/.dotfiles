@@ -57,37 +57,37 @@ config.keys = {
 	-- split pane stuff
 	{
 		key = "v",
-		mods = "ALT",
+		mods = "SUPER",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "s",
-		mods = "ALT",
+		mods = "SUPER",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "h",
-		mods = "ALT",
+		mods = "SUPER",
 		action = act.ActivatePaneDirection("Left"),
 	},
 	{
 		key = "l",
-		mods = "ALT",
+		mods = "SUPER",
 		action = act.ActivatePaneDirection("Right"),
 	},
 	{
 		key = "k",
-		mods = "ALT",
+		mods = "SUPER",
 		action = act.ActivatePaneDirection("Up"),
 	},
 	{
 		key = "j",
-		mods = "ALT",
+		mods = "SUPER",
 		action = act.ActivatePaneDirection("Down"),
 	},
 	{
 		key = "w",
-		mods = "ALT",
+		mods = "SUPER",
 		action = wezterm.action.CloseCurrentPane({ confirm = true }),
 	},
 	-- tab bar stuff

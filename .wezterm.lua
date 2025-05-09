@@ -57,12 +57,12 @@ config.keys = {
 	-- split pane stuff
 	{
 		key = "v",
-		mods = "SUPER",
+		mods = "ALT",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "s",
-		mods = "SUPER",
+		mods = "ALT",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{

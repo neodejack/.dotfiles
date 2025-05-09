@@ -7,9 +7,10 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ZSH_CONFIG_DIR="../.zsh"
 # Load core modules
-for module in "$ZSH_CONFIG_DIR"/work.zsh; do
+for module in "$ZSH_CONFIG_DIR"/*.zsh; do
   if [[ -f "$module" ]]; then
     source "$module"
+    echo "$module sourced"
   fi
 done
 

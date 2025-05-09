@@ -10,7 +10,6 @@ ZSH_CONFIG_DIR="../.zsh"
 for module in "$ZSH_CONFIG_DIR"/*.zsh; do
   if [[ -f "$module" ]]; then
     source "$module"
-    echo "$module sourced"
   fi
 done
 

@@ -56,13 +56,13 @@ config.debug_key_events = true
 config.keys = {
 	-- split pane stuff
 	{
-		key = "v",
-		mods = "ALT",
+		key = "|",
+		mods = "SUPER",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
-		key = "s",
-		mods = "ALT",
+		key = "-",
+		mods = "SUPER",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{

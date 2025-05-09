@@ -5,7 +5,7 @@ fi
 ## zsh-syntax-highlighting
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-ZSH_CONFIG_DIR="../.zsh"
+ZSH_CONFIG_DIR="$HOME/.zsh"
 # Load core modules
 for module in "$ZSH_CONFIG_DIR"/*.zsh; do
   if [[ -f "$module" ]]; then

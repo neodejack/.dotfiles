@@ -21,6 +21,7 @@ bindkey "^X^E" edit-command-line  # Try Ctrl+X followed by Ctrl+E
 # aliases
 alias zshc="nvim ~/.zshrc"
 alias ll="ls -l"
+alias ex="elixir"
 
 #nvim as default
 alias vim="nvim"

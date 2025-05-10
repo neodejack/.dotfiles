@@ -52,3 +52,4 @@ git
 ## symlink dotfiles
 ln -s ~/.dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
+ln -s ~/.dotfiles/.ripgreprc ~/.ripgreprc

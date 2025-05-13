@@ -18,6 +18,10 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line  # Try Ctrl+X followed by Ctrl+E
 
+# control left and right
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
 # aliases
 alias zshc="nvim ~/.zshrc"
 alias ll="ls -l"

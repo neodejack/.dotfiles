@@ -23,7 +23,6 @@ config.initial_cols = 160
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
-
 -- For example, changing the color scheme:
 config.color_scheme = "Catppuccin Macchiato"
 config.window_background_opacity = 0.65
@@ -34,10 +33,11 @@ config.line_height = 1.1
 config.tab_max_width = 30
 config.tab_bar_at_bottom = true
 config.colors = {
+	background = "#2C333E",
 	tab_bar = {
 		active_tab = {
-			bg_color = "#2b2042",
-			fg_color = "#F8C8EB",
+			bg_color = "#2C333E",
+			fg_color = "#6EA1D4",
 			italic = true,
 		},
 	},

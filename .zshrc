@@ -52,7 +52,7 @@ alias lg="lazygit"
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-
+source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"

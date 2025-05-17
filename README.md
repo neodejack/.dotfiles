@@ -53,3 +53,4 @@ git
 ln -s ~/.dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
 ln -s ~/.dotfiles/.ripgreprc ~/.ripgreprc
+ln -s ~/.dotfiles/nvim ~/.config/nvim

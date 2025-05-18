@@ -58,10 +58,21 @@ config.color_schemes = {
 		cursor_border = "#FEBE98",
 		split = "#717171",
 		tab_bar = {
+			background = "#282a2e",
+			-- The new tab button that let you create new tabs
+			new_tab = {
+				bg_color = "#282a2e",
+				fg_color = "#808080",
+			},
+			inactive_tab = {
+				bg_color = "#282a2e",
+				fg_color = "#808080",
+			},
 			active_tab = {
-				bg_color = "#56453F",
-				fg_color = "#F0F0E5",
+				bg_color = "#282a2e",
+				fg_color = "#D19C97",
 				italic = true,
+				intensity = "Bold",
 			},
 		},
 	},

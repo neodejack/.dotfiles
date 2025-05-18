@@ -23,10 +23,8 @@ config.initial_cols = 160
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
--- For example, changing the color scheme:
-config.color_scheme = "Catppuccin Macchiato"
-config.window_background_opacity = 0.65
-config.text_background_opacity = 0.65
+config.window_background_opacity = 0.75
+config.text_background_opacity = 0.75
 config.macos_window_background_blur = 10
 config.font_size = 15.5
 config.line_height = 1.1
@@ -36,7 +34,7 @@ config.tab_bar_at_bottom = true
 -- color scheme shenanigans
 config.color_schemes = {
 	["pantone2025"] = {
-		foreground = "#F5F5F5",
+		foreground = "#CAD3F5",
 		background = "#282a2e",
 		ansi = { "#353535", "#d19c97", "#ACBB97", "#d16f54", "#7391c8", "#a793b9", "#779a95", "#a89b8f" },
 		brights = {
@@ -82,6 +80,7 @@ config.color_schemes = {
 -- }
 
 config.color_scheme = "pantone2025"
+-- config.color_scheme = "Catppuccin Macchiato"
 --debug, run `WEZTERM_LOG=info wezterm` to see all key events
 config.debug_key_events = true
 

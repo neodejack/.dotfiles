@@ -1,6 +1,17 @@
 return {
   -- add gruvbox
-  { "catppuccin/nvim" },
+  {
+    "catppuccin/nvim",
+    opts = {
+      color_overrides = {
+        all = {
+          base = "#1d1e20",
+          mantle = "#1d1e20",
+          crust = "#353535",
+        },
+      },
+    },
+  },
 
   -- Configure LazyVim to load gruvbox
   {

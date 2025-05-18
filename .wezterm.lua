@@ -32,17 +32,56 @@ config.font_size = 15.5
 config.line_height = 1.1
 config.tab_max_width = 30
 config.tab_bar_at_bottom = true
-config.colors = {
-	background = "#2C333E",
-	tab_bar = {
-		active_tab = {
-			bg_color = "#2C333E",
-			fg_color = "#6EA1D4",
-			italic = true,
+
+-- color scheme shenanigans
+config.color_schemes = {
+	["pantone2025"] = {
+		foreground = "#F5F5F5",
+		background = "#282a2e",
+		ansi = { "#353535", "#d19c97", "#ACBB97", "#d16f54", "#7391c8", "#a793b9", "#779a95", "#a89b8f" },
+		brights = {
+			"#717171",
+			"#F49AAE",
+			"#ACBB97",
+			"#DE9A87",
+			"#9DB2D8",
+			"#C1B3CE",
+			"#9FB8B4",
+			"#C2B9B0",
+		},
+		-- Overrides the cell background color when the current cell is occupied by the
+		-- cursor and the cursor style is set to Block
+		cursor_bg = "#f0e9e0",
+		-- Overrides the text color when the current cell is occupied by the cursor
+		cursor_fg = "black",
+		-- Specifies the border color of the cursor when the cursor style is set to Block,
+		-- or the color of the vertical or horizontal bar when the cursor style is set to
+		-- Bar or Underline.
+		cursor_border = "#FEBE98",
+		split = "#717171",
+		tab_bar = {
+			active_tab = {
+				bg_color = "#56453F",
+				fg_color = "#F0F0E5",
+				italic = true,
+			},
 		},
 	},
 }
 
+-- old color config
+-- config.colors = {
+-- 	background = "#2C333E",
+-- 	tab_bar = {
+-- 		active_tab = {
+-- 			bg_color = "#2C333E",
+-- 			fg_color = "#A47764",
+-- 			italic = true,
+-- 		},
+-- 	},
+-- }
+
+config.color_scheme = "pantone2025"
 --debug, run `WEZTERM_LOG=info wezterm` to see all key events
 config.debug_key_events = true
 

@@ -155,6 +155,9 @@ config.keys = {
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
 	-- launcher
 	{ key = "Space", mods = "CTRL", action = wezterm.action.ShowLauncher },
+	-- font size | zoom
+	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
+	{ key = "_", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 }
 
 -- and finally, return the configuration to wezterm

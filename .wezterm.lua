@@ -75,6 +75,10 @@ config.color_schemes = {
 				intensity = "Bold",
 			},
 		},
+		-- the background color of selected text
+		selection_bg = "#6c938d",
+		selection_fg = "#F0E9E0",
+		-- selection_fg = "#F0E9E0",
 	},
 }
 

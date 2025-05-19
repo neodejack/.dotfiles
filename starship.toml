@@ -10,7 +10,7 @@ $line_break\
 $character"""
 
 [directory]
-style = "#9db2d8"
+style = "#d19c97 bold"
 
 [character]
 success_symbol = "[❯](#899F6B)"

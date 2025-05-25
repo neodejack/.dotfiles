@@ -55,7 +55,7 @@ config.color_schemes = {
 		-- Specifies the border color of the cursor when the cursor style is set to Block,
 		-- or the color of the vertical or horizontal bar when the cursor style is set to
 		-- Bar or Underline.
-		cursor_border = "#FEBE98",
+		cursor_border = "#F09985",
 		split = "#717171",
 		tab_bar = {
 			background = "#282a2e",
@@ -69,9 +69,8 @@ config.color_schemes = {
 				fg_color = "#808080",
 			},
 			active_tab = {
-				bg_color = "#282a2e",
+				bg_color = "#0F0D04",
 				fg_color = "#D19C97",
-				italic = true,
 				intensity = "Bold",
 			},
 		},

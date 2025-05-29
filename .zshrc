@@ -43,9 +43,8 @@ alias j="pbpaste | jless"
 alias lg="lazygit"
 
 # .nvm stuff. disable to debug slow start up time
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"

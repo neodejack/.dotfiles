@@ -98,12 +98,12 @@ config.color_scheme = "pantone2025"
 --debug, run `WEZTERM_LOG=info wezterm` to see all key events
 config.debug_key_events = true
 
--- config.window_padding = {
--- 	left = 20,
--- 	right = 20,
--- 	top = 20,
--- 	bottom = 5,
--- }
+config.window_padding = {
+	left = 15,
+	right = 15,
+	top = 20,
+	bottom = 5,
+}
 
 config.keys = {
 	-- split pane stuff

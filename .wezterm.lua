@@ -158,6 +158,7 @@ config.keys = {
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
 	-- launcher
 	{ key = "Space", mods = "CTRL", action = wezterm.action.ShowLauncher },
+	{ key = "t", mods = "CTRL|SHIFT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 	-- font size | zoom
 	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 	{ key = "_", mods = "SUPER", action = wezterm.action.DecreaseFontSize },

@@ -30,10 +30,6 @@ alias vim="nvim"
 alias EDITOR="nvim"
 export VISUAL=nvim
 
-# gopath
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
 # rg configuration
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
@@ -58,8 +54,6 @@ export FZF_CTRL_T_OPTS="
 
 source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
 
 ## zsh-syntax-highlighting

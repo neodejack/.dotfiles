@@ -49,6 +49,13 @@ export NVM_DIR="$HOME/.nvm"
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_CTRL_T_OPTS="
+  --preview 'bat -n --color=always {}'"
+
 source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

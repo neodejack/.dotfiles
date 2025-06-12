@@ -162,6 +162,10 @@ config.keys = {
 	-- font size | zoom
 	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 	{ key = "_", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
+	-- backward-word
+	{ key = "b", mods = "CTRL", action = act.SendString("\x1bb") },
+	-- forward-word
+	{ key = "f", mods = "CTRL", action = act.SendString("\x1bf") },
 }
 
 -- and finally, return the configuration to wezterm

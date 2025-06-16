@@ -129,6 +129,7 @@ cmd-ctrl-alt-shift-c = 'workspace ai'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move-node-to-workspace
 alt-shift-d = 'move-node-to-workspace default'
+alt-shift-c = 'move-node-to-workspace ai'
 
 
 # see: https://nikitabobko.github.io/aerospace/commands#mode
@@ -186,6 +187,12 @@ if.app-id = 'com.anthropic.claudefordesktop'
 run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.openai.chat'
+run = "move-node-to-workspace ai"
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = "move-node-to-workspace ai"
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
 run = "move-node-to-workspace ai"
 
 [[on-window-detected]]

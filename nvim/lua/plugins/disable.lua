@@ -10,6 +10,12 @@ if true then
     -- zen config
     {
       "folke/snacks.nvim",
+      keys = {
+        { "<leader>fe", false },
+        { "<leader>fE", false },
+        { "<leader>e", false },
+        { "<leader>E", false },
+      },
       opts = {
         -- disable dimming
         zen = {
@@ -23,9 +29,15 @@ if true then
             backdrop = { transparent = false, blend = 40 },
           },
         },
+        snack_explorer = {
+          enabled = false,
+        },
+        explorer = {
+          replace_netrw = false,
+          enabled = false,
+        },
       },
     },
-
     -- disable the default flash keymap
     {
       "folke/flash.nvim",

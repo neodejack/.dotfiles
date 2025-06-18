@@ -34,7 +34,7 @@ if true then
         },
         explorer = {
           replace_netrw = false,
-          enabled = false,
+          enabled = true,
         },
       },
     },

@@ -57,3 +57,4 @@ ln -s ~/.dotfiles/.ripgreprc ~/.ripgreprc
 ln -s ~/.dotfiles/nvim ~/.config/nvim
 ln -s ~/.dotfiles/starship.toml ~/.config/starship.toml
 ln -s ~/.dotfiles/.markdownlint-cli2.yaml ~/.config/.markdownlint-cli2.yaml
+ln -s ~/.dotfiles/yazi ~/.config/yazi

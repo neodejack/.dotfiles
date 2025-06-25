@@ -205,6 +205,10 @@ run = "move-node-to-workspace read"
 if.app-id = 'app.reeder'
 run = "move-node-to-workspace read"
 
+[[on-window-detected]]
+if.app-id = 'com.ableton.live'
+run = "move-node-to-workspace live"
+
 ## default apps to go to default workspace
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'

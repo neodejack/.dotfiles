@@ -150,8 +150,6 @@ config.keys = {
 	},
 	{ key = ",", mods = "SUPER", action = act.ActivateTabRelative(-1) },
 	{ key = ".", mods = "SUPER", action = act.ActivateTabRelative(1) },
-	{ key = ",", mods = "ALT", action = act.ActivateTabRelative(-1) },
-	{ key = ".", mods = "ALT", action = act.ActivateTabRelative(1) },
 	{ key = "LeftArrow", mods = "ALT", action = act.MoveTabRelative(-1) },
 	{ key = "RightArrow", mods = "ALT", action = act.MoveTabRelative(1) },
 	-- copy mode to ctrl-v

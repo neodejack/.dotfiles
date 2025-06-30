@@ -123,13 +123,15 @@ cmd-ctrl-alt-shift-l = 'workspace work_com'
 cmd-ctrl-alt-shift-a = 'workspace browser'
 cmd-ctrl-alt-shift-t = 'workspace terminal'
 cmd-ctrl-alt-shift-d = 'workspace default'
-cmd-ctrl-alt-shift-c = 'workspace ai'
+
+# commenting this out since now i use AI stuff in zen-browser
+# cmd-ctrl-alt-shift-c = 'workspace ai'
 
 # alt-enter = 'fullscreen'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move-node-to-workspace
 alt-shift-d = 'move-node-to-workspace default'
-alt-shift-c = 'move-node-to-workspace ai'
+# alt-shift-c = 'move-node-to-workspace ai'
 
 
 # see: https://nikitabobko.github.io/aerospace/commands#mode
@@ -188,12 +190,12 @@ run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.openai.chat'
 run = "move-node-to-workspace ai"
-[[on-window-detected]]
-if.app-id = 'com.apple.Safari'
-run = "move-node-to-workspace ai"
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
-run = "move-node-to-workspace ai"
+# [[on-window-detected]]
+# if.app-id = 'com.apple.Safari'
+# run = "move-node-to-workspace ai"
+# [[on-window-detected]]
+# if.app-id = 'org.mozilla.firefox'
+# run = "move-node-to-workspace ai"
 
 [[on-window-detected]]
 if.app-id = 'com.reederapp.5.macOS'

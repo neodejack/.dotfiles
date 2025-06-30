@@ -31,6 +31,16 @@ config.line_height = 1.1
 config.tab_max_width = 30
 config.tab_bar_at_bottom = true
 
+-- Bell/notification settings for Claude Code confirmations
+config.audible_bell = "SystemBeep"
+config.visual_bell = {
+	fade_in_duration_ms = 100,
+	fade_out_duration_ms = 100,
+}
+config.colors = {
+	visual_bell = "#717171",
+}
+
 -- color scheme shenanigans
 config.color_schemes = {
 	["pantone2025"] = {

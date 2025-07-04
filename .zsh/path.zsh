@@ -10,3 +10,6 @@ export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
 ## for npm installed stuff
 export PATH="$HOME/.nvm/versions/node/v22.16.0/bin:$PATH"
+
+## psql
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"

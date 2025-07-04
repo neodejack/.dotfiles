@@ -12,7 +12,7 @@ return {
       -- 👇 in this section, choose your own keymappings!
       {
         -- Open in the current working directory
-        "<leader>cw",
+        "<leader>e",
         "<cmd>Yazi<cr>",
         desc = "Open the file manager in the file directory",
       },
@@ -23,7 +23,7 @@ return {
         desc = "Open the file manager in nvim's working directory",
       },
       {
-        "<leader>e",
+        "<leader>cw",
         "<cmd>Yazi toggle<cr>",
         desc = "Resume the last yazi session",
       },

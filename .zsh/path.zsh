@@ -8,7 +8,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 
-## for npm installed stuff
+## for (nvm --lts)npm installed stuff
+## the path can be extracted out like this
+# $ nvm use --lts
+# $ echo $(npm config get prefix)/bin
 export PATH="$HOME/.nvm/versions/node/v22.16.0/bin:$PATH"
 
 ## psql

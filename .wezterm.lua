@@ -108,6 +108,11 @@ config.color_scheme = "pantone2025"
 --debug, run `WEZTERM_LOG=info wezterm` to see all key events
 config.debug_key_events = true
 
+-- Make inactive panes much more dim for better visibility
+config.inactive_pane_hsb = {
+	brightness = 0.5,
+}
+
 config.window_padding = {
 	left = 15,
 	right = 15,

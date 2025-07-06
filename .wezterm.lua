@@ -110,7 +110,7 @@ config.debug_key_events = true
 
 -- Make inactive panes much more dim for better visibility
 config.inactive_pane_hsb = {
-	brightness = 0.5,
+	brightness = 0.3,
 }
 
 config.window_padding = {

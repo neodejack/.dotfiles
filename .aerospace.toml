@@ -182,7 +182,7 @@ run = "move-node-to-workspace browser"
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
-run = "move-node-to-workspace terminal"
+run = ["layout floating", "move-node-to-workspace terminal"]
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'

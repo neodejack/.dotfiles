@@ -1,4 +1,0 @@
-[[manager.prepend_keymap]]
-on = ["c", "r"]
-run = "plugin path-from-root"
-desc = "Copies path from git root"

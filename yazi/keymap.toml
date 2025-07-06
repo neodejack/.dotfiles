@@ -2,3 +2,7 @@
 on = ["c", "r"]
 run = "plugin path-from-root"
 desc = "Copies path from git root"
+
+[[mgr.prepend_keymap]]
+on = "y"
+run = ['shell -- cat "$0" | pbcopy', "yank"]

@@ -9,7 +9,10 @@ local act = wezterm.action
 -- config.font = wezterm.font("Fira Code", { weight = "Medium" })
 -- config.harfbuzz_features = { "zero", "cv02", "cv04", "cv14", "onum", "cv30" }
 
+-- https://github.com/wezterm/wezterm/issues/2756#issue-1455540563, it says here that mac Metal should use WebGpu
 config.front_end = "WebGpu"
+-- https://wezterm.org/config/lua/config/webgpu_power_preference.html
+config.webgpu_power_preference = "LowPower"
 --
 -- config.freetype_load_target = "Light"
 -- config.freetype_render_target = "Normal"

@@ -43,4 +43,21 @@ return {
       vim.g.loaded_netrwPlugin = 1
     end,
   },
+
+  {
+    "neodejack/copy_with_context.nvim",
+    config = function()
+      require("copy_with_context").setup({
+        -- Customize mappings
+        mappings = {
+          relative = "<leader>y",
+          absolute = "<leader>Y",
+        },
+        -- whether to trim lines or not
+        trim_lines = false,
+        context_format = "@%s:%s", -- Default format for context: "# Source file: filepath:line"
+        copy_content = false,
+      })
+    end,
+  },
 }

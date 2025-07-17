@@ -1,8 +1,5 @@
-[[mgr.prepend_keymap]]
-on = ["c", "r"]
-run = "plugin path-from-root"
-desc = "Copies path from git root"
-
-[[mgr.prepend_keymap]]
-on = "y"
-run = ['shell -- cat "$0" | pbcopy', "yank"]
+[mgr] # “mgr” = file‑list pane
+prepend_keymap = [
+  { on = "<C-n>", run = "arrow  1", desc = "going down" },
+  { on = "<C-p>", run = "arrow -1", desc = "going up" },
+]

@@ -15,4 +15,27 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     enabled = false,
   },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters = {
+        prettier = {
+          options = {
+            ft_parsers = {
+              markdown = "markdown",
+            },
+            ext_parsers = {
+              md = "markdown",
+            },
+          },
+          args = {
+            "--stdin-filepath",
+            "$FILENAME",
+            "--embedded-language-formatting=off",
+          },
+        },
+      },
+    },
+  },
 }

@@ -1,25 +1,13 @@
--- Pull in the wezterm API
 local wezterm = require("wezterm")
 
--- This will hold the configuration.
 local config = wezterm.config_builder()
 local act = wezterm.action
-
--- This is where you actually apply your config choices
--- config.font = wezterm.font("Fira Code", { weight = "Medium" })
--- config.harfbuzz_features = { "zero", "cv02", "cv04", "cv14", "onum", "cv30" }
 
 -- https://github.com/wezterm/wezterm/issues/2756#issue-1455540563, it says here that mac Metal should use WebGpu
 config.front_end = "WebGpu"
 -- https://wezterm.org/config/lua/config/webgpu_power_preference.html
 config.webgpu_power_preference = "LowPower"
---
--- config.freetype_load_target = "Light"
--- config.freetype_render_target = "Normal"
 config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
--- config.font = wezterm.font("Monaspace Argon", { weight = "Medium" })
--- config.harfbuzz_features = { "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "calt", "dlig" }
--- For example, changing the color scheme:
 
 config.initial_rows = 53
 config.initial_cols = 160
@@ -60,19 +48,12 @@ config.color_schemes = {
 			"#9FB8B4",
 			"#C2B9B0",
 		},
-		-- Overrides the cell background color when the current cell is occupied by the
-		-- cursor and the cursor style is set to Block
 		cursor_bg = "#f0e9e0",
-		-- Overrides the text color when the current cell is occupied by the cursor
 		cursor_fg = "black",
-		-- Specifies the border color of the cursor when the cursor style is set to Block,
-		-- or the color of the vertical or horizontal bar when the cursor style is set to
-		-- Bar or Underline.
 		cursor_border = "#F09985",
 		split = "#717171",
 		tab_bar = {
 			background = "#282a2e",
-			-- The new tab button that let you create new tabs
 			new_tab = {
 				bg_color = "#282a2e",
 				fg_color = "#808080",
@@ -87,10 +68,8 @@ config.color_schemes = {
 				intensity = "Bold",
 			},
 		},
-		-- the background color of selected text
 		selection_bg = "#6c938d",
 		selection_fg = "#F0E9E0",
-		-- selection_fg = "#F0E9E0",
 	},
 }
 

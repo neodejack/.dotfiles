@@ -122,6 +122,7 @@ cmd-ctrl-alt-shift-o = 'workspace obsidian'
 cmd-ctrl-alt-shift-l = 'workspace work_com'
 cmd-ctrl-alt-shift-a = 'workspace browser'
 cmd-ctrl-alt-shift-t = 'workspace terminal'
+cmd-ctrl-alt-shift-r = 'workspace read'
 cmd-ctrl-alt-shift-d = 'workspace default'
 
 # commenting this out since now i use AI stuff in zen-browser

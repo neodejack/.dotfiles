@@ -174,6 +174,9 @@ run = "move-node-to-workspace work_com"
 if.app-id = 'com.larksuite.larkApp.iron'
 run = "move-node-to-workspace work_com"
 [[on-window-detected]]
+if.app-id = 'com.electron.lark'
+run = "move-node-to-workspace work_com"
+[[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
 run = "move-node-to-workspace work_com"
 

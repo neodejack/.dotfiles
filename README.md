@@ -51,6 +51,7 @@ git
 
 ## symlink dotfiles
 
+```bash
 ln -s ~/.dotfiles/.wezterm.lua ~/.wezterm.lua
 ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
 ln -s ~/.dotfiles/.ripgreprc ~/.ripgreprc
@@ -59,5 +60,10 @@ ln -s ~/.dotfiles/starship.toml ~/.config/starship.toml
 ln -s ~/.dotfiles/.markdownlint-cli2.yaml ~/.config/.markdownlint-cli2.yaml
 ln -s ~/.dotfiles/yazi ~/.config/yazi
 ln -s ~/.dotfiles/atuin ~/.config/atuin
+```
 
 - [!] atuin symlink is a bit weird. after intsallation the atuin daemon will make sure that the ~/.config/atuin directory exists (creating one instantly if it's removed), so using the above symlink won't work (it will create a sysmlink inside the existing ~/.config/atuin/ dir). what i did just now is to uninstall the atuin altogother, create the sysmlink, then intsalling it again
+
+## raycast scripts
+
+just go into raycast scripts setting, add `~/.dotfiles/raycast-scripts` directory to the script directory

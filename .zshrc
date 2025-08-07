@@ -2,6 +2,8 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zmodload zsh/zprof
 fi
 
+autoload -Uz compinit
+compinit
 
 ZSH_CONFIG_DIR="$HOME/.zsh"
 # Load core modules
@@ -29,6 +31,11 @@ alias ex="elixir"
 alias vim="nvim"
 alias EDITOR="nvim"
 export VISUAL=nvim
+
+# kubectl stuff
+#
+source <(kubectl completion zsh)
+alias k=kubectl
 
 # rg configuration
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc

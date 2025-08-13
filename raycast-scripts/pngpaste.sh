@@ -24,7 +24,6 @@ if pngpaste "$FILE" 2>/dev/null; then
   printf '%s' "$FILE" | pbcopy # put the *path* back in clipboard
   echo "Copied path: $FILE"    # Raycast HUD
 else
-  osascript -e 'display notification "Clipboard does not contain an image" \
-                with title "Clip ➜ Path failed"'
+  osascript -e 'display notification "Clipboard does not contain an image" with title "Clip ➜ Path failed"'
   exit 1
 fi

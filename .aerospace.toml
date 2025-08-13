@@ -185,6 +185,10 @@ if.app-id = 'app.zen-browser.zen'
 run = "move-node-to-workspace browser"
 
 [[on-window-detected]]
+if.app-id = 'com.figma.Desktop'
+run = "move-node-to-workspace figma"
+
+[[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 # run = ["layout floating", "move-node-to-workspace terminal"]
 run = ["move-node-to-workspace terminal"]

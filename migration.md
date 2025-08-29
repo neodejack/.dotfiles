@@ -18,6 +18,7 @@ rm -f ~/.markdownlint-cli2.yaml
 rm -f ~/.ripgreprc
 rm ~/.config/yazi
 rm ~/.config/nvim
+mv ~/.gitconfig ~/.gitconfig.bak
 ```
 
 ## Create new symlinks with Stow
@@ -33,6 +34,7 @@ stow -vt ~ ripgrep
 stow -vt ~ atuin
 stow -vt ~ yazi
 stow -vt ~ nvim
+stow -vt ~ git
 ```
 
 Notes:

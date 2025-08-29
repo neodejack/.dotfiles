@@ -13,11 +13,11 @@ brew bundle   # installs taps, brew formulas, and casks
 ```
 
 Note:
+
 - Stow is required for the steps below. If it isn’t in your Brewfile, run `brew install stow`.
 
 ## Quick Start (new machine)
 
-- Install stow: `brew install stow`
 - Clone to `~/.dotfiles` if not already there
 - Stow the packages you want into `$HOME`:
 
@@ -31,16 +31,13 @@ stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmu
 ```
 
 Notes:
+
 - If Stow reports conflicts, move/backup the existing files first (see `migration.md`).
 - Unstow with `stow -Dvt ~ <pkg>`.
 
 ## Package Notes
 
-- iTerm: import `catppuccin-macchiato.itermcolors`.
 - zsh: `.zshrc` is provided; it initializes starship/zoxide/atuin.
-- tmux: after stowing, start tmux and install plugins with `<prefix> + I` (default prefix is `Ctrl-b` unless changed). Reload with `tmux source-file ~/.tmux.conf`.
-- neovim: stowing `nvim` creates `~/.config/nvim` with LazyVim-based config.
-- git: stowing `git` creates `~/.gitconfig`.
 - raycast: add `~/.dotfiles/raycast-scripts` in Raycast settings if you want those scripts.
 
 ### Atuin special case

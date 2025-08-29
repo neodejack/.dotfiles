@@ -1,69 +1,61 @@
 # dotfiles
 
-this repo keeps a track of how i change my setup
-(mainly neovim)
+Personal dotfiles managed with GNU Stow. Each top‑level folder here is a Stow “package” that mirrors its target location under `$HOME`.
 
-## here is how to set up a new dev box
+## Bootstrap (Brewfile)
 
-rename this directory from `~/.dotfiles` to `~/.config`
-
-### iterm
-
-import the color theme `catppuccin-macchiato.itermcolors`
-
-### oh my zsh
-
-install oh my zsh
-
-throw the following line in `~/.zshrc`
+- Install Homebrew (if needed): `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+- Install packages from `Brewfile`:
 
 ```bash
-eval "$(starship init zsh)"
+cd ~/.dotfiles
+brew bundle   # installs taps, brew formulas, and casks
 ```
 
-### tmux
+Note:
+- Stow is required for the steps below. If it isn’t in your Brewfile, run `brew install stow`.
 
-1. install tmux and go into it using command `tmux new`
-2. install the plugins by `<prefix> + I`, note that the default <prefix> is `Ctrl + b`
-3. source the config file by
+## Quick Start (new machine)
+
+- Install stow: `brew install stow`
+- Clone to `~/.dotfiles` if not already there
+- Stow the packages you want into `$HOME`:
 
 ```bash
-tmux source ~/.config/tmux/tmux.conf
+cd ~/.dotfiles
+# dry run first (optional)
+stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim
+
+# then apply
+stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim
 ```
 
-### neovim
+Notes:
+- If Stow reports conflicts, move/backup the existing files first (see `migration.md`).
+- Unstow with `stow -Dvt ~ <pkg>`.
 
-use lazyvim. install lazyvim first. read their offical document to intsall
+## Package Notes
 
-then copy the nvim/lua file in this repo to the nvim/lua of the new nvim install
+- iTerm: import `catppuccin-macchiato.itermcolors`.
+- zsh: `.zshrc` is provided; it initializes starship/zoxide/atuin.
+- tmux: after stowing, start tmux and install plugins with `<prefix> + I` (default prefix is `Ctrl-b` unless changed). Reload with `tmux source-file ~/.tmux.conf`.
+- neovim: stowing `nvim` creates `~/.config/nvim` with LazyVim-based config.
+- git: stowing `git` creates `~/.gitconfig`.
+- raycast: add `~/.dotfiles/raycast-scripts` in Raycast settings if you want those scripts.
 
-be careful of the `lazy.lua` file. maybe we need to preserve the original file.
+### Atuin special case
 
-## useful tools
-
-1. glow
-
-this is to easily read README.md file in the terminal
-
-2. softserve
-
-git
-
-## symlink dotfiles
+Atuin recreates its config directory automatically. If stowing `atuin` fails or nests a symlink incorrectly, do:
 
 ```bash
-ln -s ~/.dotfiles/.wezterm.lua ~/.wezterm.lua
-ln -s ~/.dotfiles/.aerospace.toml ~/.aerospace.toml
-ln -s ~/.dotfiles/.ripgreprc ~/.ripgreprc
-ln -s ~/.dotfiles/nvim ~/.config/nvim
-ln -s ~/.dotfiles/starship.toml ~/.config/starship.toml
-ln -s ~/.dotfiles/.markdownlint-cli2.yaml ~/.config/.markdownlint-cli2.yaml
-ln -s ~/.dotfiles/yazi ~/.config/yazi
-ln -s ~/.dotfiles/atuin ~/.config/atuin
+brew uninstall atuin
+rm -rf ~/.config/atuin/
+cd ~/.dotfiles && stow -vt ~ atuin
+brew install atuin
 ```
 
-- [!] atuin symlink is a bit weird. after intsallation the atuin daemon will make sure that the ~/.config/atuin directory exists (creating one instantly if it's removed), so using the above symlink won't work (it will create a sysmlink inside the existing ~/.config/atuin/ dir). what i did just now is to uninstall the atuin altogother, create the sysmlink, then intsalling it again
+## Maintenance
 
-## raycast scripts
-
-just go into raycast scripts setting, add `~/.dotfiles/raycast-scripts` directory to the script directory
+- Add new files in the corresponding package mirroring the target path (e.g., put `~/.wezterm.lua` under `wezterm/.wezterm.lua`).
+- Use `stow -nvt ~ <pkg>` to preview changes; `stow -Dvt ~ <pkg>` to remove symlinks.
+- See `migration.md` for the one‑time migration steps and more details.

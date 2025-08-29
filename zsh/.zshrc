@@ -43,7 +43,10 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 # view the json in clipboard using jless
 alias j="pbpaste | jless"
 
+# lazygit
 alias lg="lazygit"
+# change lazygit config location https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#user-config
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # .nvm stuff. disable to debug slow start up time
 export NVM_DIR="$HOME/.nvm"

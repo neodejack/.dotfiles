@@ -24,10 +24,10 @@ Note:
 ```bash
 cd ~/.dotfiles
 # dry run first (optional)
-stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim
+stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit
 
 # then apply
-stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim
+stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit
 ```
 
 Notes:

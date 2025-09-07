@@ -52,6 +52,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 
+# iex persistent history
+export ERL_AFLAGS='-kernel shell_history enabled'
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 

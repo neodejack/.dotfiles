@@ -5,6 +5,7 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$kubernetes\
 $cmd_duration\
 $line_break\
 $character"""
@@ -39,3 +40,8 @@ style = "bright-black"
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
+
+[kubernetes]
+disabled = false
+style = "blue"
+detect_env_vars = ["KUBECONFIG"]

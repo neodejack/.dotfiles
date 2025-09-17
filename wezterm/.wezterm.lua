@@ -95,13 +95,6 @@ config.inactive_pane_hsb = {
 	brightness = 0.3,
 }
 
-config.window_padding = {
-	left = 15,
-	right = 15,
-	top = 20,
-	bottom = 5,
-}
-
 config.keys = {
 	-- split pane stuff
 	{

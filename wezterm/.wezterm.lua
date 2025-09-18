@@ -95,6 +95,16 @@ config.inactive_pane_hsb = {
 	brightness = 0.3,
 }
 
+local hostname = require("wezterm").hostname()
+
+if hostname == "ziliwork.local" then
+	config.window_padding = {
+		left = 15,
+		right = 15,
+		bottom = 1,
+	}
+end
+
 config.keys = {
 	-- split pane stuff
 	{

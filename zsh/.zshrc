@@ -34,7 +34,6 @@ export VISUAL=nvim
 
 # kubectl stuff
 #
-alias kc="source <(kubectl completion zsh)"
 alias k=kubectl
 
 # rg configuration

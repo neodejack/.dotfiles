@@ -17,7 +17,7 @@ config.use_fancy_tab_bar = false
 config.window_background_opacity = 0.85
 config.text_background_opacity = 0.75
 config.macos_window_background_blur = 10
-config.font_size = 17
+config.font_size = 18
 config.line_height = 1.1
 config.tab_max_width = 50
 config.tab_bar_at_bottom = true
@@ -98,6 +98,7 @@ config.inactive_pane_hsb = {
 local hostname = require("wezterm").hostname()
 
 if hostname == "ziliwork.local" then
+	config.font_size = 17
 	config.window_padding = {
 		left = 15,
 		right = 15,

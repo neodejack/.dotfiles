@@ -47,10 +47,6 @@ alias lg="lazygit"
 # change lazygit config location https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#user-config
 export XDG_CONFIG_HOME="$HOME/.config"
 
-# .nvm stuff. disable to debug slow start up time
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
-
 # iex persistent history
 export ERL_AFLAGS='-kernel shell_history enabled'
 

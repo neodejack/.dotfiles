@@ -10,12 +10,12 @@ $line_break\
 $character"""
 
 [directory]
-style = "#d19c97 bold"
+style = "#D19C97"
 
 [character]
-success_symbol = "[❯](#899F6B)"
-error_symbol = "[❯](#d19c97)"
-vimcmd_symbol = "[❮](green)"
+success_symbol = "[■](#F0E9E0)"
+error_symbol = "[■](#d19c97)"
+vimcmd_symbol = "[𝓥](green)"
 
 [git_branch]
 format = "[$branch]($style)"

@@ -166,6 +166,15 @@ config.keys = {
 	-- forward-word
 	{ key = "f", mods = "CTRL", action = act.SendString("\x1bf") },
 }
+-- replace only the copy mode Ctrl+C binding while keeping other defaults intact
+local copy_mode = nil
+if wezterm.gui then
+	copy_mode = wezterm.gui.default_key_tables().copy_mode
+	table.insert(copy_mode, { key = "c", mods = "CTRL", action = act.CopyMode("ClearSelectionMode") })
+end
+
+config.key_tables = config.key_tables or {}
+config.key_tables.copy_mode = copy_mode
 
 -- and finally, return the configuration to wezterm
 return config

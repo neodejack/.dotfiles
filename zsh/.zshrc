@@ -71,8 +71,6 @@ source <(fzf --zsh)
 ## atuin
 eval "$(atuin init zsh)"
 
-## zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
   zprof
 fi

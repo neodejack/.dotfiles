@@ -8,9 +8,9 @@ return {
       end
       opts.color_overrides = {
         all = {
-          base = "#1d1e20",
-          mantle = "#1d1e20",
-          crust = "#353535",
+          base = "#171717",
+          mantle = "#171717",
+          crust = "#171717",
         },
       }
       return opts

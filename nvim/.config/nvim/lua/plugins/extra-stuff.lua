@@ -60,4 +60,15 @@ return {
       })
     end,
   },
+
+  -- use cmdline at bottom instead of popup in the middle of screen
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      cmdline = {
+        view = "cmdline",
+      },
+    },
+  },
 }

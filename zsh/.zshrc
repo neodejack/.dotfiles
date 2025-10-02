@@ -29,7 +29,7 @@ alias ex="elixir"
 
 #nvim as default
 alias vim="nvim"
-alias EDITOR="nvim"
+export EDITOR=nvim
 export VISUAL=nvim
 
 # kubectl stuff

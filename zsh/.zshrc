@@ -67,6 +67,9 @@ source <(fzf --zsh)
 ## atuin
 eval "$(atuin init zsh)"
 
+## direnv
+eval "$(direnv hook zsh)"
+
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
   zprof
 fi

@@ -10,7 +10,7 @@ return {
         all = {
           base = "#171717",
           mantle = "#171717",
-          crust = "#171717",
+          crust = "#353535",
         },
       }
       return opts

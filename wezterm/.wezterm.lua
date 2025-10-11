@@ -106,6 +106,7 @@ if hostname == "ziliwork.local" then
 	}
 end
 
+config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- split pane stuff
 	{
@@ -156,7 +157,6 @@ config.keys = {
 	-- copy mode to ctrl-v
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
 	-- launcher
-	{ key = "Space", mods = "CTRL", action = wezterm.action.ShowLauncher },
 	{ key = "t", mods = "CTRL|SHIFT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 	-- font size | zoom
 	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },

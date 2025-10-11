@@ -2,6 +2,7 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 local act = wezterm.action
+local mux = wezterm.mux
 
 -- https://github.com/wezterm/wezterm/issues/2756#issue-1455540563, it says here that mac Metal should use WebGpu
 config.front_end = "WebGpu"
@@ -106,6 +107,12 @@ if hostname == "ziliwork.local" then
 	}
 end
 
+config.unix_domains = {
+	{
+		name = "unix",
+	},
+}
+
 config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- split pane stuff
@@ -156,8 +163,6 @@ config.keys = {
 	{ key = "RightArrow", mods = "ALT", action = act.MoveTabRelative(1) },
 	-- copy mode to ctrl-v
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
-	-- launcher
-	{ key = "t", mods = "CTRL|SHIFT", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 	-- font size | zoom
 	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 	{ key = "_", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
@@ -165,7 +170,37 @@ config.keys = {
 	{ key = "b", mods = "CTRL", action = act.SendString("\x1bb") },
 	-- forward-word
 	{ key = "f", mods = "CTRL", action = act.SendString("\x1bf") },
+
+	-- Attach to muxer
+	{
+		key = "a",
+		mods = "LEADER",
+		action = act.AttachDomain("unix"),
+	},
+
+	-- Detach from muxer
+	{
+		key = "d",
+		mods = "LEADER",
+		action = act.DetachDomain({ DomainName = "unix" }),
+	},
+
+	{ key = "s", mods = "LEADER", action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+	{
+		key = "$",
+		mods = "LEADER|SHIFT",
+		action = act.PromptInputLine({
+			description = "Enter new name for workspace",
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					mux.rename_workspace(window:mux_window():get_workspace(), line)
+				end
+			end),
+		}),
+	},
 }
+config.default_gui_startup_args = { "connect", "unix" }
+
 -- replace only the copy mode Ctrl+C binding while keeping other defaults intact
 local copy_mode = nil
 if wezterm.gui then

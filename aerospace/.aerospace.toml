@@ -191,7 +191,7 @@ run = "move-node-to-workspace figma"
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 # run = ["layout floating", "move-node-to-workspace terminal"]
-run = ["move-node-to-workspace terminal"]
+run = ["layout floating", "move-node-to-workspace terminal"]
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace browser"
@@ -246,7 +246,7 @@ run = "move-node-to-workspace default"
 
 ## fix lark screen share
 [[on-window-detected]]
-if.app-id = 'com.larksuite.larkApp.iron'
+if.app-id = 'com.larksuite.larkapp.iron'
 run = "layout floating"
 [[on-window-detected]]
 if.app-id = 'com.larksuite.larkApp.helper'

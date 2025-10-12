@@ -10,8 +10,9 @@ config.front_end = "WebGpu"
 config.webgpu_power_preference = "LowPower"
 config.font = wezterm.font("Berkeley Mono", { weight = "Regular" })
 
-config.initial_rows = 53
-config.initial_cols = 160
+-- initial_rows  and columns doesnt seem to be working
+config.initial_rows = 108
+config.initial_cols = 200
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false

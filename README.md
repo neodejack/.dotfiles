@@ -56,3 +56,17 @@ brew install atuin
 - Add new files in the corresponding package mirroring the target path (e.g., put `~/.wezterm.lua` under `wezterm/.wezterm.lua`).
 - Use `stow -nvt ~ <pkg>` to preview changes; `stow -Dvt ~ <pkg>` to remove symlinks.
 - See `migration.md` for the one‑time migration steps and more details.
+
+## Elixir/Erlang installation
+
+elixir, erlang are installed and managed by asdf.
+there are some extra things needs to be done before installing erlang to make sure `:observer` works
+
+```bash
+brew install wxwidgets@3.2
+export WX_CONFIG=/opt/homebrew/Cellar/wxwidgets@3.2/3.2.8.1/bin/wx-config-3.2
+export KERL_CONFIGURE_OPTIONS="--with-wx-config=$WX_CONFIG"
+asdf install erlang 27.3
+```
+
+[resource](https://erlangforums.com/t/kerl-build-of-erlang-problem-with-wx-on-mac/2411/11)

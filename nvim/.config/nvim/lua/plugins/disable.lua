@@ -45,5 +45,12 @@ if true then
         { "s", mode = { "n", "x", "o" }, false },
       },
     },
+    {
+      "folke/sidekick.nvim",
+      opts = function()
+        -- to manually enable: run :`Sidekick nes enable`
+        require("sidekick.nes").disable()
+      end,
+    },
   }
 end

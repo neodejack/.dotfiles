@@ -11,4 +11,8 @@ export PATH="/opt/homebrew/opt/mysql-client@8.4/bin:$PATH"
 ## psql
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
+## rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+## asdf
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

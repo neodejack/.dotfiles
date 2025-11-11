@@ -22,28 +22,15 @@ bindkey "^X^E" edit-command-line  # Try Ctrl+X followed by Ctrl+E
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-# aliases
-alias zshc="nvim ~/.zshrc"
-alias ll="ls -l"
-alias ex="elixir"
 
 #nvim as default
-alias vim="nvim"
 export EDITOR=nvim
 export VISUAL=nvim
 
-# kubectl stuff
-#
-alias k=kubectl
 
 # rg configuration
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
-# view the json in clipboard using jless
-alias j="pbpaste | jless"
-
-# lazygit
-alias lg="lazygit"
 # change lazygit config location https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#user-config
 export XDG_CONFIG_HOME="$HOME/.config"
 

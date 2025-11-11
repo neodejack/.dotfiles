@@ -16,3 +16,5 @@ alias j="pbpaste | jless"
 # lazygit
 alias lg="lazygit"
 
+# vibe
+alias vibe="claude --dangerously-skip-permissions"

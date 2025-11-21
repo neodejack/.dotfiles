@@ -118,6 +118,7 @@ alt-minus = 'resize smart -50'
 alt-equal = 'resize smart +50'
 
 # see: https://nikitabobko.github.io/aerospace/commands#workspace
+cmd-ctrl-alt-shift-g = 'workspace ai_dev'
 cmd-ctrl-alt-shift-o = 'workspace obsidian'
 cmd-ctrl-alt-shift-l = 'workspace work_com'
 cmd-ctrl-alt-shift-a = 'workspace browser'
@@ -192,22 +193,13 @@ run = "move-node-to-workspace figma"
 if.app-id = 'com.github.wez.wezterm'
 # run = ["layout floating", "move-node-to-workspace terminal"]
 run = ["layout floating", "move-node-to-workspace terminal"]
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace browser"
 
 [[on-window-detected]]
-if.app-id = 'com.anthropic.claudefordesktop'
-run = "move-node-to-workspace ai"
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]
-if.app-id = 'com.openai.chat'
-run = "move-node-to-workspace ai"
-# [[on-window-detected]]
-# if.app-id = 'com.apple.Safari'
-# run = "move-node-to-workspace ai"
-# [[on-window-detected]]
-# if.app-id = 'org.mozilla.firefox'
-# run = "move-node-to-workspace ai"
+if.app-id = 'com.google.antigravity'
+run = "move-node-to-workspace ai_dev"
 
 [[on-window-detected]]
 if.app-id = 'com.reederapp.5.macOS'

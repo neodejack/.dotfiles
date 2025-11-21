@@ -16,3 +16,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 ## asdf
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+# Antigravity
+export PATH="/Users/zili/.antigravity/antigravity/bin:$PATH"

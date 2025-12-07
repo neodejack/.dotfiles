@@ -47,9 +47,11 @@ if true then
     },
     {
       "folke/sidekick.nvim",
-      opts = function()
-        -- to manually enable: run :`Sidekick nes enable`
-        require("sidekick.nes").disable()
+      opts = function(_, opts)
+        -- turn off Copilot NES completely
+        opts.nes = opts.nes or {}
+        opts.nes.enabled = false
+        return opts
       end,
     },
   }

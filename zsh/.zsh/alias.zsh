@@ -16,8 +16,7 @@ alias j="pbpaste | jless"
 # lazygit
 alias lg="lazygit"
 
-# vibe
-alias vibe="claude --dangerously-bypass-approvals-and-sandbox"
-
 # codex
 alias cfast="codex -c model_reasoning_effort=low"
+alias vibe="codex --dangerously-bypass-approvals-and-sandbox"
+alias c="codex"

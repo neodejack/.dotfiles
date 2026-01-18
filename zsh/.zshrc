@@ -13,10 +13,10 @@ for module in "$ZSH_CONFIG_DIR"/*.zsh; do
   fi
 done
 
-# Enable Ctrl-x-e to edit command line in $EDITOR
+# Enable Ctrl-g to edit command line in $EDITOR
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey "^X^E" edit-command-line  # Try Ctrl+X followed by Ctrl+E
+bindkey "^G" edit-command-line
 
 # control left and right
 bindkey "^[[1;5C" forward-word

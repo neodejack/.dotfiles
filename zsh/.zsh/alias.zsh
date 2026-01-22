@@ -20,3 +20,6 @@ alias lg="lazygit"
 alias cfast="codex -c model_reasoning_effort=low"
 alias vibe="codex --dangerously-bypass-approvals-and-sandbox"
 alias c="codex"
+
+# kill zen
+alias killzen=" pkill -f '/Applications/Zen.app/Contents/MacOS/zen'"

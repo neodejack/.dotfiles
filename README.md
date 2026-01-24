@@ -25,9 +25,12 @@ Note:
 cd ~/.dotfiles
 # dry run first (optional)
 stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit
+stow -nvt ~/.codex/  codex_skills
 
 # then apply
 stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit
+
+stow -vt ~/.codex/  codex_skills
 ```
 
 Notes:

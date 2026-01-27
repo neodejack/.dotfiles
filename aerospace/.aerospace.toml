@@ -246,6 +246,9 @@ run = "move-node-to-workspace default"
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
 run = "move-node-to-workspace default"
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = "move-node-to-workspace default"
 
 
 ## fix lark screen share

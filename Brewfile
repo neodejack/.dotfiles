@@ -13,7 +13,6 @@ brew "ansible"
 brew "atuin"
 brew "azure-cli"
 brew "bash"
-brew "asdf"
 brew "atuin", restart_service: :changed
 brew "bat"
 brew "glib"

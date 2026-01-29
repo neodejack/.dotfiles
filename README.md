@@ -24,11 +24,11 @@ Note:
 ```bash
 cd ~/.dotfiles
 # dry run first (optional)
-stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit
+stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit mise
 stow -nvt ~/.codex/  codex_skills
 
 # then apply
-stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit
+stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit mise
 
 stow -vt ~/.codex/  codex_skills
 ```
@@ -62,14 +62,8 @@ brew install atuin
 
 ## Elixir/Erlang installation
 
-elixir, erlang are installed and managed by asdf.
-there are some extra things needs to be done before installing erlang to make sure `:observer` works
+elixir, erlang, python, node are installed and managed by mise
 
 ```bash
-brew install wxwidgets@3.2
-export WX_CONFIG=/opt/homebrew/Cellar/wxwidgets@3.2/3.2.8.1/bin/wx-config-3.2
-export KERL_CONFIGURE_OPTIONS="--with-wx-config=$WX_CONFIG"
-asdf install erlang 27.3
+mise i
 ```
-
-[resource](https://erlangforums.com/t/kerl-build-of-erlang-problem-with-wx-on-mac/2411/11)

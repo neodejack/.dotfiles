@@ -57,6 +57,9 @@ eval "$(atuin init zsh --disable-up-arrow)"
 ## direnv
 eval "$(direnv hook zsh)"
 
+## mise
+eval "$(mise activate zsh)"
+
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
   zprof
 fi

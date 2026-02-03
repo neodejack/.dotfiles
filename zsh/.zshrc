@@ -48,8 +48,6 @@ export FZF_CTRL_T_OPTS="
   --preview 'bat -n --color=always {}'"
 
 source <(fzf --zsh)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 ## atuin
 eval "$(atuin init zsh --disable-up-arrow)"

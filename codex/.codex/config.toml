@@ -1,0 +1,56 @@
+show_raw_agent_reasoning = false
+hide_agent_reasoning = true
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+web_search = "live"
+
+network_access = true
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+personality = "pragmatic"
+suppress_unstable_features_warning = true
+
+[shell_environment_policy]
+inherit = "all"
+
+[features]
+apply_patch_freeform = true
+shell_snapshot = true
+unified_exec = true
+steer = true
+
+[tui]
+notifications = true
+
+
+[sandbox_workspace_write]
+exclude_tmpdir_env_var = false               # Allow $TMPDIR
+exclude_slash_tmp = false                    # Allow /tmp
+writable_roots = ["/Users/zilizhang/.codex"]
+network_access = false                       # Opt in to outbound network
+
+[projects."/Users/zilizhang"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/tmp"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/.codex"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/Downloads"]
+trust_level = "untrusted"
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+"hide_gpt-5.1-codex-max_migration_prompt" = true
+
+[notice.model_migrations]
+"gpt-5.1-codex-max" = "gpt-5.2-codex"
+
+# [mcp_servers.playwright]
+# command = "npx"
+# args = ["@playwright/mcp@latest"]

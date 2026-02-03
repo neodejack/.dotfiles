@@ -40,14 +40,14 @@ export ERL_AFLAGS='-kernel shell_history enabled'
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
-export FZF_CTRL_R_OPTS="
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-  --color header:italic
-  --header 'ctrl-y to copy command'"
-export FZF_CTRL_T_OPTS="
-  --preview 'bat -n --color=always {}'"
-
-source <(fzf --zsh)
+# export FZF_CTRL_R_OPTS="
+#   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+#   --color header:italic
+#   --header 'ctrl-y to copy command'"
+# export FZF_CTRL_T_OPTS="
+#   --preview 'bat -n --color=always {}'"
+#
+# source <(fzf --zsh)
 
 ## atuin
 eval "$(atuin init zsh --disable-up-arrow)"

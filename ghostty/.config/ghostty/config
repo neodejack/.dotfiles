@@ -1,0 +1,29 @@
+# Ghostty config aligned to Wezterm keybindings.
+# Note: tab bar location is GTK-only (gtk-tabs-location = bottom).
+
+font-family = "Berkeley Mono"
+font-size = 18
+
+# Splits (Wezterm: cmd+| for vertical, cmd+- for horizontal)
+keybind = cmd+|=new_split:right
+keybind = cmd+-=new_split:down
+
+# Move between splits (Wezterm: cmd+h/j/k/l)
+keybind = cmd+h=goto_split:left
+keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
+keybind = cmd+l=goto_split:right
+
+# Tabs
+keybind = cmd+t=new_tab
+keybind = cmd+,=previous_tab
+keybind = cmd+.=next_tab
+keybind = ctrl+tab=last_tab
+keybind = cmd+w=close_tab
+
+# Backward/forward word (send ESC sequences)
+keybind = ctrl+b=esc:b
+keybind = ctrl+f=esc:f
+
+# Copy-mode alternative: open scrollback in default editor
+keybind = alt+c=write_scrollback_file:open

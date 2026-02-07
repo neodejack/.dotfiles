@@ -26,7 +26,7 @@ notifications = true
 [sandbox_workspace_write]
 exclude_tmpdir_env_var = false               # Allow $TMPDIR
 exclude_slash_tmp = false                    # Allow /tmp
-writable_roots = ["/Users/zilizhang/.codex"]
+writable_roots = ["/Users/zilizhang/.codex", "/Users/zili/.codex"]
 network_access = false                       # Opt in to outbound network
 
 [projects."/Users/zilizhang"]
@@ -42,6 +42,21 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/zilizhang/Downloads"]
+trust_level = "untrusted"
+
+[projects."/Users/zili"]
+trust_level = "trusted"
+
+[projects."/Users/zili/code"]
+trust_level = "trusted"
+
+[projects."/Users/zili/tmp"]
+trust_level = "trusted"
+
+[projects."/Users/zili/.codex"]
+trust_level = "trusted"
+
+[projects."/Users/zili/Downloads"]
 trust_level = "untrusted"
 
 [notice]

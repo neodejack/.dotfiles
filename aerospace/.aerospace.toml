@@ -195,6 +195,11 @@ if.app-id = 'com.github.wez.wezterm'
 run = ["layout floating", "move-node-to-workspace terminal"]
 
 [[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+# run = ["layout floating", "move-node-to-workspace terminal"]
+run = ["layout floating", "move-node-to-workspace terminal"]
+
+[[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]

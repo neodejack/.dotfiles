@@ -4,6 +4,12 @@
 font-family = "Berkeley Mono"
 font-size = 18
 
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+copy-on-select = clipboard
+macos-titlebar-style = tabs
+
 # Splits (Wezterm: cmd+| for vertical, cmd+- for horizontal)
 keybind = cmd+|=new_split:right
 keybind = cmd+-=new_split:down

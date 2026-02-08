@@ -2,17 +2,27 @@
 # Note: tab bar location is GTK-only (gtk-tabs-location = bottom).
 
 font-family = "Berkeley Mono"
-font-size = 18
+font-size = 16
 
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = no-cursor
 copy-on-select = clipboard
+clipboard-paste-protection = false
+macos-window-buttons = hidden
 macos-titlebar-style = tabs
+macos-option-as-alt = true
+background-opacity = 0.93
+background-blur-radius = 20
 
 # Splits (Wezterm: cmd+| for vertical, cmd+- for horizontal)
 keybind = cmd+|=new_split:right
+keybind = cmd+shift+\=new_split:right
 keybind = cmd+-=new_split:down
+
+# Font size
+keybind = cmd+shift+minus=decrease_font_size:1
+keybind = cmd+_=decrease_font_size:1
 
 # Move between splits (Wezterm: cmd+h/j/k/l)
 keybind = cmd+h=goto_split:left
@@ -33,3 +43,6 @@ keybind = ctrl+f=esc:f
 
 # Copy-mode alternative: open scrollback in default editor
 keybind = alt+c=write_scrollback_file:open
+
+# Fullscreen
+keybind = alt+enter=toggle_fullscreen

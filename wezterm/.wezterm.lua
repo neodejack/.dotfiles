@@ -200,7 +200,7 @@ config.keys = {
 		}),
 	},
 }
-config.default_gui_startup_args = { "connect", "unix" }
+-- config.default_gui_startup_args = { "connect", "unix" }
 
 -- replace only the copy mode Ctrl+C binding while keeping other defaults intact
 local copy_mode = nil

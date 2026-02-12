@@ -55,7 +55,7 @@ return {
         },
         -- whether to trim lines or not
         trim_lines = false,
-        context_format = "@%s:%s", -- Default format for context: "# Source file: filepath:line"
+        context_format = "@%s#L%s", -- Default format for context: "# Source file: filepath:line"
         copy_content = false,
       })
     end,

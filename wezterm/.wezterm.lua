@@ -73,6 +73,33 @@ config.color_schemes = {
 		selection_bg = "#6c938d",
 		selection_fg = "#F0E9E0",
 	},
+	["ghostty"] = {
+		foreground = "#ffffff",
+		background = "#282c34",
+		ansi = { "#1d1f21", "#cc6566", "#b6bd68", "#f0c674", "#82a2be", "#b294bb", "#8abeb7", "#c4c8c6" },
+		brights = { "#666666", "#d54e53", "#b9ca4b", "#e7c547", "#7aa6da", "#c397d8", "#70c0b1", "#eaeaea" },
+		cursor_bg = "#ffffff",
+		cursor_fg = "#353a44",
+		cursor_border = "#ffffff",
+		selection_bg = "#ffffff",
+		selection_fg = "#282c34",
+		tab_bar = {
+			background = "#282c34",
+			new_tab = {
+				bg_color = "#282c34",
+				fg_color = "#808080",
+			},
+			inactive_tab = {
+				bg_color = "#282c34",
+				fg_color = "#808080",
+			},
+			active_tab = {
+				bg_color = "#1d1f21",
+				fg_color = "#ffffff",
+				intensity = "Bold",
+			},
+		},
+	},
 }
 
 -- old color config
@@ -87,7 +114,7 @@ config.color_schemes = {
 -- 	},
 -- }
 
-config.color_scheme = "pantone2025"
+config.color_scheme = "ghostty"
 -- config.color_scheme = "Catppuccin Macchiato"
 --debug, run `WEZTERM_LOG=info wezterm` to see all key events
 config.debug_key_events = true

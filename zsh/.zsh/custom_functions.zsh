@@ -3,6 +3,14 @@ add_next() {
     fzf --header "Select issue to add 'next' label" | awk '{print $1}' | xargs -I {} gh issue edit {} --add-label next
 }
 
+view_next() {
+  local issue_number
+  issue_number=$(gh issue list --label next --json number,title -q '.[] | "\(.number)\t\(.title)"' |
+    fzf --header "Select a next issue to view" | awk '{print $1}')
+  [ -z "$issue_number" ] && return 1
+  gh issue view "$issue_number"
+}
+
 _close_issue_with_ref() {
   local issue_number="$1"
 

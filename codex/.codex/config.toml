@@ -18,6 +18,7 @@ apply_patch_freeform = true
 shell_snapshot = true
 unified_exec = true
 steer = true
+collab = true
 
 [tui]
 notifications = true

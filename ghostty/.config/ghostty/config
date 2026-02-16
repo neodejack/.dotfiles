@@ -17,12 +17,16 @@ background-blur-radius = 20
 
 # Splits (Wezterm: cmd+| for vertical, cmd+- for horizontal)
 keybind = cmd+|=new_split:right
+keybind = cmd+\=new_split:right
 keybind = cmd+shift+\=new_split:right
 keybind = cmd+-=new_split:down
+keybind = cmd+_=new_split:down
 
 # Font size
 keybind = cmd+shift+minus=decrease_font_size:1
 keybind = cmd+_=decrease_font_size:1
+keybind = cmd+left_bracket=decrease_font_size:1
+keybind = cmd+right_bracket=increase_font_size:1
 
 # Move between splits (Wezterm: cmd+h/j/k/l)
 keybind = cmd+h=goto_split:left

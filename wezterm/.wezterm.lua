@@ -150,7 +150,17 @@ config.keys = {
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
+		key = "\\",
+		mods = "SUPER",
+		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+	},
+	{
 		key = "-",
+		mods = "SUPER",
+		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "_",
 		mods = "SUPER",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
@@ -192,8 +202,8 @@ config.keys = {
 	-- copy mode to ctrl-v
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
 	-- font size | zoom
-	{ key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
-	{ key = "_", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
+	{ key = "[", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
+	{ key = "]", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 	-- backward-word
 	{ key = "b", mods = "CTRL", action = act.SendString("\x1bb") },
 	-- forward-word

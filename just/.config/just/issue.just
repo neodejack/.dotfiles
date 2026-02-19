@@ -1,5 +1,8 @@
 # Recipes for managing issues
 
+alias c := close
+alias v := view
+
 # List available issue recipes
 [default]
 list:

@@ -1,5 +1,9 @@
 # Recipes for managing 'next' labelled issues
 
+alias a := add
+alias rm := remove
+alias v := view
+
 # List available next recipes
 [default]
 list:

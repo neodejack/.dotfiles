@@ -3,74 +3,13 @@
 
 set shell := ["bash", "-uc"]
 
+mod next
+mod issue
+
 # List available recipes
 [default]
 list:
     @just -g --list --list-heading $'Hey Mr.Scott whatcha gonna do\n' --list-prefix '~> '
-
-# Add 'next' label to an issue
-[no-cd]
-[group('gh')]
-[script]
-add-next:
-    set -euo pipefail
-    gh issue list --json number,title -q '.[] | "\(.number)\t\(.title)"' |
-      fzf --header "Select issue to add 'next' label" | awk '{print $1}' | xargs -I {} gh issue edit {} --add-label next
-
-# View a 'next' labelled issue
-[no-cd]
-[group('gh')]
-[script]
-view-next:
-    set -euo pipefail
-    issue_number=$(gh issue list --label next --json number,title -q '.[] | "\(.number)\t\(.title)"' |
-      fzf --header "Select a next issue to view" | awk '{print $1}')
-    [ -z "$issue_number" ] && exit 1
-    gh issue view "$issue_number"
-
-# Remove 'next' label from an issue (optionally close it)
-[no-cd]
-[group('gh')]
-[script]
-remove-next:
-    set -euo pipefail
-    issue_number=$(gh issue list --label next --json number,title -q '.[] | "\(.number)\t\(.title)"' |
-      fzf --header "Select issue to remove 'next' label" | awk '{print $1}')
-    [ -z "$issue_number" ] && exit 1
-    gh issue edit "$issue_number" --remove-label next
-
-    echo -n "Close issue #$issue_number? (y/n) "
-    read -r answer
-    [[ "$answer" != "y" ]] && exit 0
-
-    just -g _close-issue-with-ref "$issue_number"
-
-# Close an issue with a reference to a PR or commit
-[no-cd]
-[group('gh')]
-[script]
-close-issue:
-    set -euo pipefail
-    issue_number=$(gh issue list --json number,title -q '.[] | "\(.number)\t\(.title)"' |
-      fzf --header "Select issue to close" | awk '{print $1}')
-    [ -z "$issue_number" ] && exit 1
-
-    just -g _close-issue-with-ref "$issue_number"
-
-    # Remove 'next' label if present
-    labels=$(gh issue view "$issue_number" --json labels -q '.labels[].name')
-    if echo "$labels" | grep -iqw "next"; then
-      gh issue edit "$issue_number" --remove-label next
-    fi
-
-# View an issue
-[no-cd]
-[group('gh')]
-[script]
-view-i:
-    set -euo pipefail
-    gh issue list --json number,title -q '.[] | "\(.number)\t\(.title)"' |
-      fzf --header "Select issue to view" | awk '{print $1}' | xargs -I {} gh issue view {}
 
 # Helper: close an issue with a PR or commit reference
 [no-cd]

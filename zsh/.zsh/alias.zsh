@@ -21,5 +21,8 @@ alias cfast="codex -c model_reasoning_effort=low"
 alias vibe="codex --dangerously-bypass-approvals-and-sandbox"
 alias c="codex"
 
+# just global
+alias jg="just -g"
+
 # kill zen
 alias killzen=" pkill -f '/Applications/Zen.app/Contents/MacOS/zen'"

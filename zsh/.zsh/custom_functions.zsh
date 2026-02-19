@@ -21,7 +21,7 @@ _close_issue_with_ref() {
   since_date=$(date -v-20d +%Y-%m-%d 2>/dev/null || date -d "20 days ago" +%Y-%m-%d)
 
   if [[ "$close_type" == "p" ]]; then
-    ref=$(gh pr list --search "created:>=$since_date" --json number,title \
+    ref=$(gh pr list -s all --search "created:>=$since_date" --json number,title \
       -q $'.[] | "#\\(.number)\t\\(.title)"' |
       fzf --header "Select PR that fixed #$issue_number" --delimiter=$'\t' --with-nth=1,2 |
       awk -F$'\t' '{print $1}')

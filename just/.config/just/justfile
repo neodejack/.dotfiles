@@ -1,23 +1,39 @@
 # GitHub issue workflow recipes
-# Use with: just -g <recipe> (or alias jg="just -g")
+# Use with: just -g <recipe> (or alias j="just -g")
+
+set shell := ["bash", "-uc"]
+
+# List available recipes
+[default]
+list:
+    @just -g --list --list-heading $'Hey Mr.Scott whatcha gonna do\n' --list-prefix '~> '
 
 # Add 'next' label to an issue
+[no-cd]
+[group('gh')]
+[script]
 add-next:
-    #!/usr/bin/env bash
+    set -euo pipefail
     gh issue list --json number,title -q '.[] | "\(.number)\t\(.title)"' |
       fzf --header "Select issue to add 'next' label" | awk '{print $1}' | xargs -I {} gh issue edit {} --add-label next
 
 # View a 'next' labelled issue
+[no-cd]
+[group('gh')]
+[script]
 view-next:
-    #!/usr/bin/env bash
+    set -euo pipefail
     issue_number=$(gh issue list --label next --json number,title -q '.[] | "\(.number)\t\(.title)"' |
       fzf --header "Select a next issue to view" | awk '{print $1}')
     [ -z "$issue_number" ] && exit 1
     gh issue view "$issue_number"
 
 # Remove 'next' label from an issue (optionally close it)
+[no-cd]
+[group('gh')]
+[script]
 remove-next:
-    #!/usr/bin/env bash
+    set -euo pipefail
     issue_number=$(gh issue list --label next --json number,title -q '.[] | "\(.number)\t\(.title)"' |
       fzf --header "Select issue to remove 'next' label" | awk '{print $1}')
     [ -z "$issue_number" ] && exit 1
@@ -30,8 +46,11 @@ remove-next:
     just -g _close-issue-with-ref "$issue_number"
 
 # Close an issue with a reference to a PR or commit
+[no-cd]
+[group('gh')]
+[script]
 close-issue:
-    #!/usr/bin/env bash
+    set -euo pipefail
     issue_number=$(gh issue list --json number,title -q '.[] | "\(.number)\t\(.title)"' |
       fzf --header "Select issue to close" | awk '{print $1}')
     [ -z "$issue_number" ] && exit 1
@@ -45,15 +64,21 @@ close-issue:
     fi
 
 # View an issue
+[no-cd]
+[group('gh')]
+[script]
 view-i:
-    #!/usr/bin/env bash
+    set -euo pipefail
     gh issue list --json number,title -q '.[] | "\(.number)\t\(.title)"' |
       fzf --header "Select issue to view" | awk '{print $1}' | xargs -I {} gh issue view {}
 
 # Helper: close an issue with a PR or commit reference
+[no-cd]
+[private]
 [no-exit-message]
+[script]
 _close-issue-with-ref issue_number:
-    #!/usr/bin/env bash
+    set -euo pipefail
     issue_number="{{issue_number}}"
 
     echo -n "Close with (p)r or (c)ommit? "

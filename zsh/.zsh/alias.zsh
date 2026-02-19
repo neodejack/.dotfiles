@@ -10,9 +10,6 @@ alias vim="nvim"
 # kubectl stuff
 alias k=kubectl
 
-# view the json in clipboard using jless
-alias j="pbpaste | jless"
-
 # lazygit
 alias lg="lazygit"
 
@@ -22,7 +19,7 @@ alias vibe="codex --dangerously-bypass-approvals-and-sandbox"
 alias c="codex"
 
 # just global
-alias jg="just -g"
+alias j="just -g"
 
 # kill zen
 alias killzen=" pkill -f '/Applications/Zen.app/Contents/MacOS/zen'"

@@ -2,8 +2,6 @@
     excludesFile = ~/.gitignore_global
 [diff]
     external = difft
-[url "git@github.com:M2R-System-Technology-Pte-Ltd/"]
-    insteadOf = https://github.com/M2R-System-Technology-Pte-Ltd/
 [user]
     name = zili
     email = neodejack@gmail.com

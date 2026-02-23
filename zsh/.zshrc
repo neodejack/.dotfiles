@@ -57,9 +57,6 @@ eval "$(zoxide init zsh)"
 ## atuin
 eval "$(atuin init zsh --disable-up-arrow)"
 
-## direnv
-eval "$(direnv hook zsh)"
-
 ## mise
 eval "$(mise activate zsh)"
 

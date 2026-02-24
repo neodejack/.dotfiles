@@ -13,6 +13,11 @@ It is managed via GNU Stow from `~/.dotfiles/just/` and symlinked to `~/.config/
 - Add a comment above each recipe — it appears in `--list` output as documentation.
 - Use `[no-exit-message]` on helper recipes that may exit non-zero intentionally (e.g. user cancellation).
 
+## Variables
+
+- Define a variable at the top of the file for any value used in multiple recipes (e.g. `label := "NEXT"`).
+- Reference it with `{{variable}}` in recipe bodies instead of hardcoding the value.
+
 ## Structure
 
 - `[default]` recipe runs `just -g --list` so bare `j` shows available commands.
@@ -27,3 +32,4 @@ It is managed via GNU Stow from `~/.dotfiles/just/` and symlinked to `~/.config/
 
 - Do not use `#!/usr/bin/env bash` shebangs — use `[script]` attribute instead.
 - Do not create local/project justfiles here — this is exclusively for global recipes.
+- Do not hardcode repeated values — extract them into a variable at the top of the file.

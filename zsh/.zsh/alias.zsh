@@ -15,8 +15,7 @@ alias lg="lazygit"
 
 # codex
 alias cfast="codex -c model_reasoning_effort=low"
-alias vibe="codex --dangerously-bypass-approvals-and-sandbox"
-alias c="codex"
+alias c="codex --dangerously-bypass-approvals-and-sandbox"
 
 # just global
 alias j="just -g"

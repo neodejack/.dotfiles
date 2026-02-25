@@ -24,10 +24,10 @@ Note:
 ```bash
 cd ~/.dotfiles
 # dry run first (optional)
-stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit mise codex just
+stow -nvt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit mise codex just agents
 
 # then apply
-stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit mise codex just
+stow -vt ~ aerospace wezterm zsh starship markdownlint ripgrep yazi nvim git tmux ideavim lazygit mise codex just agents
 ```
 
 Notes:
@@ -36,6 +36,12 @@ Notes:
 - Unstow with `stow -Dvt ~ <pkg>`.
 
 ## Package Notes
+
+### agents
+
+AI agent skills (`~/.agents`). Skills installed via `npx skills` and custom skills are both managed here. Because stow folds the directory into a single symlink, any new skills installed by `npx skills` are automatically written into this dotfiles repo.
+
+**On a fresh machine:** stow `agents` before running `npx skills install`, otherwise npx creates a real `~/.agents/` directory and stow will conflict.
 
 - zsh: `.zshrc` is provided; it initializes starship/zoxide/atuin.
 - raycast: add `~/.dotfiles/raycast-scripts` in Raycast settings if you want those scripts.

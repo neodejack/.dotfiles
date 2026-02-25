@@ -21,6 +21,9 @@ keybind = cmd+\=new_split:right
 keybind = cmd+shift+\=new_split:right
 keybind = cmd+-=new_split:down
 keybind = cmd+_=new_split:down
+# Match WezTerm split styling.
+split-divider-color = #717171
+unfocused-split-opacity = 0.6
 
 # Font size
 keybind = cmd+shift+minus=decrease_font_size:1

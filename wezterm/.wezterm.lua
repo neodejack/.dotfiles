@@ -22,7 +22,6 @@ config.macos_window_background_blur = 5
 config.font_size = 18
 config.line_height = 1.1
 config.tab_max_width = 50
-config.tab_bar_at_bottom = true
 
 -- Bell/notification settings for Claude Code confirmations
 config.audible_bell = "SystemBeep"
@@ -121,7 +120,7 @@ config.debug_key_events = true
 
 -- Make inactive panes much more dim for better visibility
 config.inactive_pane_hsb = {
-	brightness = 0.3,
+	brightness = 0.5,
 }
 
 local hostname = require("wezterm").hostname()

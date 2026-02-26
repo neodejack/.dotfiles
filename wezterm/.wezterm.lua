@@ -145,8 +145,8 @@ config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- split pane stuff
 	{
-		key = "|",
-		mods = "SUPER",
+		key = "\\",
+		mods = "SUPER|SHIFT",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{

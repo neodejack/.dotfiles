@@ -25,10 +25,10 @@ notifications = true
 
 
 [sandbox_workspace_write]
-exclude_tmpdir_env_var = false               # Allow $TMPDIR
-exclude_slash_tmp = false                    # Allow /tmp
+exclude_tmpdir_env_var = false                                     # Allow $TMPDIR
+exclude_slash_tmp = false                                          # Allow /tmp
 writable_roots = ["/Users/zilizhang/.codex", "/Users/zili/.codex"]
-network_access = true                       # Opt in to outbound network
+network_access = true                                              # Opt in to outbound network
 
 [projects."/Users/zilizhang"]
 trust_level = "trusted"
@@ -66,6 +66,10 @@ hide_gpt5_1_migration_prompt = true
 
 [notice.model_migrations]
 "gpt-5.1-codex-max" = "gpt-5.2-codex"
+
+[[skills.config]]
+path = "~/.agents/skills/agent-browser/SKILL.md"
+enabled = false
 
 # [mcp_servers.playwright]
 # command = "npx"

@@ -33,9 +33,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/neodejack/skills.git",
       "skillPath": "skills/writing-justfiles/SKILL.md",
-      "skillFolderHash": "1bddb80c71add4c265526f92f9cfb40e8b43283e",
+      "skillFolderHash": "980017853a89970e01c55d700ac2ddf3b5f5ae28",
       "installedAt": "2026-02-26T09:02:50.567Z",
-      "updatedAt": "2026-02-26T09:02:50.567Z"
+      "updatedAt": "2026-02-27T11:33:39.702Z"
     }
   },
   "dismissed": {
@@ -43,6 +43,7 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "cline",
     "codex",
     "cursor",
     "gemini-cli",

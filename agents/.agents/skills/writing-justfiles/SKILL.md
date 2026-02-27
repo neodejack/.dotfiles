@@ -1,6 +1,6 @@
 ---
 name: writing-justfiles
-description: "Writes and maintains justfile recipes for project automation. Use when asked to create a justfile, add just recipes, or automate project commands with the just command runner."
+description: "Create, edit, and maintain `justfile` automation for any codebase using the `just` command runner. Trigger whenever a request involves creating a new `justfile`, modifying/updating an existing `justfile`, adding or changing recipes, refactoring `justfile` structure, or automating project commands via `just`."
 ---
 
 # Writing Justfiles
@@ -307,7 +307,9 @@ version:
 - **Working directory**: by default, recipes run in the justfile's directory, not the caller's. Use `[no-cd]` to change this.
 - **Each line is a separate shell** (unless using `[script]` recipes). Variables set on one line are not available on the next — use `[script]` to share state across lines.
 - **Use `{{variable}}`** for just interpolation, not `$variable` (which is shell expansion).
+- **Use normal shell expansion** in recipe lines: `$(...)` and `$var`. Avoid over-escaping with `$$(...)`/`$$var` unless you explicitly need a literal `$` in the final command.
 - **Always quote arguments**: `"{{arg}}"` prevents word-splitting on spaces or special characters.
+- **Avoid dense one-liners** with nested substitutions; assign intermediate shell variables for readability and fewer quoting bugs.
 - **Indentation must be consistent** within a recipe — don't mix tabs and spaces.
 
 ## References

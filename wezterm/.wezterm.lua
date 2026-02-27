@@ -21,7 +21,7 @@ config.text_background_opacity = 0.95
 config.macos_window_background_blur = 5
 config.font_size = 18
 config.line_height = 1.1
-config.tab_max_width = 50
+config.tab_max_width = 16
 
 -- Bell/notification settings for Claude Code confirmations
 config.audible_bell = "SystemBeep"
@@ -201,8 +201,8 @@ config.keys = {
 	-- copy mode to ctrl-v
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
 	-- font size | zoom
-	{ key = "[", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
-	{ key = "]", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
+	{ key = "]", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
+	{ key = "[", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 	-- backward-word
 	{ key = "b", mods = "CTRL", action = act.SendString("\x1bb") },
 	-- forward-word

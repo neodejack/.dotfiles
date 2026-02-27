@@ -220,6 +220,9 @@ run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]
 if.app-id = 'com.openai.codex'
 run = "move-node-to-workspace ai_dev"
+[[on-window-detected]]
+if.app-name-regex-substring = 'Paper'
+run = "move-node-to-workspace ai_dev"
 
 [[on-window-detected]]
 if.app-id = 'com.reederapp.5.macOS'

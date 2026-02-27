@@ -71,6 +71,10 @@ hide_gpt5_1_migration_prompt = true
 path = "~/.agents/skills/agent-browser/SKILL.md"
 enabled = false
 
+[mcp_servers.paper]
+enabled = true
+url = "http://127.0.0.1:29979/mcp"
+
 # [mcp_servers.playwright]
 # command = "npx"
 # args = ["@playwright/mcp@latest"]

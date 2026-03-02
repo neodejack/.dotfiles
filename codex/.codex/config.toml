@@ -19,6 +19,7 @@ shell_snapshot = true
 unified_exec = true
 steer = true
 multi_agent = true
+js_repl = true
 
 [tui]
 notifications = true

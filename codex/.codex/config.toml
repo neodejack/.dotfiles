@@ -73,7 +73,7 @@ path = "~/.agents/skills/agent-browser/SKILL.md"
 enabled = false
 
 [mcp_servers.paper]
-enabled = true
+enabled = false
 url = "http://127.0.0.1:29979/mcp"
 
 # [mcp_servers.playwright]

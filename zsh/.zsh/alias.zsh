@@ -22,3 +22,6 @@ alias j="just -g"
 
 # kill zen
 alias killzen=" pkill -f '/Applications/Zen.app/Contents/MacOS/zen'"
+
+# paper
+alias paper="codex -c mcp_servers.paper.enabled=true --yolo"

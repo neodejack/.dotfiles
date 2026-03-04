@@ -261,6 +261,9 @@ run = "move-node-to-workspace default"
 if.app-id = 'com.spotify.client'
 run = "move-node-to-workspace default"
 [[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = "move-node-to-workspace default"
+[[on-window-detected]]
 if.app-id = 'com.apple.FaceTime'
 run = ["layout floating", "move-node-to-workspace default"]
 [[on-window-detected]]

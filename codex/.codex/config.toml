@@ -20,6 +20,8 @@ unified_exec = true
 steer = true
 multi_agent = true
 js_repl = true
+prevent_idle_sleep = true
+voice_transcription = true
 
 [tui]
 notifications = true

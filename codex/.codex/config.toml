@@ -25,6 +25,7 @@ voice_transcription = true
 
 [tui]
 notifications = true
+status_line = ["model-with-reasoning", "context-remaining", "current-dir", "git-branch", "total-output-tokens"]
 
 
 [sandbox_workspace_write]

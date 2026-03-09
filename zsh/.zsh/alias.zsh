@@ -25,3 +25,5 @@ alias killzen=" pkill -f '/Applications/Zen.app/Contents/MacOS/zen'"
 
 # paper
 alias paper="codex -c mcp_servers.paper.enabled=true --yolo"
+
+alias exdoc="mix hex.docs offline elixir"

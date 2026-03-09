@@ -130,6 +130,7 @@ cmd-ctrl-alt-shift-d = 'workspace default'
 # cmd-ctrl-alt-shift-c = 'workspace ai'
 
 # alt-enter = 'fullscreen'
+alt-f = 'fullscreen'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move-node-to-workspace
 alt-shift-d = 'move-node-to-workspace default'

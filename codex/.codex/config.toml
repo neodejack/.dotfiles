@@ -25,7 +25,13 @@ voice_transcription = true
 
 [tui]
 notifications = true
-status_line = ["model-with-reasoning", "context-remaining", "current-dir", "git-branch", "total-output-tokens"]
+status_line = [
+  "model-with-reasoning",
+  "context-remaining",
+  "current-dir",
+  "git-branch",
+  "total-output-tokens",
+]
 
 
 [sandbox_workspace_write]
@@ -64,6 +70,12 @@ trust_level = "trusted"
 [projects."/Users/zili/Downloads"]
 trust_level = "untrusted"
 
+[projects."/Users/zili/.dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/zili/code/eargo-worktrees/eargo"]
+trust_level = "trusted"
+
 [notice]
 hide_gpt5_1_migration_prompt = true
 "hide_gpt-5.1-codex-max_migration_prompt" = true
@@ -74,7 +86,7 @@ hide_gpt5_1_migration_prompt = true
 
 [[skills.config]]
 path = "~/.agents/skills/agent-browser/SKILL.md"
-enabled = false
+enabled = true
 
 [mcp_servers.paper]
 enabled = false

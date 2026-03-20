@@ -75,6 +75,8 @@ trust_level = "untrusted"
 trust_level = "trusted"
 
 [projects."/Users/zili/code/eargo-worktrees/eargo"]
+trust_level = "trusted"
+
 [projects."/Users/zilizhang/code/tries"]
 trust_level = "trusted"
 

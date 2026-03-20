@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Specs"
+  short_description: "Draft product specs interactively"
+  default_prompt: "Use $create-product-specs to turn this feature idea into a product specification under docs/product-specs/."

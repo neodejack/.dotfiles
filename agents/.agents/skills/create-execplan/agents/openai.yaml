@@ -1,0 +1,4 @@
+interface:
+  display_name: "Execution Plan"
+  short_description: "Turn a product spec into an ExecPlan"
+  default_prompt: "Use $create-execplan when the user asks to create an exec-plan for `docs/product-specs/<product-spec-name>.md`, then follow `docs/PLANS.md` and write the result to `docs/exec-plans/todo/<product-spec-name>.md`."

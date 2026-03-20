@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build From Exec Plan"
+  short_description: "Execute an existing ExecPlan"
+  default_prompt: "Use $build-from-exec-plan to build <plan_name> from docs/exec-plans/, move it to active if needed, execute it milestone by milestone with verification and git commits after each completed milestone, and move it to completed when the plan is finished."

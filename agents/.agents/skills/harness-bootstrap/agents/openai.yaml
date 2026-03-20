@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harness Bootstrap"
+  short_description: "Prepare repos for agentic coding"
+  default_prompt: "Use $harness-bootstrap to prepare this repository for mixed human and agent coding."

@@ -45,6 +45,42 @@
       "skillFolderHash": "50c9eadbdfd6d49c8821851c2c88e871382159b7",
       "installedAt": "2026-03-10T10:07:29.791Z",
       "updatedAt": "2026-03-10T10:07:29.791Z"
+    },
+    "build-from-exec-plan": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/build-from-exec-plan/SKILL.md",
+      "skillFolderHash": "2fefbc904f030382a0162f65dc2029227eeecd9b",
+      "installedAt": "2026-03-20T08:13:42.437Z",
+      "updatedAt": "2026-03-20T08:13:42.437Z"
+    },
+    "create-execplan": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/create-execplan/SKILL.md",
+      "skillFolderHash": "3f8cca6d1d511cf2b94dabb57a115d458696aae3",
+      "installedAt": "2026-03-20T08:13:42.866Z",
+      "updatedAt": "2026-03-20T08:13:42.866Z"
+    },
+    "create-product-specs": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/create-product-specs/SKILL.md",
+      "skillFolderHash": "040b394763e3711a437779666eccd7cdffb32373",
+      "installedAt": "2026-03-20T08:13:43.429Z",
+      "updatedAt": "2026-03-20T08:13:43.429Z"
+    },
+    "harness-bootstrap": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/harness-bootstrap/SKILL.md",
+      "skillFolderHash": "a1e6cb6b8c7f00443d011932c8c5761a7fceea12",
+      "installedAt": "2026-03-20T08:13:43.921Z",
+      "updatedAt": "2026-03-20T08:13:43.921Z"
     }
   },
   "dismissed": {
@@ -58,6 +94,7 @@
     "gemini-cli",
     "github-copilot",
     "kimi-cli",
-    "opencode"
+    "opencode",
+    "warp"
   ]
 }

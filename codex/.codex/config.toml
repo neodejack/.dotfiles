@@ -1,14 +1,14 @@
 show_raw_agent_reasoning = false
-hide_agent_reasoning = true
+hide_agent_reasoning = false
 model = "gpt-5.4"
 model_reasoning_effort = "high"
 web_search = "live"
 
-network_access = true
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 personality = "pragmatic"
 suppress_unstable_features_warning = true
+approvals_reviewer = "guardian_subagent"
 
 [shell_environment_policy]
 inherit = "all"
@@ -22,6 +22,7 @@ multi_agent = true
 js_repl = true
 prevent_idle_sleep = true
 voice_transcription = true
+guardian_approval = true
 
 [tui]
 notifications = true
@@ -74,6 +75,37 @@ trust_level = "untrusted"
 trust_level = "trusted"
 
 [projects."/Users/zili/code/eargo-worktrees/eargo"]
+[projects."/Users/zilizhang/code/tries"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/sre/skills"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/.dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/sre/helmist"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/codeet"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/zmk-config-fire"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/zmk-config-v3"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/tmp/datakit"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/sre/rr"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/notex"]
+trust_level = "trusted"
+
+[projects."/Users/zilizhang/code/eargo-worktrees/eargo"]
 trust_level = "trusted"
 
 [notice]
@@ -91,7 +123,3 @@ enabled = true
 [mcp_servers.paper]
 enabled = false
 url = "http://127.0.0.1:29979/mcp"
-
-# [mcp_servers.playwright]
-# command = "npx"
-# args = ["@playwright/mcp@latest"]

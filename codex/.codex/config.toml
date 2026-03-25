@@ -110,6 +110,9 @@ trust_level = "trusted"
 [projects."/Users/zilizhang/code/eargo-worktrees/eargo"]
 trust_level = "trusted"
 
+[projects."/Users/zili/code/resume"]
+trust_level = "trusted"
+
 [notice]
 hide_gpt5_1_migration_prompt = true
 "hide_gpt-5.1-codex-max_migration_prompt" = true

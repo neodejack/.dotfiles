@@ -42,6 +42,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # iex persistent history
 export ERL_AFLAGS='-kernel shell_history enabled'
 
+# suppress error message of `podman compose up` with docker-compose backend
+export PODMAN_COMPOSE_WARNING_LOGS=false
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 

@@ -81,6 +81,15 @@
       "skillFolderHash": "a1e6cb6b8c7f00443d011932c8c5761a7fceea12",
       "installedAt": "2026-03-20T08:13:43.921Z",
       "updatedAt": "2026-03-20T08:13:43.921Z"
+    },
+    "create-architecture-md": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/create-architecture-md/SKILL.md",
+      "skillFolderHash": "66bc2843bebc1cff843a6581a54593d95359d9ca",
+      "installedAt": "2026-03-26T06:58:15.750Z",
+      "updatedAt": "2026-03-26T06:58:15.750Z"
     }
   },
   "dismissed": {
@@ -88,9 +97,11 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "antigravity",
     "cline",
     "codex",
     "cursor",
+    "deepagents",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",

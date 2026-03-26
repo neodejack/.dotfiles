@@ -9,6 +9,7 @@ sandbox_mode = "workspace-write"
 personality = "pragmatic"
 suppress_unstable_features_warning = true
 approvals_reviewer = "guardian_subagent"
+service_tier = "fast"
 
 [shell_environment_policy]
 inherit = "all"
@@ -111,6 +112,15 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/zili/code/resume"]
+trust_level = "trusted"
+
+[projects."/Users/zili/code/rr"]
+trust_level = "trusted"
+
+[projects."/Users/zili/tmp/cocoon"]
+trust_level = "trusted"
+
+[projects."/Users/zili/code/skills"]
 trust_level = "trusted"
 
 [notice]

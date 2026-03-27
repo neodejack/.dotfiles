@@ -138,3 +138,9 @@ enabled = true
 [mcp_servers.paper]
 enabled = false
 url = "http://127.0.0.1:29979/mcp"
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."build-web-apps@openai-curated"]
+enabled = true

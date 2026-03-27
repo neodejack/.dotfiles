@@ -41,7 +41,7 @@ pull:
     echo "  → $local (git-ignored)"
     if ! diff -q "$before" "$base" > /dev/null 2>&1; then
         git add "$base"
-        git commit -m "Update codex config base" -- "$base"
+        git commit -m "update codex config base" -- "$base"
     fi
 
 # Check if config.toml has diverged from base + local

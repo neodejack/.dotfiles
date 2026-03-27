@@ -33,19 +33,17 @@ AI agent skills are in (`~/.agents`). Skills installed via `npx skills`are both 
 
 ### codex
 
-Codex's `~/.codex/config.toml` mixes host-agnostic settings (model, features, plugins) with host-specific settings (trusted project paths). To avoid committing machine-specific paths, the config is split into two source files:
+Codex uses a split config so machine-specific trusted paths do not get committed:
 
-- `config.base.toml` — **tracked** — shared settings across all machines
-- `config.local.toml` — **git-ignored** — host-specific `[projects.*]` entries
+- `config.base.toml`: tracked shared settings
+- `config.local.toml`: git-ignored local paths
+- `config.toml`: generated file Codex actually reads
 
-Stow only symlinks the generated `config.toml`; the source files are excluded via `.stow-local-ignore`.
+Use:
 
-| Scenario | Command |
-|---|---|
-| Setting up a new machine | Create `codex/.codex/config.local.toml` with your local project paths, then `just codex gen` |
-| After pulling dotfile updates | `just codex gen` to rebuild `config.toml` |
-| Codex changed a shared setting (e.g. model) | `just codex pull` then commit `config.base.toml` |
-| Codex added a new trusted path | `just codex pull` — the path stays in `config.local.toml` (git-ignored) |
+- `just codex gen` to rebuild `config.toml` from `base + local`
+- `just codex pull` to split `config.toml` back into `base + local`
+- `just codex check` to verify they match; this also runs in the `lefthook` pre-commit hook
 
 ### Atuin special case
 

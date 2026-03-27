@@ -24,14 +24,25 @@ pull:
     src="codex/.codex/config.toml"
     base="codex/.codex/config.base.toml"
     local="codex/.codex/config.local.toml"
+    before=$(mktemp)
+    trap 'rm -f "$before"' EXIT
     if [[ ! -f "$src" ]]; then
         echo "Error: $src not found" >&2
         exit 1
+    fi
+    if [[ -f "$base" ]]; then
+        cp "$base" "$before"
+    else
+        : > "$before"
     fi
     bash codex/.repo-tools/codex-config-split.sh "$src" "$base" "$local"
     echo "Split $src"
     echo "  → $base (tracked)"
     echo "  → $local (git-ignored)"
+    if ! diff -q "$before" "$base" > /dev/null 2>&1; then
+        git add "$base"
+        git commit -m "Update codex config base" -- "$base"
+    fi
 
 # Check if config.toml has diverged from base + local
 [script('bash'), no-exit-message]

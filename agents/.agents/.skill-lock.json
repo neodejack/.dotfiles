@@ -90,6 +90,42 @@
       "skillFolderHash": "66bc2843bebc1cff843a6581a54593d95359d9ca",
       "installedAt": "2026-03-26T06:58:15.750Z",
       "updatedAt": "2026-03-26T06:58:15.750Z"
+    },
+    "frontend-skill": {
+      "source": "openai/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openai/plugins.git",
+      "skillPath": "plugins/build-web-apps/skills/frontend-skill/SKILL.md",
+      "skillFolderHash": "2f54cd89c6b5478290ab54e33a773ffbded09655",
+      "installedAt": "2026-03-27T10:07:46.080Z",
+      "updatedAt": "2026-03-27T10:07:46.080Z"
+    },
+    "react-best-practices": {
+      "source": "openai/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openai/plugins.git",
+      "skillPath": "plugins/build-web-apps/skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "5adcf22a1163c8af5825ef292a3b4c96188b421a",
+      "installedAt": "2026-03-27T10:07:46.962Z",
+      "updatedAt": "2026-03-27T10:07:46.962Z"
+    },
+    "shadcn": {
+      "source": "openai/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openai/plugins.git",
+      "skillPath": "plugins/build-web-apps/skills/shadcn-best-practices/SKILL.md",
+      "skillFolderHash": "99b7a12bd3523ba5d76b4bebb0c5b9090c5cd2af",
+      "installedAt": "2026-03-27T10:07:48.275Z",
+      "updatedAt": "2026-03-27T10:07:48.275Z"
+    },
+    "web-design-guidelines": {
+      "source": "openai/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/openai/plugins.git",
+      "skillPath": "plugins/build-web-apps/skills/web-design-guidelines/SKILL.md",
+      "skillFolderHash": "73cabb012012732acb8e1feb77de4fe0498c328e",
+      "installedAt": "2026-03-27T10:07:49.923Z",
+      "updatedAt": "2026-03-27T10:07:49.923Z"
     }
   },
   "dismissed": {

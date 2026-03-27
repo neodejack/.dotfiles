@@ -1,4 +1,5 @@
 \.git
 \.gitignore
+\.repo-tools
 config\.base\.toml
 config\.local\.toml

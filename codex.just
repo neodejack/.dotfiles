@@ -13,12 +13,7 @@ gen:
         echo "Warning: $local not found, generating from base only" >&2
         cp "$base" "$out"
     else
-        awk '
-        FNR==1 && NR>1 { printf "\n"; started=0 }
-        NR==FNR { lines[NR]=$0; last=NR; next }
-        { if (!trimmed) { while (last>0 && lines[last]=="") last--; for (i=1;i<=last;i++) print lines[i]; trimmed=1 }
-          if (!started && $0=="") next; started=1; print }
-        ' "$base" "$local" > "$out"
+        bash codex/.repo-tools/codex-config-render.sh "$base" "$local" > "$out"
     fi
     echo "Generated $out"
 
@@ -33,12 +28,7 @@ pull:
         echo "Error: $src not found" >&2
         exit 1
     fi
-    awk '
-    BEGIN { dest = "base" }
-    /^\[projects\./ { dest = "local"; }
-    /^\[/ && !/^\[projects\./ { dest = "base"; }
-    { print >> (dest == "base" ? "'"$base"'" : "'"$local"'") }
-    ' <(: > "$base") <(: > "$local") "$src"
+    bash codex/.repo-tools/codex-config-split.sh "$src" "$base" "$local"
     echo "Split $src"
     echo "  → $base (tracked)"
     echo "  → $local (git-ignored)"
@@ -57,12 +47,7 @@ check:
     expected=$(mktemp)
     trap 'rm -f "$expected"' EXIT
     if [[ -f "$local" ]]; then
-        awk '
-        FNR==1 && NR>1 { printf "\n"; started=0 }
-        NR==FNR { lines[NR]=$0; last=NR; next }
-        { if (!trimmed) { while (last>0 && lines[last]=="") last--; for (i=1;i<=last;i++) print lines[i]; trimmed=1 }
-          if (!started && $0=="") next; started=1; print }
-        ' "$base" "$local" > "$expected"
+        bash codex/.repo-tools/codex-config-render.sh "$base" "$local" > "$expected"
     else
         cp "$base" "$expected"
     fi

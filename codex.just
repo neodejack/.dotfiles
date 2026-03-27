@@ -13,7 +13,12 @@ gen:
         echo "Warning: $local not found, generating from base only" >&2
         cp "$base" "$out"
     else
-        cat "$base" <(echo) "$local" > "$out"
+        awk '
+        FNR==1 && NR>1 { printf "\n"; started=0 }
+        NR==FNR { lines[NR]=$0; last=NR; next }
+        { if (!trimmed) { while (last>0 && lines[last]=="") last--; for (i=1;i<=last;i++) print lines[i]; trimmed=1 }
+          if (!started && $0=="") next; started=1; print }
+        ' "$base" "$local" > "$out"
     fi
     echo "Generated $out"
 
@@ -37,3 +42,37 @@ pull:
     echo "Split $src"
     echo "  → $base (tracked)"
     echo "  → $local (git-ignored)"
+
+# Check if config.toml has diverged from base + local
+[script('bash'), no-exit-message]
+check:
+    set -euo pipefail
+    base="codex/.codex/config.base.toml"
+    local="codex/.codex/config.local.toml"
+    live="codex/.codex/config.toml"
+    if [[ ! -f "$live" ]]; then
+        echo "Error: $live not found" >&2
+        exit 1
+    fi
+    expected=$(mktemp)
+    trap 'rm -f "$expected"' EXIT
+    if [[ -f "$local" ]]; then
+        awk '
+        FNR==1 && NR>1 { printf "\n"; started=0 }
+        NR==FNR { lines[NR]=$0; last=NR; next }
+        { if (!trimmed) { while (last>0 && lines[last]=="") last--; for (i=1;i<=last;i++) print lines[i]; trimmed=1 }
+          if (!started && $0=="") next; started=1; print }
+        ' "$base" "$local" > "$expected"
+    else
+        cp "$base" "$expected"
+    fi
+    if diff -q "$expected" "$live" > /dev/null 2>&1; then
+        echo "codex config is up to date"
+    else
+        echo "codex config.toml has diverged. Reconcile with:" >&2
+        echo "" >&2
+        echo "  just codex pull" >&2
+        echo "" >&2
+        diff --unified "$expected" "$live" >&2 || true
+        exit 1
+    fi

@@ -1,5 +1,7 @@
 set shell := ["bash", "-uc"]
 
+mod codex 'codex.just'
+
 exclude := ".git"
 
 # List available recipes
@@ -17,7 +19,7 @@ test:
 
 # Stow all packages into ~
 [script]
-apply:
+apply: (codex::gen)
     set -euo pipefail
     dirs=$(find . -maxdepth 1 -mindepth 1 -type d ! -name '{{exclude}}' | sed 's|^\./||' | sort | tr '\n' ' ')
     echo "Packages: $dirs"
@@ -26,3 +28,4 @@ apply:
 # Unstow a package from ~
 unstow pkg:
     stow -Dvt ~ {{pkg}}
+

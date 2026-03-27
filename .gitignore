@@ -10,3 +10,6 @@ data/
 work.zsh 
 
 lazy-lock.json
+
+codex/.codex/config.toml
+codex/.codex/config.local.toml

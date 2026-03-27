@@ -1,0 +1,4 @@
+\.git
+\.gitignore
+config\.base\.toml
+config\.local\.toml

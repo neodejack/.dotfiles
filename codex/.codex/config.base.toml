@@ -61,6 +61,10 @@ enabled = false
 command = "npx"
 args = ["chrome-devtools-mcp@latest"]
 
+[mcp_servers.truewatch-server]
+url = "https://us1-toby-ai.truewatch.com/toby_ai_mcp/mcp"
+env_http_headers = { Authorization = "TRUEWATCH_AUTH" }
+enabled = false
+
 [plugins."github@openai-curated"]
 enabled = true
-

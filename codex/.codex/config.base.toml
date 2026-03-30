@@ -9,7 +9,6 @@ sandbox_mode = "workspace-write"
 personality = "pragmatic"
 suppress_unstable_features_warning = true
 approvals_reviewer = "guardian_subagent"
-service_tier = "fast"
 
 [sandbox_workspace_write]
 exclude_tmpdir_env_var = false                                     # Allow $TMPDIR
@@ -68,3 +67,4 @@ enabled = false
 
 [plugins."github@openai-curated"]
 enabled = true
+

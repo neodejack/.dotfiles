@@ -1,15 +1,6 @@
 {
   "version": 3,
   "skills": {
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "56959a2ddd833553648e4a884c344acd52e89434",
-      "installedAt": "2026-02-25T08:45:06.932Z",
-      "updatedAt": "2026-02-25T08:45:06.932Z"
-    },
     "dogfood": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",

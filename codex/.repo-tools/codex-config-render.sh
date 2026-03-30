@@ -41,6 +41,10 @@ END {
         print base_lines[i]
     }
 
+    if (base_count > 0 && local_start <= local_count) {
+        print ""
+    }
+
     for (i = local_start; i <= local_count; i++) {
         print local_lines[i]
     }

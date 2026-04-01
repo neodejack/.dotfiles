@@ -179,6 +179,9 @@ EOF
     local output
     output=$(run_just "$dir" codex check 2>&1 || true)
     assert_contains "$output" "needs manual review"
+    assert_contains "$output" "Shared config diff"
+    assert_contains "$output" 'service_tier = "default"'
+    assert_contains "$output" 'service_tier = "fast"'
 }
 
 test_base_ahead_suggests_gen

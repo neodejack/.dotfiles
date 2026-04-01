@@ -224,6 +224,18 @@ check:
             echo "codex config has conflicting drift and needs manual review" >&2
             echo "shared status: $shared_status" >&2
             echo "local status: $local_status" >&2
+            if [[ "$shared_status" == "conflict" ]]; then
+                tmp_base=$(mktemp)
+                tmp_local=$(mktemp)
+                trap 'rm -f "$tmp_base" "$tmp_local"' EXIT
+                bash codex/.repo-tools/codex-config-split.sh "$live" "$tmp_base" "$tmp_local"
+                echo "" >&2
+                echo "Shared config diff (config.base.toml vs shared part of config.toml):" >&2
+                diff --unified "$base" "$tmp_base" >&2 || true
+                echo "" >&2
+                echo "Keep split config as source of truth: just codex gen" >&2
+                echo "Keep or merge live shared changes: edit $base, then run just codex gen" >&2
+            fi
             exit 1
             ;;
     esac

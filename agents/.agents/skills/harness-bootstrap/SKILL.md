@@ -34,6 +34,7 @@ Prepare an existing repository for mixed human and agent coding. Audit the repo,
      - how to navigate `docs/`
      - what files the agent should read before editing
      - project-specific constraints that are not obvious from code
+   - In `AGENTS.md`, describe `docs/` as following a Progressive Disclosure design principle: keep the root guide concise, reference deeper docs explicitly, and say when each linked file should be read so readers know the docs exist and when they matter.
    - In the docs navigation guidance, explain what each document is for and when to read it. At minimum cover:
      - `docs/ARCHITECTURE.md` for code structure, boundaries, and "where does X live?"
      - `docs/PLANS.md` for the ExecPlan format and rules

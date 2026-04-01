@@ -69,9 +69,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/neodejack/skills.git",
       "skillPath": "skills/harness-bootstrap/SKILL.md",
-      "skillFolderHash": "a1e6cb6b8c7f00443d011932c8c5761a7fceea12",
+      "skillFolderHash": "aceac865a1ddc7a6a471623e7154efc1f73172ec",
       "installedAt": "2026-03-20T08:13:43.921Z",
-      "updatedAt": "2026-03-20T08:13:43.921Z"
+      "updatedAt": "2026-03-31T06:14:14.265Z"
     },
     "create-architecture-md": {
       "source": "neodejack/skills",

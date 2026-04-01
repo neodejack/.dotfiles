@@ -1,3 +1,8 @@
+# List available recipes
+[default]
+list:
+    @just --list codex
+
 # Generate config.toml from base + local
 [script('bash')]
 gen:

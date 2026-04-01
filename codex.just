@@ -17,32 +17,158 @@ gen:
     fi
     echo "Generated $out"
 
-# Split config.toml back into base (tracked) + local (git-ignored)
+# Import local-only settings from config.toml into config.local.toml, then regenerate
 [script('bash')]
 pull:
     set -euo pipefail
-    src="codex/.codex/config.toml"
     base="codex/.codex/config.base.toml"
     local="codex/.codex/config.local.toml"
-    before=$(mktemp)
-    trap 'rm -f "$before"' EXIT
+    src="codex/.codex/config.toml"
+    tmp_base=$(mktemp)
+    tmp_local=$(mktemp)
+    trap 'rm -f "$tmp_base" "$tmp_local"' EXIT
     if [[ ! -f "$src" ]]; then
         echo "Error: $src not found" >&2
         exit 1
     fi
-    if [[ -f "$base" ]]; then
-        cp "$base" "$before"
+    eval "$(codex/.repo-tools/codex-config-analyze.py "$base" "$local" "$src")"
+    case "$action" in
+        none)
+            echo "codex config is already up to date"
+            exit 0
+            ;;
+        pull)
+            ;;
+        gen)
+            echo "config.toml should be regenerated from config.base.toml + config.local.toml" >&2
+            echo "Run: just codex gen" >&2
+            exit 1
+            ;;
+        promote)
+            echo "config.toml contains shared setting changes. Pull will discard them." >&2
+            echo "Run: just codex promote" >&2
+            exit 1
+            ;;
+        adopt)
+            echo "config.toml contains both local and shared live changes." >&2
+            echo "Run: just codex adopt" >&2
+            exit 1
+            ;;
+        *)
+            echo "config.toml has conflicting changes. Resolve manually." >&2
+            exit 1
+            ;;
+    esac
+    bash codex/.repo-tools/codex-config-split.sh "$src" "$tmp_base" "$tmp_local"
+    if [[ -f "$tmp_local" ]]; then
+        cp "$tmp_local" "$local"
     else
-        : > "$before"
+        : > "$local"
     fi
-    bash codex/.repo-tools/codex-config-split.sh "$src" "$base" "$local"
-    echo "Split $src"
+    bash codex/.repo-tools/codex-config-render.sh "$base" "$local" > "$src"
+    echo "Imported local settings from $src"
+    echo "  → $local (git-ignored)"
+    echo "Regenerated $src from split config"
+
+# Promote shared settings from config.toml into config.base.toml, then regenerate
+[script('bash')]
+promote:
+    set -euo pipefail
+    base="codex/.codex/config.base.toml"
+    local="codex/.codex/config.local.toml"
+    src="codex/.codex/config.toml"
+    tmp_base=$(mktemp)
+    tmp_local=$(mktemp)
+    trap 'rm -f "$tmp_base" "$tmp_local"' EXIT
+    if [[ ! -f "$src" ]]; then
+        echo "Error: $src not found" >&2
+        exit 1
+    fi
+    eval "$(codex/.repo-tools/codex-config-analyze.py "$base" "$local" "$src")"
+    case "$action" in
+        none)
+            echo "codex config is already up to date"
+            exit 0
+            ;;
+        promote)
+            ;;
+        gen)
+            echo "config.base.toml is ahead of config.toml. Promote will overwrite it." >&2
+            echo "Run: just codex gen" >&2
+            exit 1
+            ;;
+        pull)
+            echo "config.toml contains local-only changes. Promote will discard them." >&2
+            echo "Run: just codex pull" >&2
+            exit 1
+            ;;
+        adopt)
+            echo "config.toml contains both local and shared live changes." >&2
+            echo "Run: just codex adopt" >&2
+            exit 1
+            ;;
+        *)
+            echo "config.toml has conflicting shared changes. Resolve manually." >&2
+            exit 1
+            ;;
+    esac
+    bash codex/.repo-tools/codex-config-split.sh "$src" "$tmp_base" "$tmp_local"
+    cp "$tmp_base" "$base"
+    bash codex/.repo-tools/codex-config-render.sh "$base" "$local" > "$src"
+    echo "Promoted shared settings from $src"
+    echo "  → $base (tracked)"
+    echo "Regenerated $src from split config"
+
+# Adopt both shared and local live changes from config.toml into split config, then regenerate
+[script('bash')]
+adopt:
+    set -euo pipefail
+    base="codex/.codex/config.base.toml"
+    local="codex/.codex/config.local.toml"
+    src="codex/.codex/config.toml"
+    tmp_base=$(mktemp)
+    tmp_local=$(mktemp)
+    trap 'rm -f "$tmp_base" "$tmp_local"' EXIT
+    if [[ ! -f "$src" ]]; then
+        echo "Error: $src not found" >&2
+        exit 1
+    fi
+    eval "$(codex/.repo-tools/codex-config-analyze.py "$base" "$local" "$src")"
+    case "$action" in
+        none)
+            echo "codex config is already up to date"
+            exit 0
+            ;;
+        adopt)
+            ;;
+        pull)
+            echo "config.toml only has local live changes." >&2
+            echo "Run: just codex pull" >&2
+            exit 1
+            ;;
+        promote)
+            echo "config.toml only has shared live changes." >&2
+            echo "Run: just codex promote" >&2
+            exit 1
+            ;;
+        gen)
+            echo "config.toml should be regenerated from the split config." >&2
+            echo "Run: just codex gen" >&2
+            exit 1
+            ;;
+        *)
+            echo "config.toml has conflicting changes. Resolve manually." >&2
+            exit 1
+            ;;
+    esac
+    bash codex/.repo-tools/codex-config-split.sh "$src" "$tmp_base" "$tmp_local"
+    cp "$tmp_base" "$base"
+    cp "$tmp_local" "$local"
+    bash codex/.repo-tools/codex-config-render.sh "$base" "$local" > "$src"
+    echo "Adopted shared and local settings from $src"
     echo "  → $base (tracked)"
     echo "  → $local (git-ignored)"
-    if ! diff -q "$before" "$base" > /dev/null 2>&1; then
-        git add "$base"
-        git commit -m "update codex config base" -- "$base"
-    fi
+    echo "Regenerated $src from split config"
 
 # Check if config.toml has diverged from base + local
 [script('bash'), no-exit-message]
@@ -55,20 +181,44 @@ check:
         echo "Error: $live not found" >&2
         exit 1
     fi
-    expected=$(mktemp)
-    trap 'rm -f "$expected"' EXIT
-    if [[ -f "$local" ]]; then
-        bash codex/.repo-tools/codex-config-render.sh "$base" "$local" > "$expected"
-    else
-        cp "$base" "$expected"
-    fi
-    if diff -q "$expected" "$live" > /dev/null 2>&1; then
-        echo "codex config is up to date"
-    else
-        echo "codex config.toml has diverged. Reconcile with:" >&2
-        echo "" >&2
-        echo "  just codex pull" >&2
-        echo "" >&2
-        diff --unified "$expected" "$live" >&2 || true
-        exit 1
-    fi
+    eval "$(codex/.repo-tools/codex-config-analyze.py "$base" "$local" "$live")"
+    case "$action" in
+        none)
+            echo "codex config is up to date"
+            ;;
+        gen)
+            if [[ "$shared_status" == "file_extends_live" || "$local_status" == "file_extends_live" ]]; then
+                echo "config.base.toml and/or config.local.toml are ahead of config.toml" >&2
+            fi
+            echo "Run: just codex gen" >&2
+            exit 1
+            ;;
+        pull)
+            if [[ "$shared_status" == "file_extends_live" ]]; then
+                echo "config.base.toml is ahead, and config.toml also contains local project updates" >&2
+                echo "Run: just codex pull" >&2
+                exit 1
+            fi
+            echo "config.toml contains local project updates not yet stored in config.local.toml" >&2
+            echo "Run: just codex pull" >&2
+            exit 1
+            ;;
+        promote)
+            echo "config.toml contains shared setting changes not yet stored in config.base.toml" >&2
+            echo "Run: just codex promote to adopt them" >&2
+            echo "Run: just codex gen to discard them" >&2
+            exit 1
+            ;;
+        adopt)
+            echo "config.toml contains both local project updates and shared setting changes" >&2
+            echo "Run: just codex adopt to store both" >&2
+            echo "Run: just codex gen to discard the live-only changes" >&2
+            exit 1
+            ;;
+        *)
+            echo "codex config has conflicting drift and needs manual review" >&2
+            echo "shared status: $shared_status" >&2
+            echo "local status: $local_status" >&2
+            exit 1
+            ;;
+    esac

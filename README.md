@@ -39,11 +39,26 @@ Codex uses a split config so machine-specific trusted paths do not get committed
 - `config.local.toml`: git-ignored local paths
 - `config.toml`: generated file Codex actually reads
 
+Ownership is explicit:
+
+- `config.base.toml` is the source of truth for shared settings
+- `config.local.toml` is the source of truth for local machine state such as `[projects.*]`
+- `config.toml` may accumulate live edits made by Codex itself, but those are only adopted when you ask for it
+
 Use:
 
 - `just codex gen` to rebuild `config.toml` from `base + local`
-- `just codex pull` to split `config.toml` back into `base + local`
-- `just codex check` to verify they match; this also runs in the `lefthook` pre-commit hook
+- `just codex pull` to import local-only live changes from `config.toml` into `config.local.toml`, then regenerate
+- `just codex promote` to adopt shared live changes from `config.toml` into `config.base.toml`, then regenerate
+- `just codex adopt` to adopt both shared and local live changes when `config.toml` has both
+- `just codex check` to classify drift and tell you which command to run; this also runs in the `lefthook` pre-commit hook
+
+Typical cases:
+
+- you hand-edit `config.base.toml`: run `just codex gen`
+- Codex adds a trusted project to `config.toml`: run `just codex pull`
+- Codex adds a shared setting such as `service_tier = "fast"` to `config.toml`: run `just codex promote`
+- `config.toml` has both a new trusted project and a new shared setting: run `just codex adopt`
 
 ### Atuin special case
 

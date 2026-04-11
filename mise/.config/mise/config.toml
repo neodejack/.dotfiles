@@ -9,6 +9,7 @@ just = "latest"
 pnpm = "latest"
 "npm:agent-browser" = "latest"
 docker-compose = "5.1.1"
+glow = "2.1.2"
 
 [settings]
 python.uv_venv_auto = true

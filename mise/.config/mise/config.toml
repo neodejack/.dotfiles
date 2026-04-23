@@ -10,6 +10,7 @@ pnpm = "latest"
 "npm:agent-browser" = "latest"
 docker-compose = "5.1.1"
 glow = "2.1.2"
+kustomize = "5.8.1"
 
 [settings]
 python.uv_venv_auto = true

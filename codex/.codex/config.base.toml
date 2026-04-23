@@ -3,6 +3,12 @@ hide_agent_reasoning = false
 model = "gpt-5.4"
 model_reasoning_effort = "high"
 web_search = "live"
+service_tier = "fast"
+
+notify = [
+  "/Users/zilizhang/.codex/plugins/cache/openai-bundled/computer-use/1.0.755/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
+  "turn-ended",
+]
 
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
@@ -38,6 +44,8 @@ status_line = [
   "current-dir",
   "git-branch",
   "total-output-tokens",
+  "five-hour-limit",
+  "weekly-limit",
 ]
 
 [notice]
@@ -67,3 +75,11 @@ enabled = false
 
 [plugins."github@openai-curated"]
 enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[marketplaces.openai-bundled]
+last_updated = "2026-04-23T04:43:57Z"
+source_type = "local"
+source = "/Users/zilizhang/.codex/.tmp/bundled-marketplaces/openai-bundled"

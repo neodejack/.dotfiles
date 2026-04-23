@@ -12,10 +12,6 @@ return {
     },
   },
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    enabled = false,
-  },
-  {
     "stevearc/conform.nvim",
     optional = true,
     opts = {

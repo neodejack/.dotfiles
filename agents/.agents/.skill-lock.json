@@ -117,6 +117,25 @@
       "skillFolderHash": "73cabb012012732acb8e1feb77de4fe0498c328e",
       "installedAt": "2026-03-27T10:07:49.923Z",
       "updatedAt": "2026-03-27T10:07:49.923Z"
+    },
+    "xurl": {
+      "source": "Xuanwo/xurl",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Xuanwo/xurl.git",
+      "skillPath": "skills/xurl/SKILL.md",
+      "skillFolderHash": "77477f1d490b0f73b62df97a717c3b38b01dbc74",
+      "installedAt": "2026-04-24T06:36:58.685Z",
+      "updatedAt": "2026-04-24T06:36:58.685Z"
+    },
+    "planning-and-task-breakdown": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/addyosmani/agent-skills.git",
+      "ref": "main",
+      "skillPath": "skills/planning-and-task-breakdown/SKILL.md",
+      "skillFolderHash": "7122f9fa302c8e879fe7bd4e8ca401ffb7b2aec7",
+      "installedAt": "2026-04-27T09:57:41.035Z",
+      "updatedAt": "2026-04-27T09:57:41.035Z"
     }
   },
   "dismissed": {
@@ -129,6 +148,7 @@
     "codex",
     "cursor",
     "deepagents",
+    "firebender",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",

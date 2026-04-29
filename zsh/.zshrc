@@ -2,14 +2,6 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
   zmodload zsh/zprof
 fi
 
-autoload -Uz compinit
-# Only regenerate .zcompdump once per day
-if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
-
 ZSH_CONFIG_DIR="$HOME/.zsh"
 # Load core modules
 for module in "$ZSH_CONFIG_DIR"/*.zsh; do

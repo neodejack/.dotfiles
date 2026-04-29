@@ -1,4 +1,0 @@
-pre-commit:
-  commands:
-    codex-check:
-      run: just codex check

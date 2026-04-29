@@ -1,7 +1,5 @@
 set shell := ["bash", "-uc"]
 
-mod codex 'codex.just'
-
 exclude := ".git"
 
 # List available recipes
@@ -19,7 +17,7 @@ test:
 
 # Stow all packages into ~
 [script]
-apply: (codex::gen)
+apply:
     set -euo pipefail
     dirs=$(find . -maxdepth 1 -mindepth 1 -type d ! -name '{{exclude}}' | sed 's|^\./||' | sort | tr '\n' ' ')
     echo "Packages: $dirs"

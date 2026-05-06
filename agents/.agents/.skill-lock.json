@@ -51,9 +51,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/neodejack/skills.git",
       "skillPath": "skills/create-execplan/SKILL.md",
-      "skillFolderHash": "3f8cca6d1d511cf2b94dabb57a115d458696aae3",
+      "skillFolderHash": "c41d733aa4b7c15d03165d064643d622406553bb",
       "installedAt": "2026-03-20T08:13:42.866Z",
-      "updatedAt": "2026-03-20T08:13:42.866Z"
+      "updatedAt": "2026-04-30T07:34:32.874Z"
     },
     "create-product-specs": {
       "source": "neodejack/skills",
@@ -136,6 +136,24 @@
       "skillFolderHash": "7122f9fa302c8e879fe7bd4e8ca401ffb7b2aec7",
       "installedAt": "2026-04-27T09:57:41.035Z",
       "updatedAt": "2026-04-27T09:57:41.035Z"
+    },
+    "build-from-exec-plan-hitl": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/build-from-exec-plan-hitl/SKILL.md",
+      "skillFolderHash": "cb7cf606ee9ab7a09acedba3b3a10136e7f61d7c",
+      "installedAt": "2026-05-05T06:10:47.636Z",
+      "updatedAt": "2026-05-05T06:10:47.636Z"
+    },
+    "create-execplan-with-slicing-method": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/create-execplan-with-slicing-method/SKILL.md",
+      "skillFolderHash": "aba757462c50cb588dff6271f275bd233da60a69",
+      "installedAt": "2026-05-05T06:10:47.645Z",
+      "updatedAt": "2026-05-05T06:10:47.645Z"
     }
   },
   "dismissed": {
@@ -148,6 +166,7 @@
     "codex",
     "cursor",
     "deepagents",
+    "dexto",
     "firebender",
     "gemini-cli",
     "github-copilot",

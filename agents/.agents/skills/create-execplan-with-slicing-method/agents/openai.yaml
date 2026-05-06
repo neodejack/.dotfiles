@@ -1,0 +1,6 @@
+interface:
+  display_name: "Create ExecPlan With a good slice"
+  short_description: "Draft repository ExecPlans, incorperating a good slicing method"
+  default_prompt: "Use $create-execplan-with-slicing-method to create an ExecPlan for <purpose> based on the bundled PLANS.md guidance."
+policy:
+  allow_implicit_invocation: false

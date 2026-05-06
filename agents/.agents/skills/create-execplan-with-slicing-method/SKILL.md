@@ -1,6 +1,6 @@
 ---
-name: create-execplan
-description: "Create a repository-local ExecPlan from an explicitly requested purpose using the bundled PLANS.md guidance. Use only when the user explicitly invokes this skill with phrasing like `use create-execplan for ...`, `use $create-execplan to ...`, or `use the create-execplan skill ...`; do not use implicitly for general planning, task breakdown, product specs, or implementation requests."
+name: create-execplan-with-slicing-method
+description: "Create a repository-local ExecPlan from an explicitly requested purpose using the bundled PLANS.md guidance, with explicit dependency-graph and vertical-slicing rules applied to milestone decomposition. Use only when the user explicitly invokes this skill with phrasing like `use create-execplan-with-slicing-method for ...` or `use the create-execplan-with-slicing-method skill ...`; do not use implicitly for general planning, task breakdown, product specs, or implementation requests."
 ---
 
 # Create ExecPlan

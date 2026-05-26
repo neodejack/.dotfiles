@@ -1,14 +1,14 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "86d28e4"
-hash = "e01006bfb38951ea89031bd918b20dbb"
+rev = "be524fb"
+hash = "88e56a64b7ce7c4314427452343fef17"
 
 [[plugin.deps]]
 use = "aresler/path-from-root"
-rev = "22b6fb5"
-hash = "98cdb2e889b73c4d4a8945f166486605"
+rev = "3daa62f"
+hash = "f3375d21ceb5f49d2d50ad199262006a"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "d04a298"
-hash = "288a0dedd5d13b28605cf82c05326dcd"
+rev = "36c49ac"
+hash = "7dfe41c9c3d9be76da8a844263d0bbed"

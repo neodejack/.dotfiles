@@ -26,3 +26,4 @@ alias c_low="codex -c model_reasoning_effort=low"
 alias c_paper="codex -c mcp_servers.paper.enabled=true --yolo"
 alias c_chrome="codex -c mcp_servers.chrome-devtools=true --yolo"
 
+alias cc="claude"

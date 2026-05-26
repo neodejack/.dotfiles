@@ -181,6 +181,9 @@ run = "move-node-to-workspace work_com"
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
 run = "move-node-to-workspace work_com"
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = "move-node-to-workspace work_com"
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
@@ -220,6 +223,9 @@ if.app-id = 'com.conductor.app'
 run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]
 if.app-id = 'com.openai.codex'
+run = "move-node-to-workspace ai_dev"
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
 run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]
 if.app-name-regex-substring = 'Paper'
@@ -263,7 +269,7 @@ if.app-id = 'com.spotify.client'
 run = "move-node-to-workspace default"
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace obsidian"
 [[on-window-detected]]
 if.app-id = 'com.apple.FaceTime'
 run = ["layout floating", "move-node-to-workspace default"]

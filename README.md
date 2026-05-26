@@ -14,15 +14,17 @@ brew bundle
 
 then run stow
 
+since `just` is managed by `mise`, and the `mise` shell integration only activates after the `zsh` package is stowed. Until then, run `just` via `mise exec --`:
+
 ```bash
 # dry run first (optional)
-just test
+mise exec -- just test
 
 # then apply
-just apply
+mise exec -- just apply
 
 # unstow
-just unstow <pkg>
+mise exec -- just unstow <pkg>
 ```
 
 - Unstow with `stow -Dvt ~ <pkg>`.

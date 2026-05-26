@@ -19,3 +19,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # Antigravity
 export PATH="/Users/zili/.antigravity/antigravity/bin:$PATH"
+
+# gcloud extra stuff
+export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"

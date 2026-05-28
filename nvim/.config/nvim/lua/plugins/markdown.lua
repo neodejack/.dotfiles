@@ -17,6 +17,7 @@ return {
     opts = {
       formatters_by_ft = {
         yaml = { "yamlfmt" },
+        python = { "ruff_fix", "ruff_organize_imports" },
       },
       formatters = {
         prettier = {

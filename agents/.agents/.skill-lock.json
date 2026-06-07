@@ -1,24 +1,6 @@
 {
   "version": 3,
   "skills": {
-    "dogfood": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/dogfood/SKILL.md",
-      "skillFolderHash": "ad41914e08b955060a80801619d6a36206187e9e",
-      "installedAt": "2026-02-25T08:45:06.954Z",
-      "updatedAt": "2026-02-25T08:45:06.954Z"
-    },
-    "find-skills": {
-      "source": "vercel-labs/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/skills.git",
-      "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
-      "installedAt": "2026-02-25T08:45:14.468Z",
-      "updatedAt": "2026-02-25T08:45:14.468Z"
-    },
     "writing-justfiles": {
       "source": "neodejack/skills",
       "sourceType": "github",
@@ -118,24 +100,14 @@
       "installedAt": "2026-03-27T10:07:49.923Z",
       "updatedAt": "2026-03-27T10:07:49.923Z"
     },
-    "xurl": {
-      "source": "Xuanwo/xurl",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/Xuanwo/xurl.git",
-      "skillPath": "skills/xurl/SKILL.md",
-      "skillFolderHash": "77477f1d490b0f73b62df97a717c3b38b01dbc74",
-      "installedAt": "2026-04-24T06:36:58.685Z",
-      "updatedAt": "2026-04-24T06:36:58.685Z"
-    },
     "planning-and-task-breakdown": {
       "source": "addyosmani/agent-skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/addyosmani/agent-skills.git",
-      "ref": "main",
       "skillPath": "skills/planning-and-task-breakdown/SKILL.md",
       "skillFolderHash": "7122f9fa302c8e879fe7bd4e8ca401ffb7b2aec7",
       "installedAt": "2026-04-27T09:57:41.035Z",
-      "updatedAt": "2026-04-27T09:57:41.035Z"
+      "updatedAt": "2026-05-29T09:00:14.780Z"
     },
     "build-from-exec-plan-hitl": {
       "source": "neodejack/skills",
@@ -172,6 +144,8 @@
     "github-copilot",
     "kimi-cli",
     "opencode",
-    "warp"
+    "warp",
+    "zed",
+    "claude-code"
   ]
 }

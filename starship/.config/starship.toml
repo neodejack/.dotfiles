@@ -46,4 +46,3 @@ style = "blue"
 disabled = false
 symbol = "k◼ "
 format = '[$symbol$context (⸢$namespace⸥)]($style)'
-detect_env_vars = ["KUBECONFIG"]

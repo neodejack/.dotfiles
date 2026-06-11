@@ -27,3 +27,6 @@ alias c_paper="codex -c mcp_servers.paper.enabled=true --yolo"
 alias c_chrome="codex -c mcp_servers.chrome-devtools=true --yolo"
 
 alias cc="claude"
+
+# wezterm features
+alias tab="wezterm cli set-tab-title"

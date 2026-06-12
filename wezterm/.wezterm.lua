@@ -33,6 +33,8 @@ config.colors = {
 	visual_bell = "#717171",
 }
 
+config.notification_handling = "SuppressFromFocusedPane"
+
 -- color scheme shenanigans
 config.color_schemes = {
 	["pantone2025"] = {

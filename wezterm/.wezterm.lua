@@ -190,6 +190,11 @@ config.keys = {
 		mods = "SUPER",
 		action = wezterm.action.CloseCurrentPane({ confirm = true }),
 	},
+	{
+		key = "d",
+		mods = "SUPER",
+		action = wezterm.action.CloseCurrentPane({ confirm = false }),
+	},
 	-- tab bar stuff
 	{
 		key = "Tab",
@@ -202,6 +207,9 @@ config.keys = {
 	{ key = "RightArrow", mods = "ALT", action = act.MoveTabRelative(1) },
 	-- copy mode to ctrl-v
 	{ key = "c", mods = "ALT", action = wezterm.action.ActivateCopyMode },
+	-- pane zoom (same as default ctrl+shift+z)
+	{ key = "z", mods = "ALT|SHIFT", action = act.TogglePaneZoomState },
+	{ key = "z", mods = "SUPER", action = act.TogglePaneZoomState },
 	-- font size | zoom
 	{ key = "]", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 	{ key = "[", mods = "SUPER", action = wezterm.action.DecreaseFontSize },

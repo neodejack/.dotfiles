@@ -19,6 +19,9 @@ config.use_fancy_tab_bar = false
 config.window_background_opacity = 0.95
 config.text_background_opacity = 0.95
 config.macos_window_background_blur = 5
+-- Treat Option as a real modifier (Meta) instead of composing special chars
+config.send_composed_key_when_left_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = false
 config.font_size = 18
 config.line_height = 1.1
 config.tab_max_width = 16

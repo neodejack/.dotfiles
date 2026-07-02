@@ -126,6 +126,16 @@
       "skillFolderHash": "aba757462c50cb588dff6271f275bd233da60a69",
       "installedAt": "2026-05-05T06:10:47.645Z",
       "updatedAt": "2026-05-05T06:10:47.645Z"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "skillFolderHash": "ab318c66a36253e872b5d0bd271b3df8f6ef816f",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-06-30T09:40:28.508Z",
+      "updatedAt": "2026-06-30T09:40:28.508Z"
     }
   },
   "dismissed": {
@@ -134,15 +144,14 @@
   "lastSelectedAgents": [
     "amp",
     "antigravity",
+    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
     "deepagents",
-    "dexto",
-    "firebender",
     "gemini-cli",
     "github-copilot",
-    "kimi-cli",
+    "kimi-code-cli",
     "opencode",
     "warp",
     "zed",

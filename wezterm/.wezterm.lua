@@ -198,6 +198,13 @@ config.keys = {
 		mods = "SUPER",
 		action = wezterm.action.CloseCurrentPane({ confirm = false }),
 	},
+	{
+		key = "T",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action_callback(function(window, pane)
+			pane:move_to_new_tab()
+		end),
+	},
 	-- tab bar stuff
 	{
 		key = "Tab",

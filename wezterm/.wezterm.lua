@@ -196,7 +196,7 @@ config.keys = {
 	{
 		key = "d",
 		mods = "SUPER",
-		action = wezterm.action.CloseCurrentPane({ confirm = false }),
+		action = act.DisableDefaultAssignment,
 	},
 	{
 		key = "T",

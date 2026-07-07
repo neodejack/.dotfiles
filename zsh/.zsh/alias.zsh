@@ -1,6 +1,10 @@
 alias zshc="nvim ~/.zshrc"
 alias ll="ls -l"
 
+rp() {
+  realpath "$@" | tee >(pbcopy)
+}
+
 # elixir
 alias ex="elixir"
 alias exdoc="mix hex.docs offline elixir"

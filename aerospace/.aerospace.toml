@@ -229,6 +229,10 @@ if.app-id = 'com.openai.codex'
 if.window-title-regex-substring = 'Codex'
 run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]
+if.app-id = 'com.openai.codex'
+if.window-title-regex-substring = 'ChatGPT'
+run = "move-node-to-workspace ai_dev"
+[[on-window-detected]]
 if.app-name-regex-substring = 'Codex'
 if.window-title-regex-substring = 'Dictation'
 run = ['layout floating']

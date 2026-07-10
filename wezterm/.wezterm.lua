@@ -223,10 +223,9 @@ config.keys = {
 	-- font size | zoom
 	{ key = "]", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
 	{ key = "[", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
-	-- backward-word
-	{ key = "b", mods = "CTRL", action = act.SendString("\x1bb") },
-	-- forward-word
-	{ key = "f", mods = "CTRL", action = act.SendString("\x1bf") },
+	-- backward/forward word
+	{ key = "b", mods = "CTRL", action = act.SendKey({ key = "LeftArrow", mods = "CTRL" }) },
+	{ key = "f", mods = "CTRL", action = act.SendKey({ key = "RightArrow", mods = "CTRL" }) },
 
 	-- Attach to muxer
 	{

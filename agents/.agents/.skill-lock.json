@@ -136,6 +136,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-06-30T09:40:28.508Z",
       "updatedAt": "2026-06-30T09:40:28.508Z"
+    },
+    "agents-md": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/agents-md/SKILL.md",
+      "skillFolderHash": "115af25b928ffd040cd36fbff6221ea79b50f81b",
+      "installedAt": "2026-07-08T04:04:19.981Z",
+      "updatedAt": "2026-07-09T08:27:56.612Z"
     }
   },
   "dismissed": {

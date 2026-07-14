@@ -195,8 +195,7 @@ run = "move-node-to-workspace figma"
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
-# run = ["layout floating", "move-node-to-workspace terminal"]
-run = ["layout floating", "move-node-to-workspace terminal"]
+run = "move-node-to-workspace terminal"
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'

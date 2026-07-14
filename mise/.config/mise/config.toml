@@ -12,6 +12,7 @@ glow = "2.1.2"
 kustomize = "5.8.1"
 jj = "0.40.0"
 ruby = "latest"
+"npm:executor" = "latest"
 
 [settings]
 python.uv_venv_auto = "create|source"

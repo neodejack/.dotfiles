@@ -256,6 +256,10 @@ run = "move-node-to-workspace read"
 if.app-id = 'com.ableton.live'
 run = "move-node-to-workspace live"
 
+[[on-window-detected]]
+if.app-id = 'com.ikmultimedia.AmpliTube5'
+run = "layout floating"
+
 ## default apps to go to default workspace
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'

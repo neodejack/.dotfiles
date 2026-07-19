@@ -1,6 +1,6 @@
 [tools]
 erlang = '28.3.1'
-elixir = "1.20.0-rc.1-otp-28"
+elixir = "1.20.2-otp-28"
 node = "24.9.0"
 python = "3.14.2"
 go = "1.25"
@@ -10,7 +10,7 @@ pnpm = "latest"
 docker-compose = "5.1.1"
 glow = "2.1.2"
 kustomize = "5.8.1"
-jj = "0.40.0"
+jj = "latest"
 ruby = "latest"
 "npm:executor" = "latest"
 

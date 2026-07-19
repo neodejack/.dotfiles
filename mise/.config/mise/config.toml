@@ -15,6 +15,8 @@ ruby = "latest"
 "npm:executor" = "latest"
 "npm:agent-browser" = "latest"
 crane = "latest"
+"ubi:ogulcancelik/herdr" = "latest"
+"npm:@earendil-works/pi-coding-agent" = "latest"
 
 [settings]
 python.uv_venv_auto = "create|source"

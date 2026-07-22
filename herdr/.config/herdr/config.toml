@@ -1,7 +1,7 @@
 onboarding = false
 [keys]
 prefix = "ctrl+x"
-new_tab = "prefix+t"
+new_workspace = "prefix+t"
 previous_agent = "prefix+p"
 next_agent = "prefix+n"
 previous_tab = ""

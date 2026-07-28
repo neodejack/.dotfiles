@@ -10,6 +10,9 @@ for module in "$ZSH_CONFIG_DIR"/*.zsh; do
   fi
 done
 
+# Keep child shells in the same Emacs keymap even when EDITOR=nvim is inherited.
+bindkey -e
+
 # Enable Ctrl-g to edit command line in $EDITOR
 autoload -U edit-command-line
 zle -N edit-command-line

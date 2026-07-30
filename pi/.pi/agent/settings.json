@@ -3,9 +3,27 @@
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
   "packages": [
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension",
+    "npm:pi-mcp-adapter",
+    {
+      "source": "npm:mitsupi@1.6.0",
+      "extensions": [
+        "extensions/answer.ts",
+        "extensions/context.ts",
+        "extensions/multi-edit.ts"
+      ],
+      "skills": [
+        "skills/librarian",
+        "skills/mermaid"
+      ],
+      "themes": [],
+      "prompts": []
+    },
+    "npm:pi-web-access",
+    "npm:@yusukeshib/pi-stash"
   ],
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.83.0",
   "theme": "dark",
-  "treeFilterMode": "no-tools"
+  "treeFilterMode": "no-tools",
+  "hideThinkingBlock": true
 }

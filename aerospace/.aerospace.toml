@@ -206,6 +206,9 @@ run = ["layout floating", "move-node-to-workspace terminal"]
 if.app-id = 'com.google.Chrome.app.bpgpkfmeagdpdcenbogglipmfkalmple'
 run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]
+if.app-id = 'com.hamishbultitude.ampcode'
+run = "move-node-to-workspace ai_dev"
+[[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace ai_dev"
 [[on-window-detected]]

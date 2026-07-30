@@ -19,33 +19,6 @@
       "installedAt": "2026-03-10T10:07:29.791Z",
       "updatedAt": "2026-03-10T10:07:29.791Z"
     },
-    "build-from-exec-plan": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/build-from-exec-plan/SKILL.md",
-      "skillFolderHash": "2fefbc904f030382a0162f65dc2029227eeecd9b",
-      "installedAt": "2026-03-20T08:13:42.437Z",
-      "updatedAt": "2026-03-20T08:13:42.437Z"
-    },
-    "create-execplan": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/create-execplan/SKILL.md",
-      "skillFolderHash": "c41d733aa4b7c15d03165d064643d622406553bb",
-      "installedAt": "2026-03-20T08:13:42.866Z",
-      "updatedAt": "2026-04-30T07:34:32.874Z"
-    },
-    "create-product-specs": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/create-product-specs/SKILL.md",
-      "skillFolderHash": "040b394763e3711a437779666eccd7cdffb32373",
-      "installedAt": "2026-03-20T08:13:43.429Z",
-      "updatedAt": "2026-03-20T08:13:43.429Z"
-    },
     "harness-bootstrap": {
       "source": "neodejack/skills",
       "sourceType": "github",
@@ -100,33 +73,6 @@
       "installedAt": "2026-03-27T10:07:49.923Z",
       "updatedAt": "2026-03-27T10:07:49.923Z"
     },
-    "planning-and-task-breakdown": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/addyosmani/agent-skills.git",
-      "skillPath": "skills/planning-and-task-breakdown/SKILL.md",
-      "skillFolderHash": "7122f9fa302c8e879fe7bd4e8ca401ffb7b2aec7",
-      "installedAt": "2026-04-27T09:57:41.035Z",
-      "updatedAt": "2026-05-29T09:00:14.780Z"
-    },
-    "build-from-exec-plan-hitl": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/build-from-exec-plan-hitl/SKILL.md",
-      "skillFolderHash": "cb7cf606ee9ab7a09acedba3b3a10136e7f61d7c",
-      "installedAt": "2026-05-05T06:10:47.636Z",
-      "updatedAt": "2026-05-05T06:10:47.636Z"
-    },
-    "create-execplan-with-slicing-method": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/create-execplan-with-slicing-method/SKILL.md",
-      "skillFolderHash": "aba757462c50cb588dff6271f275bd233da60a69",
-      "installedAt": "2026-05-05T06:10:47.645Z",
-      "updatedAt": "2026-05-05T06:10:47.645Z"
-    },
     "grilling": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -163,6 +109,15 @@
       "skillFolderHash": "f955a7b7c2808b57cb72c5facd3fa9579af1ca1c",
       "installedAt": "2026-07-20T08:03:11.364Z",
       "updatedAt": "2026-07-20T08:03:11.364Z"
+    },
+    "to-tickets": {
+      "source": "neodejack/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/neodejack/skills.git",
+      "skillPath": "skills/to-tickets/SKILL.md",
+      "skillFolderHash": "c116346892195024d41a41bcc35ca2f71f56b365",
+      "installedAt": "2026-07-29T08:15:23.950Z",
+      "updatedAt": "2026-07-29T08:15:23.950Z"
     }
   },
   "dismissed": {

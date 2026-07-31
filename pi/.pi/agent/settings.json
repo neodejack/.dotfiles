@@ -2,6 +2,11 @@
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
+  "extensions": [
+    "./extensions/herdr-agent-state.ts",
+    "./extensions/tools.ts",
+    "./extensions/pi-tool-renderer"
+  ],
   "packages": [
     "npm:@plannotator/pi-extension",
     "npm:pi-mcp-adapter",

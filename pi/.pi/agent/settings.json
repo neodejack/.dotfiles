@@ -9,6 +9,9 @@
       "source": "npm:mitsupi@1.6.0",
       "extensions": [
         "extensions/answer.ts",
+        "extensions/todos.ts",
+        "extensions/files.ts",
+        "extensions/whimsical.ts",
         "extensions/context.ts",
         "extensions/multi-edit.ts"
       ],
@@ -25,5 +28,6 @@
   "lastChangelogVersion": "0.83.0",
   "theme": "dark",
   "treeFilterMode": "no-tools",
-  "hideThinkingBlock": true
+  "hideThinkingBlock": false,
+  "defaultProjectTrust": "always"
 }

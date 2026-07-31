@@ -4,8 +4,7 @@
   "defaultThinkingLevel": "high",
   "extensions": [
     "./extensions/herdr-agent-state.ts",
-    "./extensions/tools.ts",
-    "./extensions/pi-tool-renderer"
+    "./extensions/tools.ts"
   ],
   "packages": [
     "npm:@plannotator/pi-extension",
@@ -27,7 +26,8 @@
       "prompts": []
     },
     "npm:pi-web-access",
-    "npm:@yusukeshib/pi-stash"
+    "npm:@yusukeshib/pi-stash",
+    "./extensions/pi-tool-renderer"
   ],
   "lastChangelogVersion": "0.83.0",
   "theme": "dark",

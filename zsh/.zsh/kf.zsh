@@ -13,9 +13,9 @@ kf() {
   fi
 
   local selected
-  selected=$(printf '%s\n' "${kubeconfigs[@]}" | fzf --prompt='kubeconfig> ') || return 0
+  selected=$(printf '%s\n' "${kubeconfigs[@]:t}" | fzf --prompt='kubeconfig> ') || return 0
   [[ -n "$selected" ]] || return 0
 
-  export KUBECONFIG="$selected"
+  export KUBECONFIG="$HOME/.kube/$selected"
   print -r -- "KUBECONFIG=$KUBECONFIG"
 }

@@ -1,7 +1,20 @@
 # Pi Amp-style tool renderer
 
-A small Pi extension that removes colored tool-call backgrounds and adds an
-Amp-inspired status marker to selected built-in tools.
+A small Pi extension that gives selected built-in tools, submitted prompts,
+and the input editor an Amp-inspired appearance.
+
+## Prompt and editor styling
+
+- Submitted prompts use green text on the terminal background instead of an
+  opaque message background.
+- The input editor keeps Pi's active border color but gains rounded corners and
+  left/right borders.
+- Other theme colors and editor behavior are delegated to Pi unchanged.
+
+Amp's short `┃` beside submitted prompts is intentionally not included. Pi
+0.83.0 does not expose a public renderer hook for built-in user messages;
+`registerMessageRenderer()` only applies to custom messages. Intercepting user
+input would alter session semantics such as history and `/fork`.
 
 ## Status markers
 
@@ -54,7 +67,8 @@ process or use `/reload` after updating it.
 
 The automated checks cover the spinner state machine, timer cleanup,
 family-specific status markers, native-renderer delegation, registration scope,
-and a guard against package-internal imports.
+prompt-theme delegation, rounded editor layout, and a guard against
+package-internal imports.
 
 A fresh, ephemeral Pi session was also used to exercise all six overridden
 tools plus an unchanged `edit` call. It was started with `--no-session`; it did

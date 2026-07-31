@@ -4,6 +4,9 @@ import path from "node:path";
 import { test } from "node:test";
 import type {
   ExtensionAPI,
+  ExtensionContext,
+  SessionStartEvent,
+  Theme,
   ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
 import piRenderExtension from "../src/index.js";
@@ -56,14 +59,46 @@ test("does not register inactive optional built-ins", () => {
 
 test("waits for session_start before reading and overriding active tools", () => {
   const registered: ToolDefinition[] = [];
-  let sessionStart: (() => void) | undefined;
+  let sessionStart:
+    | ((event: SessionStartEvent, ctx: ExtensionContext) => void)
+    | undefined;
   let activeToolReads = 0;
+  const baseTheme = {
+    name: "dark",
+    fg: (_color: string, text: string) => text,
+    bg: (_color: string, text: string) => text,
+    getFgAnsi: () => "",
+    getBgAnsi: () => "",
+  } as unknown as Theme;
+  let editorFactory: ReturnType<
+    ExtensionContext["ui"]["getEditorComponent"]
+  >;
+  const extensionContext = {
+    ui: {
+      theme: baseTheme,
+      getTheme() {
+        return baseTheme;
+      },
+      setTheme() {
+        return { success: true };
+      },
+      getEditorComponent() {
+        return editorFactory;
+      },
+      setEditorComponent(factory: typeof editorFactory) {
+        editorFactory = factory;
+      },
+    },
+  } as unknown as ExtensionContext;
   const pi = {
     getActiveTools() {
       activeToolReads += 1;
       return ["read", "bash", "edit", "write"];
     },
-    on(event: string, handler: () => void) {
+    on(
+      event: string,
+      handler: (event: SessionStartEvent, ctx: ExtensionContext) => void,
+    ) {
       if (event === "session_start") {
         sessionStart = handler;
       }
@@ -79,7 +114,10 @@ test("waits for session_start before reading and overriding active tools", () =>
   assert.equal(registered.length, 0);
 
   assert.ok(sessionStart);
-  sessionStart();
+  sessionStart(
+    { type: "session_start", reason: "startup" },
+    extensionContext,
+  );
 
   assert.equal(activeToolReads, 1);
   assert.deepEqual(

@@ -7,6 +7,7 @@ import {
   decorateEditorRender,
   frameEditorLines,
   installRoundedEditor,
+  whiteBorder,
 } from "../src/rounded-editor.js";
 
 const ANSI_PATTERN = /\u001B\[[0-?]*[ -/]*[@-~]/g;
@@ -61,6 +62,20 @@ test("keeps autocomplete rows outside the frame and aligned with its content", (
   assert.ok(lines.every((line) => visibleWidth(line) === 8));
 });
 
+test("embeds labels into the right side of white borders", () => {
+  const lines = frameEditorLines(
+    ["──────────────────", "content           ", "──────────────────"],
+    20,
+    whiteBorder,
+    { top: "5k tok", bottom: "~/repo" },
+  );
+
+  assert.equal(plain(lines[0] ?? ""), "╭───────── 5k tok ─╮");
+  assert.equal(plain(lines[2] ?? ""), "╰───────── ~/repo ─╯");
+  assert.match(lines[0] ?? "", /\u001b\[38;5;15m╭/);
+  assert.match(lines[2] ?? "", /\u001b\[38;5;15m╯/);
+});
+
 test("recognizes a scrolling bottom border", () => {
   const lines = frameEditorLines(
     ["────────────────", "visible content ", "─── ↓ 2 more ───", "suggestion      "],
@@ -89,6 +104,7 @@ test("decorates the existing editor in place and reserves two columns", () => {
   assert.equal(plain(lines[0] ?? ""), "╭──────────╮");
   assert.equal(plain(lines[1] ?? ""), "│x         │");
   assert.equal(plain(lines[2] ?? ""), "╰──────────╯");
+  assert.match(lines[0] ?? "", /\u001b\[38;5;15m╭/);
 });
 
 test("composes with a previous editor factory and installs idempotently", () => {

@@ -82,6 +82,7 @@ test("waits for session_start before reading and overriding active tools", () =>
       setTheme() {
         return { success: true };
       },
+      setFooter() {},
       getEditorComponent() {
         return editorFactory;
       },

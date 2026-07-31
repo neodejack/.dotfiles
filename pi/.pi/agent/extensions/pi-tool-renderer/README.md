@@ -7,8 +7,11 @@ and the input editor an Amp-inspired appearance.
 
 - Submitted prompts use green text on the terminal background instead of an
   opaque message background.
-- The input editor keeps Pi's active border color but gains rounded corners and
-  left/right borders.
+- The input editor uses a white four-sided border with rounded corners.
+- The editor border is white and carries current context tokens, model, effort,
+  working directory, and Git branch in an Amp-style responsive layout.
+- The built-in footer is reduced to extension statuses such as MCP connection
+  state; those statuses remain visible below the editor.
 - Other theme colors and editor behavior are delegated to Pi unchanged.
 
 Amp's short `┃` beside submitted prompts is intentionally not included. Pi

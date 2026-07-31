@@ -12,9 +12,22 @@ type EditorFactory = NonNullable<
   ReturnType<ExtensionContext["ui"]["getEditorComponent"]>
 >;
 
+export interface PromptBorderLabels {
+  top?: string;
+  bottom?: string;
+}
+
+export type BorderLabelProvider = (
+  innerWidth: number,
+) => PromptBorderLabels;
+
 const ANSI_PATTERN = /\u001B(?:\[[0-?]*[ -/]*[@-~]|\][^\u0007]*(?:\u0007|\u001B\\))/g;
 const DECORATED_EDITORS = new WeakSet<EditorComponent>();
 const ROUNDED_FACTORIES = new WeakSet<EditorFactory>();
+
+export function whiteBorder(text: string): string {
+  return `\u001b[38;5;15m${text}\u001b[39m`;
+}
 
 function plainText(value: string): string {
   return value.replace(ANSI_PATTERN, "");
@@ -44,10 +57,32 @@ function findBottomBorderIndex(lines: readonly string[]): number | undefined {
   return undefined;
 }
 
+function addBorderLabel(
+  line: string,
+  label: string | undefined,
+  width: number,
+  borderColor: (text: string) => string,
+): string {
+  const fitted = fitLine(line, width);
+  if (!label) {
+    return fitted;
+  }
+
+  const suffix = `${borderColor(" ")}${label}${borderColor(" ─")}`;
+  const suffixWidth = visibleWidth(suffix);
+  if (suffixWidth > width) {
+    return fitted;
+  }
+
+  const prefixWidth = width - suffixWidth;
+  return `${truncateToWidth(fitted, prefixWidth, "")}${suffix}`;
+}
+
 export function frameEditorLines(
   lines: readonly string[],
   outerWidth: number,
   borderColor: (text: string) => string,
+  labels: PromptBorderLabels = {},
 ): string[] {
   if (outerWidth < 3 || lines.length === 0) {
     return [...lines];
@@ -60,7 +95,11 @@ export function frameEditorLines(
   }
 
   return lines.map((line, index) => {
-    const fitted = fitLine(line, innerWidth);
+    const fitted = index === 0
+      ? addBorderLabel(line, labels.top, innerWidth, borderColor)
+      : index === bottomBorderIndex
+        ? addBorderLabel(line, labels.bottom, innerWidth, borderColor)
+        : fitLine(line, innerWidth);
 
     if (index === 0) {
       return `${borderColor("╭")}${fitted}${borderColor("╮")}`;
@@ -80,6 +119,7 @@ export function frameEditorLines(
 export function decorateEditorRender(
   editor: EditorComponent,
   fallbackBorderColor: (text: string) => string,
+  getLabels: BorderLabelProvider = () => ({}),
 ): EditorComponent {
   if (DECORATED_EDITORS.has(editor)) {
     return editor;
@@ -91,9 +131,21 @@ export function decorateEditorRender(
       return originalRender(width);
     }
 
-    const lines = originalRender(width - 2);
-    const borderColor = editor.borderColor ?? fallbackBorderColor;
-    return frameEditorLines(lines, width, borderColor);
+    const originalBorderColor = editor.borderColor;
+    let lines: string[];
+    try {
+      editor.borderColor = whiteBorder;
+      lines = originalRender(width - 2);
+    } finally {
+      editor.borderColor = originalBorderColor;
+    }
+
+    return frameEditorLines(
+      lines,
+      width,
+      whiteBorder,
+      getLabels(width - 2),
+    );
   };
 
   DECORATED_EDITORS.add(editor);
@@ -102,23 +154,27 @@ export function decorateEditorRender(
 
 export function createRoundedEditorFactory(
   previous: EditorFactory | undefined,
+  getLabels: BorderLabelProvider = () => ({}),
 ): EditorFactory {
   const factory: EditorFactory = (tui, theme, keybindings) => {
     const editor = previous
       ? previous(tui, theme, keybindings)
       : new CustomEditor(tui, theme, keybindings);
-    return decorateEditorRender(editor, theme.borderColor);
+    return decorateEditorRender(editor, theme.borderColor, getLabels);
   };
 
   ROUNDED_FACTORIES.add(factory);
   return factory;
 }
 
-export function installRoundedEditor(ctx: ExtensionContext): void {
+export function installRoundedEditor(
+  ctx: ExtensionContext,
+  getLabels: BorderLabelProvider = () => ({}),
+): void {
   const previous = ctx.ui.getEditorComponent();
   if (previous && ROUNDED_FACTORIES.has(previous)) {
     return;
   }
 
-  ctx.ui.setEditorComponent(createRoundedEditorFactory(previous));
+  ctx.ui.setEditorComponent(createRoundedEditorFactory(previous, getLabels));
 }

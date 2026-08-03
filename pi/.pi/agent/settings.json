@@ -4,7 +4,8 @@
   "defaultThinkingLevel": "high",
   "extensions": [
     "./extensions/herdr-agent-state.ts",
-    "./extensions/tools.ts"
+    "./extensions/tools.ts",
+    "./extensions/context.ts"
   ],
   "packages": [
     "npm:@plannotator/pi-extension",
@@ -15,7 +16,6 @@
         "extensions/answer.ts",
         "extensions/files.ts",
         "extensions/whimsical.ts",
-        "extensions/context.ts",
         "extensions/multi-edit.ts"
       ],
       "skills": [

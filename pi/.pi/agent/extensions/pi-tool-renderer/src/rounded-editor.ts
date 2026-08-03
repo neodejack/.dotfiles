@@ -25,6 +25,8 @@ const ANSI_PATTERN = /\u001B(?:\[[0-?]*[ -/]*[@-~]|\][^\u0007]*(?:\u0007|\u001B\
 const DECORATED_EDITORS = new WeakSet<EditorComponent>();
 const ROUNDED_FACTORIES = new WeakSet<EditorFactory>();
 
+export const MIN_PROMPT_ROWS = 3;
+
 export function whiteBorder(text: string): string {
   return `\u001b[38;5;15m${text}\u001b[39m`;
 }
@@ -55,6 +57,33 @@ function findBottomBorderIndex(lines: readonly string[]): number | undefined {
     }
   }
   return undefined;
+}
+
+export function ensureMinimumPromptRows(
+  lines: readonly string[],
+  width: number,
+  minimumRows: number,
+): string[] {
+  const bottomBorderIndex = findBottomBorderIndex(lines);
+  if (bottomBorderIndex === undefined) {
+    return [...lines];
+  }
+
+  const currentRows = Math.max(0, bottomBorderIndex - 1);
+  const rowsToAdd = Math.max(0, Math.floor(minimumRows) - currentRows);
+  if (rowsToAdd === 0) {
+    return [...lines];
+  }
+
+  const blankRows = Array.from(
+    { length: rowsToAdd },
+    () => " ".repeat(Math.max(0, width)),
+  );
+  return [
+    ...lines.slice(0, bottomBorderIndex),
+    ...blankRows,
+    ...lines.slice(bottomBorderIndex),
+  ];
 }
 
 function addBorderLabel(
@@ -120,6 +149,7 @@ export function decorateEditorRender(
   editor: EditorComponent,
   fallbackBorderColor: (text: string) => string,
   getLabels: BorderLabelProvider = () => ({}),
+  minimumPromptRows = MIN_PROMPT_ROWS,
 ): EditorComponent {
   if (DECORATED_EDITORS.has(editor)) {
     return editor;
@@ -141,7 +171,7 @@ export function decorateEditorRender(
     }
 
     return frameEditorLines(
-      lines,
+      ensureMinimumPromptRows(lines, width - 2, minimumPromptRows),
       width,
       whiteBorder,
       getLabels(width - 2),
@@ -155,12 +185,18 @@ export function decorateEditorRender(
 export function createRoundedEditorFactory(
   previous: EditorFactory | undefined,
   getLabels: BorderLabelProvider = () => ({}),
+  minimumPromptRows = MIN_PROMPT_ROWS,
 ): EditorFactory {
   const factory: EditorFactory = (tui, theme, keybindings) => {
     const editor = previous
       ? previous(tui, theme, keybindings)
       : new CustomEditor(tui, theme, keybindings);
-    return decorateEditorRender(editor, theme.borderColor, getLabels);
+    return decorateEditorRender(
+      editor,
+      theme.borderColor,
+      getLabels,
+      minimumPromptRows,
+    );
   };
 
   ROUNDED_FACTORIES.add(factory);
@@ -170,11 +206,16 @@ export function createRoundedEditorFactory(
 export function installRoundedEditor(
   ctx: ExtensionContext,
   getLabels: BorderLabelProvider = () => ({}),
+  minimumPromptRows = MIN_PROMPT_ROWS,
 ): void {
   const previous = ctx.ui.getEditorComponent();
   if (previous && ROUNDED_FACTORIES.has(previous)) {
     return;
   }
 
-  ctx.ui.setEditorComponent(createRoundedEditorFactory(previous, getLabels));
+  ctx.ui.setEditorComponent(createRoundedEditorFactory(
+    previous,
+    getLabels,
+    minimumPromptRows,
+  ));
 }

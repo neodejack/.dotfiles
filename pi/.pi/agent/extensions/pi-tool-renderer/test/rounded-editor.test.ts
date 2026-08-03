@@ -5,6 +5,7 @@ import { visibleWidth, type EditorComponent } from "@earendil-works/pi-tui";
 import {
   createRoundedEditorFactory,
   decorateEditorRender,
+  ensureMinimumPromptRows,
   frameEditorLines,
   installRoundedEditor,
   whiteBorder,
@@ -87,7 +88,37 @@ test("recognizes a scrolling bottom border", () => {
   assert.equal(plain(lines[3] ?? "")[0], " ");
 });
 
-test("decorates the existing editor in place and reserves two columns", () => {
+test("pads a short editor to the configured minimum prompt height", () => {
+  const lines = ensureMinimumPromptRows(
+    ["────────", "hello   ", "────────", "option  "],
+    8,
+    3,
+  );
+
+  assert.deepEqual(lines, [
+    "────────",
+    "hello   ",
+    "        ",
+    "        ",
+    "────────",
+    "option  ",
+  ]);
+});
+
+test("does not shrink an editor that is already taller than the minimum", () => {
+  const original = [
+    "────────",
+    "one     ",
+    "two     ",
+    "three   ",
+    "four    ",
+    "────────",
+  ];
+
+  assert.deepEqual(ensureMinimumPromptRows(original, 8, 3), original);
+});
+
+test("decorates the existing editor in place with a three-row prompt", () => {
   const widths: number[] = [];
   const editor = fakeEditor((width) => {
     widths.push(width);
@@ -103,7 +134,9 @@ test("decorates the existing editor in place and reserves two columns", () => {
   assert.deepEqual(widths, [10]);
   assert.equal(plain(lines[0] ?? ""), "╭──────────╮");
   assert.equal(plain(lines[1] ?? ""), "│x         │");
-  assert.equal(plain(lines[2] ?? ""), "╰──────────╯");
+  assert.equal(plain(lines[2] ?? ""), "│          │");
+  assert.equal(plain(lines[3] ?? ""), "│          │");
+  assert.equal(plain(lines[4] ?? ""), "╰──────────╯");
   assert.match(lines[0] ?? "", /\u001b\[38;5;15m╭/);
 });
 
@@ -146,4 +179,5 @@ test("composes with a previous editor factory and installs idempotently", () => 
   assert.equal(previousCalls, 1);
   assert.equal(created, editor);
   assert.equal(plain(created.render(8)[0] ?? ""), "╭──────╮");
+  assert.equal(created.render(8).length, 5);
 });

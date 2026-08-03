@@ -7,7 +7,8 @@ and the input editor an Amp-inspired appearance.
 
 - Submitted prompts use green text on the terminal background instead of an
   opaque message background.
-- The input editor uses a white four-sided border with rounded corners.
+- The input editor uses a white four-sided border with rounded corners and
+  keeps at least three prompt rows visible.
 - The editor border is white and carries current context tokens, model, effort,
   working directory, and Git branch in an Amp-style responsive layout.
 - The built-in footer is reduced to extension statuses such as MCP connection

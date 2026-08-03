@@ -181,3 +181,29 @@ test("composes with a previous editor factory and installs idempotently", () => 
   assert.equal(plain(created.render(8)[0] ?? ""), "╭──────╮");
   assert.equal(created.render(8).length, 5);
 });
+
+test("reports the active composed editor to integrations", () => {
+  const editor = fakeEditor((width) => [
+    "─".repeat(width),
+    "x".padEnd(width),
+    "─".repeat(width),
+  ]);
+  let activeEditor: EditorComponent | undefined;
+  const factory = createRoundedEditorFactory(
+    () => editor,
+    () => ({}),
+    3,
+    (created) => {
+      activeEditor = created;
+    },
+  );
+
+  const created = factory(
+    {} as never,
+    { borderColor: purple } as never,
+    {} as never,
+  );
+
+  assert.equal(activeEditor, created);
+  assert.equal(activeEditor, editor);
+});

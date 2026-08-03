@@ -18,7 +18,7 @@ test("registers exactly the active supported public built-ins", () => {
     registerTool(definition: ToolDefinition) {
       registered.push(definition);
     },
-  } as ExtensionAPI;
+  } as unknown as ExtensionAPI;
 
   registerToolOverrides(
     pi,
@@ -59,6 +59,7 @@ test("does not register inactive optional built-ins", () => {
 
 test("waits for session_start before reading and overriding active tools", () => {
   const registered: ToolDefinition[] = [];
+  const registeredShortcuts: string[] = [];
   let sessionStart:
     | ((event: SessionStartEvent, ctx: ExtensionContext) => void)
     | undefined;
@@ -107,12 +108,16 @@ test("waits for session_start before reading and overriding active tools", () =>
     registerTool(definition: ToolDefinition) {
       registered.push(definition);
     },
-  } as ExtensionAPI;
+    registerShortcut(shortcut: string) {
+      registeredShortcuts.push(shortcut);
+    },
+  } as unknown as ExtensionAPI;
 
   piRenderExtension(pi);
 
   assert.equal(activeToolReads, 0);
   assert.equal(registered.length, 0);
+  assert.deepEqual(registeredShortcuts, ["ctrl+o"]);
 
   assert.ok(sessionStart);
   sessionStart(

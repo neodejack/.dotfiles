@@ -1,4 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type { EditorComponent } from "@earendil-works/pi-tui";
+import { registerCommandPaletteShortcut } from "./command-palette.js";
 import {
   buildPromptBorderLabels,
   createPromptChromeState,
@@ -16,6 +18,9 @@ import {
 export default function piRenderExtension(pi: ExtensionAPI): void {
   const timers: TimerRegistry = new Set();
   const chrome = createPromptChromeState();
+  let activeEditor: EditorComponent | undefined;
+
+  registerCommandPaletteShortcut(pi, () => activeEditor);
 
   pi.on("session_start", (_event, ctx) => {
     registerToolOverrides(
@@ -30,6 +35,10 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
     installRoundedEditor(
       ctx,
       (innerWidth) => buildPromptBorderLabels(chrome, innerWidth),
+      undefined,
+      (editor) => {
+        activeEditor = editor;
+      },
     );
   });
 
@@ -61,6 +70,7 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
   });
 
   pi.on("session_shutdown", () => {
+    activeEditor = undefined;
     stopAllSpinners(timers);
   });
 }

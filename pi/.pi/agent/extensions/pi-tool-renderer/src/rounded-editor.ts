@@ -21,6 +21,8 @@ export type BorderLabelProvider = (
   innerWidth: number,
 ) => PromptBorderLabels;
 
+export type EditorReadyHandler = (editor: EditorComponent) => void;
+
 const ANSI_PATTERN = /\u001B(?:\[[0-?]*[ -/]*[@-~]|\][^\u0007]*(?:\u0007|\u001B\\))/g;
 const DECORATED_EDITORS = new WeakSet<EditorComponent>();
 const ROUNDED_FACTORIES = new WeakSet<EditorFactory>();
@@ -186,17 +188,20 @@ export function createRoundedEditorFactory(
   previous: EditorFactory | undefined,
   getLabels: BorderLabelProvider = () => ({}),
   minimumPromptRows = MIN_PROMPT_ROWS,
+  onEditorReady?: EditorReadyHandler,
 ): EditorFactory {
   const factory: EditorFactory = (tui, theme, keybindings) => {
     const editor = previous
       ? previous(tui, theme, keybindings)
       : new CustomEditor(tui, theme, keybindings);
-    return decorateEditorRender(
+    const decorated = decorateEditorRender(
       editor,
       theme.borderColor,
       getLabels,
       minimumPromptRows,
     );
+    onEditorReady?.(decorated);
+    return decorated;
   };
 
   ROUNDED_FACTORIES.add(factory);
@@ -207,6 +212,7 @@ export function installRoundedEditor(
   ctx: ExtensionContext,
   getLabels: BorderLabelProvider = () => ({}),
   minimumPromptRows = MIN_PROMPT_ROWS,
+  onEditorReady?: EditorReadyHandler,
 ): void {
   const previous = ctx.ui.getEditorComponent();
   if (previous && ROUNDED_FACTORIES.has(previous)) {
@@ -217,5 +223,6 @@ export function installRoundedEditor(
     previous,
     getLabels,
     minimumPromptRows,
+    onEditorReady,
   ));
 }

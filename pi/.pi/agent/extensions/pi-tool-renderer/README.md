@@ -13,12 +13,31 @@ and the input editor an Amp-inspired appearance.
   working directory, and Git branch in an Amp-style responsive layout.
 - The built-in footer is reduced to extension statuses such as MCP connection
   state; those statuses remain visible below the editor.
+- `Ctrl-O` opens a centered command palette for built-in, extension, prompt,
+  and skill commands. Type to filter, use `Ctrl-P`/`Ctrl-N` or the arrow keys
+  to navigate, press `Enter` to select, or press `Tab` to insert without
+  running.
 - Other theme colors and editor behavior are delegated to Pi unchanged.
 
 Amp's short `┃` beside submitted prompts is intentionally not included. Pi
 0.83.0 does not expose a public renderer hook for built-in user messages;
 `registerMessageRenderer()` only applies to custom messages. Intercepting user
 input would alter session semantics such as history and `/fork`.
+
+## Command palette keybindings
+
+The dotfiles-managed `keybindings.json` frees `Ctrl-O` for the palette and
+moves Pi's context-sensitive display actions together:
+
+| Context | Forward | Backward |
+| --- | --- | --- |
+| Tool output expansion | `Ctrl-L` | Toggle only |
+| Session-tree filters | `Ctrl-L` | `Ctrl-Shift-B` |
+
+Slash-command autocomplete remains available as a fallback. Built-in and
+extension commands run when selected with `Enter`; prompt and skill commands
+are inserted into the editor for review. `Tab` always inserts the selected
+command so arguments can be added before submission.
 
 ## Status markers
 
@@ -71,8 +90,8 @@ process or use `/reload` after updating it.
 
 The automated checks cover the spinner state machine, timer cleanup,
 family-specific status markers, native-renderer delegation, registration scope,
-prompt-theme delegation, rounded editor layout, and a guard against
-package-internal imports.
+prompt-theme delegation, rounded editor layout, command-palette behavior, and
+a guard against package-internal imports.
 
 A fresh, ephemeral Pi session was also used to exercise all six overridden
 tools plus an unchanged `edit` call. It was started with `--no-session`; it did

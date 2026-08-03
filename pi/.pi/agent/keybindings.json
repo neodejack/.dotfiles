@@ -1,5 +1,10 @@
 {
   "tui.select.up": ["up", "ctrl+p"],
   "tui.select.down": ["down", "ctrl+n"],
-  "app.model.cycleForward": []
+  "app.model.cycleForward": [],
+  "app.model.select": [],
+  "app.tools.expand": ["ctrl+l"],
+  "app.tree.filter.labeledOnly": [],
+  "app.tree.filter.cycleForward": ["ctrl+l"],
+  "app.tree.filter.cycleBackward": ["ctrl+shift+b"]
 }

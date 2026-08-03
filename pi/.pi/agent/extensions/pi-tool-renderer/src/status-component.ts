@@ -8,6 +8,7 @@ const ANSI_PATTERN = /\u001B(?:\[[0-?]*[ -/]*[@-~]|\][^\u0007]*(?:\u0007|\u001B\
 
 export interface StatusPrefixOptions {
   stripFirstLinePrefix?: string;
+  compactPaddedShell?: boolean;
 }
 
 function plainText(value: string): string {
@@ -25,6 +26,24 @@ function stripVisiblePrefix(line: string, expectedPrefix: string): string {
     visibleWidth(expectedPrefix),
     Math.max(0, lineWidth - visibleWidth(expectedPrefix)),
   );
+}
+
+function isVisuallyBlank(line: string): boolean {
+  return plainText(line).trim().length === 0;
+}
+
+function compactPaddedShell(lines: string[]): string[] {
+  if (
+    lines.length < 3 ||
+    !isVisuallyBlank(lines[0] ?? "") ||
+    !isVisuallyBlank(lines.at(-1) ?? "")
+  ) {
+    return lines;
+  }
+
+  return lines
+    .slice(1, -1)
+    .map((line) => stripVisiblePrefix(line, " "));
 }
 
 export class StatusPrefixComponent implements Component {
@@ -46,7 +65,10 @@ export class StatusPrefixComponent implements Component {
     const prefix = `${this.getPrefix()} `;
     const prefixWidth = visibleWidth(prefix);
     const innerWidth = Math.max(1, width - prefixWidth);
-    const lines = this.inner.render(innerWidth);
+    const renderedLines = this.inner.render(innerWidth);
+    const lines = this.options.compactPaddedShell
+      ? compactPaddedShell(renderedLines)
+      : renderedLines;
 
     return lines.map((line, index) => {
       if (index === 0) {

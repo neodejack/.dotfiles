@@ -31,7 +31,7 @@ function fakeTheme(name = "dark"): Theme {
   } as Theme;
 }
 
-test("overrides only submitted-prompt foreground and background colors", () => {
+test("removes submitted-prompt and tool-status backgrounds", () => {
   const base = fakeTheme();
   const wrapped = createAmpPromptTheme(base);
 
@@ -45,6 +45,18 @@ test("overrides only submitted-prompt foreground and background colors", () => {
   );
   assert.equal(wrapped.getFgAnsi("userMessageText"), "\u001b[38;5;2m");
   assert.equal(wrapped.getBgAnsi("userMessageBg"), "\u001b[49m");
+
+  for (const color of [
+    "toolPendingBg",
+    "toolSuccessBg",
+    "toolErrorBg",
+  ] as const) {
+    assert.equal(
+      wrapped.bg(color, "tool"),
+      "\u001b[49mtool\u001b[49m",
+    );
+    assert.equal(wrapped.getBgAnsi(color), "\u001b[49m");
+  }
 
   assert.equal(wrapped.fg("accent", "hello"), "dark:fg:accent:hello");
   assert.equal(wrapped.bg("selectedBg", "hello"), "dark:bg:selectedBg:hello");

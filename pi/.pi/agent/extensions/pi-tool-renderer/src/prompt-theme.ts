@@ -11,6 +11,12 @@ const GREEN_FOREGROUND = "\u001b[38;5;2m";
 const DEFAULT_BACKGROUND = "\u001b[49m";
 const RESET_FOREGROUND = "\u001b[39m";
 const RESET_BACKGROUND = "\u001b[49m";
+const TRANSPARENT_BACKGROUNDS = new Set<ThemeBg>([
+  "userMessageBg",
+  "toolPendingBg",
+  "toolSuccessBg",
+  "toolErrorBg",
+]);
 
 type MarkedTheme = Theme & {
   [AMP_PROMPT_THEME]?: true;
@@ -38,7 +44,7 @@ export function createAmpPromptTheme(base: Theme): Theme {
 
       if (property === "bg") {
         return (color: ThemeBg, text: string): string => {
-          if (color === "userMessageBg") {
+          if (TRANSPARENT_BACKGROUNDS.has(color)) {
             return `${DEFAULT_BACKGROUND}${text}${RESET_BACKGROUND}`;
           }
           return target.bg(color, text);
@@ -54,7 +60,7 @@ export function createAmpPromptTheme(base: Theme): Theme {
 
       if (property === "getBgAnsi") {
         return (color: ThemeBg): string =>
-          color === "userMessageBg"
+          TRANSPARENT_BACKGROUNDS.has(color)
             ? DEFAULT_BACKGROUND
             : target.getBgAnsi(color);
       }

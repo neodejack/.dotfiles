@@ -5,7 +5,8 @@ import type {
   Theme,
   ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
-import { Text, type Component } from "@earendil-works/pi-tui";
+import { createEditToolDefinition } from "@earendil-works/pi-coding-agent";
+import { Box, Text, type Component } from "@earendil-works/pi-tui";
 import { StatusPrefixComponent } from "../src/status-component.js";
 import {
   renderStatusIndicator,
@@ -36,6 +37,9 @@ const theme = {
   },
   bold(value: string) {
     return `\u001b[1m${value}\u001b[22m`;
+  },
+  bg(_color: string, value: string) {
+    return `\u001b[49m${value}\u001b[49m`;
   },
 } as Theme;
 
@@ -135,6 +139,21 @@ test("prefix component replaces bash's native prompt and aligns continuation lin
   assert.equal(plain(lines[1] ?? ""), "  wrapped continuation");
 });
 
+test("prefix component compacts a self-rendered padded shell", () => {
+  const inner = new Box(1, 1, (text) => `\u001b[42m${text}\u001b[49m`);
+  inner.addChild(new Text("edit src/index.ts", 0, 0));
+  const component = new StatusPrefixComponent(
+    inner,
+    () => "\u001b[32m✓\u001b[0m",
+    { compactPaddedShell: true },
+  );
+
+  assert.equal(
+    plain(renderFirstLine(component)),
+    "✓ edit src/index.ts",
+  );
+});
+
 test("bash uses Braille while running and a single dollar marker when settled", () => {
   const timers: TimerRegistry = new Set();
   const wrapped = wrapToolDefinition(fakeDefinition("bash"), "bash", timers);
@@ -185,6 +204,29 @@ test("standard tools use tick on success and cross on failure", () => {
   );
 });
 
+test("built-in edit is compacted and receives the standard status styling", () => {
+  const wrapped = wrapToolDefinition(
+    createEditToolDefinition("/tmp"),
+    "standard",
+    new Set(),
+  );
+  const component = wrapped.renderCall?.(
+    {
+      path: "demo.txt",
+      edits: [{ oldText: "before", newText: "after" }],
+    },
+    theme,
+    context({
+      cwd: "/tmp",
+      isPartial: false,
+      argsComplete: false,
+    }) as never,
+  );
+
+  assert.ok(component);
+  assert.equal(plain(renderFirstLine(component)), "✓ edit demo.txt");
+});
+
 test("wrapper preserves execution metadata and delegates native result rendering", () => {
   const original = fakeDefinition("read");
   const timers: TimerRegistry = new Set();
@@ -209,6 +251,28 @@ test("wrapper preserves execution metadata and delegates native result rendering
   );
   assert.ok(component);
   assert.equal(plain(renderFirstLine(component)), "native result");
+});
+
+test("wrapper preserves Pi's text-result fallback for tools without a result renderer", () => {
+  const original = fakeDefinition("read");
+  delete original.renderResult;
+  const wrapped = wrapToolDefinition(original, "standard", new Set());
+  const component = wrapped.renderResult?.(
+    {
+      content: [
+        { type: "text" as const, text: "first" },
+        { type: "text" as const, text: "second" },
+      ],
+      details: {},
+    },
+    { expanded: false, isPartial: false },
+    theme,
+    context({ isPartial: false }) as never,
+  );
+
+  assert.ok(component);
+  assert.equal(plain(renderFirstLine(component)), "first");
+  assert.equal(plain(component.render(80)[1] ?? "").trimEnd(), "second");
 });
 
 test("spinner timer invalidates, stops, and is cleaned up idempotently", async () => {

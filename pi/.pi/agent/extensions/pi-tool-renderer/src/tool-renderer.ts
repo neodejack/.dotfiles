@@ -157,7 +157,13 @@ function callNativeResultRenderer(
   row: ToolRowState,
 ): Component {
   if (!original.renderResult) {
-    return new Container();
+    const output = result.content
+      .filter((item) => item.type === "text")
+      .map((item) => item.text)
+      .join("\n");
+    return output
+      ? new Text(theme.fg("toolOutput", output), 0, 0)
+      : new Container();
   }
 
   const component = original.renderResult(
@@ -194,7 +200,9 @@ export function wrapToolDefinition(
         row.wrappedCallComponent = new StatusPrefixComponent(
           nativeComponent,
           getPrefix,
-          family === "bash" ? { stripFirstLinePrefix: "$ " } : {},
+          family === "bash"
+            ? { stripFirstLinePrefix: "$ " }
+            : { compactPaddedShell: original.renderShell === "self" },
         );
       } else {
         row.wrappedCallComponent.setInner(nativeComponent);

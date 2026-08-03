@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "A borderless Amp-inspired renderer for selected Pi built-in tools",
+  "description": "A borderless Amp-inspired renderer for built-in and extension-provided Pi tools",
   "keywords": [
     "pi-package"
   ],

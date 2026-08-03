@@ -1,7 +1,7 @@
 # Pi Amp-style tool renderer
 
-A small Pi extension that gives selected built-in tools, submitted prompts,
-and the input editor an Amp-inspired appearance.
+A small Pi extension that gives built-in and extension-provided tools,
+submitted prompts, and the input editor an Amp-inspired appearance.
 
 ## Prompt and editor styling
 
@@ -44,13 +44,18 @@ command so arguments can be added before submission.
 | Tools | Running | Success | Failure |
 | --- | --- | --- | --- |
 | `bash` | Animated accent-colored Braille | Green `$` | Red `$` |
-| `read`, `write`, `grep`, `find`, `ls` | Animated accent-colored Braille | Green `✓` | Red `×` |
+| Every other tool, including `edit` and `web_search` | Animated accent-colored Braille | Green `✓` | Red `×` |
 
-The extension delegates schemas and execution to Pi's public built-in tool
-definitions. It leaves `edit`, apply-patch, and MCP tools unchanged.
-It only overrides supported tools that are already active when the session
-starts, so installing it does not enable optional tools such as `grep`, `find`,
-or `ls`.
+The extension styles the actual definition attached to each on-screen tool
+execution. It does not re-register tools, change schemas, or replace execution,
+so definitions injected by other extensions keep their native call and result
+renderers. Tools registered later in the session are covered automatically.
+
+Pi does not currently expose a public hook for decorating definitions owned by
+other extensions. The extension therefore intercepts public TUI
+`Container.addChild()` calls, recognizes Pi tool-execution components by their
+runtime shape, and replaces only the definition used by that component for
+rendering. It does not import Pi package internals.
 
 Tested against Pi 0.83.0. The source imports only the public entry points of
 `@earendil-works/pi-coding-agent` and `@earendil-works/pi-tui`.
@@ -89,10 +94,7 @@ process or use `/reload` after updating it.
 ## Verification
 
 The automated checks cover the spinner state machine, timer cleanup,
-family-specific status markers, native-renderer delegation, registration scope,
-prompt-theme delegation, rounded editor layout, command-palette behavior, and
-a guard against package-internal imports.
-
-A fresh, ephemeral Pi session was also used to exercise all six overridden
-tools plus an unchanged `edit` call. It was started with `--no-session`; it did
-not attach to or modify any existing Pi session.
+family-specific status markers, native-renderer delegation, injected-tool
+interception, fallback result rendering, prompt-theme delegation, rounded
+editor layout, command-palette behavior, and a guard against package-internal
+imports.

@@ -32,8 +32,18 @@ import {
 } from "@earendil-works/pi-tui";
 
 const SKILL_LOADED_ENTRY = "context:skill_loaded";
+const MCP_STATUS_EVENT = "pi-mcp-adapter/status/v1";
 const TOOL_TOKEN_FUDGE = 1.5;
 const CACHE_MISS_NOISE_FLOOR = 1024;
+
+const MCP_SERVER_STATUSES = new Set([
+  "connected",
+  "cached",
+  "failed",
+  "needs-auth",
+  "not-connected",
+  "disabled",
+] as const);
 
 type UsageLike = {
   input?: unknown;
@@ -91,16 +101,43 @@ type ContextUsageData = {
   systemPromptTokens: number;
   agentTokens: number;
   toolsTokens: number;
-  activeTools: number;
 };
 
 type ContextViewData = {
   usage: ContextUsageData | null;
+  activeTools: string[];
+  mcp: McpStatusSnapshot | null;
   agentFiles: string[];
   extensions: string[];
   skills: string[];
   loadedSkills: string[];
   session: SessionStats;
+};
+
+type McpServerRuntimeStatus =
+  | "connected"
+  | "cached"
+  | "failed"
+  | "needs-auth"
+  | "not-connected"
+  | "disabled";
+
+type McpServerStatusSnapshot = {
+  name: string;
+  status: McpServerRuntimeStatus;
+  toolCount: number;
+  resourceCount?: number;
+  failedAgoSeconds?: number;
+  disabled: boolean;
+};
+
+type McpStatusSnapshot = {
+  version: 1;
+  servers: McpServerStatusSnapshot[];
+  totalTools: number;
+  totalResources: number;
+  connectedCount: number;
+  disabledCount: number;
 };
 
 type SkillIndexEntry = {
@@ -129,6 +166,79 @@ function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value !== null && typeof value === "object"
     ? value as Record<string, unknown>
     : undefined;
+}
+
+function nonNegativeInteger(value: unknown): number {
+  return Math.max(0, Math.round(numeric(value)));
+}
+
+export function parseMcpStatusSnapshot(value: unknown): McpStatusSnapshot | null {
+  const snapshot = asRecord(value);
+  if (snapshot?.version !== 1 || !Array.isArray(snapshot.servers)) {
+    return null;
+  }
+
+  const servers: McpServerStatusSnapshot[] = [];
+  for (const item of snapshot.servers) {
+    const server = asRecord(item);
+    if (
+      !server
+      || typeof server.name !== "string"
+      || !MCP_SERVER_STATUSES.has(server.status as McpServerRuntimeStatus)
+    ) {
+      return null;
+    }
+
+    const status = server.status as McpServerRuntimeStatus;
+    const resourceCount = server.resourceCount === undefined
+      ? undefined
+      : nonNegativeInteger(server.resourceCount);
+    const failedAgoSeconds = server.failedAgoSeconds === undefined
+      ? undefined
+      : nonNegativeInteger(server.failedAgoSeconds);
+    servers.push({
+      name: server.name,
+      status,
+      toolCount: nonNegativeInteger(server.toolCount),
+      ...(resourceCount !== undefined ? { resourceCount } : {}),
+      ...(failedAgoSeconds !== undefined ? { failedAgoSeconds } : {}),
+      disabled: server.disabled === true || status === "disabled",
+    });
+  }
+
+  return {
+    version: 1,
+    servers,
+    totalTools: servers.reduce((total, server) => total + (server.disabled ? 0 : server.toolCount), 0),
+    totalResources: servers.reduce((total, server) => total + (server.disabled ? 0 : server.resourceCount ?? 0), 0),
+    connectedCount: servers.filter((server) => !server.disabled && server.status === "connected").length,
+    disabledCount: servers.filter((server) => server.disabled).length,
+  };
+}
+
+function countLabel(count: number, singular: string): string {
+  return `${count} ${singular}${count === 1 ? "" : "s"}`;
+}
+
+function mcpStatusLabel(server: McpServerStatusSnapshot): string {
+  if (server.status === "failed" && server.failedAgoSeconds !== undefined) {
+    return `failed ${server.failedAgoSeconds}s ago`;
+  }
+  return server.status;
+}
+
+function mcpSummary(snapshot: McpStatusSnapshot): string {
+  const enabledCount = snapshot.servers.length - snapshot.disabledCount;
+  const parts = [
+    `${countLabel(enabledCount, "server")} enabled`,
+    `${snapshot.connectedCount} connected`,
+    countLabel(snapshot.totalTools, "tool"),
+    countLabel(snapshot.totalResources, "resource"),
+  ];
+  if (snapshot.disabledCount > 0) {
+    parts.push(`${snapshot.disabledCount} disabled`);
+  }
+  return parts.join(" · ");
 }
 
 function usageCost(usage: UsageLike | undefined): number {
@@ -668,8 +778,35 @@ class ContextView implements Component {
       lines.push(
         muted("Tools: ")
           + normal(`~${usage.toolsTokens.toLocaleString()} tok`)
-          + muted(` (${usage.activeTools} active)`),
+          + muted(` (${this.data.activeTools.length} active)`),
       );
+    }
+
+    lines.push(
+      muted(`Active tools (${this.data.activeTools.length}): `)
+        + normal(this.data.activeTools.length > 0
+          ? this.data.activeTools.join(", ")
+          : "(none)"),
+    );
+
+    if (this.data.mcp) {
+      lines.push("");
+      lines.push(muted("MCP: ") + normal(mcpSummary(this.data.mcp)));
+      for (const server of this.data.mcp.servers) {
+        const statusColor = server.status === "connected"
+          ? "success"
+          : server.status === "failed" || server.status === "needs-auth"
+            ? "warning"
+            : "muted";
+        const details = [
+          this.theme.fg(statusColor, mcpStatusLabel(server)),
+          countLabel(server.toolCount, "tool"),
+          ...(server.resourceCount === undefined
+            ? []
+            : [countLabel(server.resourceCount, "resource")]),
+        ];
+        lines.push(`  ${normal(server.name)}${muted(": ")}${details.join(muted(" · "))}`);
+      }
     }
 
     lines.push(
@@ -784,6 +921,7 @@ class ContextView implements Component {
 async function collectContextData(
   pi: ExtensionAPI,
   ctx: ExtensionCommandContext,
+  mcp: McpStatusSnapshot | null,
 ): Promise<ContextViewData> {
   const commands = pi.getCommands();
   const extensionPaths = new Set(
@@ -842,9 +980,10 @@ async function collectContextData(
         systemPromptTokens,
         agentTokens,
         toolsTokens,
-        activeTools: activeToolNames.length,
       }
       : null,
+    activeTools: activeToolNames,
+    mcp,
     agentFiles: agentFilePaths,
     extensions,
     skills,
@@ -861,9 +1000,24 @@ function plainContext(data: ContextViewData): string {
         + ` (${data.usage.percent.toFixed(1)}% used, ~${data.usage.remainingTokens.toLocaleString()} left)`,
     );
     lines.push(`System: ~${data.usage.systemPromptTokens.toLocaleString()} tok (AGENTS ~${data.usage.agentTokens.toLocaleString()})`);
-    lines.push(`Tools: ~${data.usage.toolsTokens.toLocaleString()} tok (${data.usage.activeTools} active)`);
+    lines.push(`Tools: ~${data.usage.toolsTokens.toLocaleString()} tok (${data.activeTools.length} active)`);
   } else {
     lines.push("Window: (unknown)");
+  }
+  lines.push(`Active tools (${data.activeTools.length}): ${data.activeTools.length > 0 ? data.activeTools.join(", ") : "(none)"}`);
+  if (data.mcp) {
+    lines.push("");
+    lines.push(`MCP: ${mcpSummary(data.mcp)}`);
+    for (const server of data.mcp.servers) {
+      const details = [
+        mcpStatusLabel(server),
+        countLabel(server.toolCount, "tool"),
+        ...(server.resourceCount === undefined
+          ? []
+          : [countLabel(server.resourceCount, "resource")]),
+      ];
+      lines.push(`  ${server.name}: ${details.join(" · ")}`);
+    }
   }
   lines.push(`AGENTS (${data.agentFiles.length}): ${data.agentFiles.length > 0 ? data.agentFiles.join(", ") : "(none)"}`);
   lines.push(`Extensions (${data.extensions.length}): ${data.extensions.length > 0 ? data.extensions.join(", ") : "(none)"}`);
@@ -877,6 +1031,11 @@ export default function contextExtension(pi: ExtensionAPI): void {
   let lastSessionId: string | undefined;
   let loadedSkills = new Set<string>();
   let skillIndex: SkillIndexEntry[] = [];
+  let mcpStatus: McpStatusSnapshot | null = null;
+
+  pi.events.on(MCP_STATUS_EVENT, (snapshot) => {
+    mcpStatus = parseMcpStatusSnapshot(snapshot);
+  });
 
   const refreshSkillCaches = (ctx: ExtensionContext): void => {
     const sessionId = ctx.sessionManager.getSessionId();
@@ -917,7 +1076,7 @@ export default function contextExtension(pi: ExtensionAPI): void {
   pi.registerCommand("context", {
     description: "Show context and session information",
     handler: async (_args, ctx) => {
-      const data = await collectContextData(pi, ctx);
+      const data = await collectContextData(pi, ctx, mcpStatus);
       if (!ctx.hasUI || ctx.mode !== "tui") {
         pi.sendMessage(
           {

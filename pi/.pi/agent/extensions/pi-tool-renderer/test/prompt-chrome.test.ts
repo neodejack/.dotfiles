@@ -89,7 +89,7 @@ test("builds full and responsive prompt-border labels", () => {
   assert.equal(narrow.bottom, undefined);
 });
 
-test("status-only footer preserves sorted extension statuses and branch updates", () => {
+test("status-only footer hides MCP while preserving other statuses and branch updates", () => {
   let branchListener: (() => void) | undefined;
   let unsubscribed = false;
   let renders = 0;
@@ -115,7 +115,7 @@ test("status-only footer preserves sorted extension statuses and branch updates"
   const state = createPromptChromeState();
   const footer = new StatusOnlyFooter(state, footerData, fakeTheme(), tui);
 
-  assert.deepEqual(footer.render(80), ["MCP: 1 server enabled stash:2"]);
+  assert.deepEqual(footer.render(80), ["stash:2"]);
   branchListener?.();
   assert.equal(renders, 1);
 

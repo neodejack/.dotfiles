@@ -4,7 +4,6 @@
   "defaultThinkingLevel": "high",
   "extensions": [
     "./extensions/herdr-agent-state.ts",
-    "./extensions/tools.ts",
     "./extensions/context.ts"
   ],
   "packages": [

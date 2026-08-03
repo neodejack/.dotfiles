@@ -186,6 +186,7 @@ export class StatusOnlyFooter implements Component {
 
   render(width: number): string[] {
     const statuses = Array.from(this.footerData.getExtensionStatuses().entries())
+      .filter(([key]) => key !== "mcp")
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([, text]) => sanitizeStatusText(text));
 

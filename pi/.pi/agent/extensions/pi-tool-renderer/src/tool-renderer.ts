@@ -3,7 +3,13 @@ import type {
   ToolDefinition,
   ToolRenderResultOptions,
 } from "@earendil-works/pi-coding-agent";
-import { Container, Text, type Component } from "@earendil-works/pi-tui";
+import { renderDiff } from "@earendil-works/pi-coding-agent";
+import {
+  Container,
+  Spacer,
+  Text,
+  type Component,
+} from "@earendil-works/pi-tui";
 import {
   advanceBrailleSpinner,
   brailleGlyph,
@@ -161,9 +167,27 @@ function callNativeResultRenderer(
       .filter((item) => item.type === "text")
       .map((item) => item.text)
       .join("\n");
-    return output
-      ? new Text(theme.fg("toolOutput", output), 0, 0)
-      : new Container();
+    const details = result.details;
+    const diff = details && typeof details === "object" && "diff" in details
+      && typeof details.diff === "string" && details.diff.trim()
+      ? details.diff
+      : undefined;
+
+    if (!diff) {
+      return output
+        ? new Text(theme.fg("toolOutput", output), 0, 0)
+        : new Container();
+    }
+
+    const component = new Container();
+    if (output) {
+      component.addChild(new Text(theme.fg("toolOutput", output), 0, 0));
+      component.addChild(new Spacer(1));
+    }
+    const args = context.args as Record<string, unknown> | undefined;
+    const filePath = typeof args?.path === "string" ? args.path : undefined;
+    component.addChild(new Text(renderDiff(diff, { filePath }), 0, 0));
+    return component;
   }
 
   const component = original.renderResult(

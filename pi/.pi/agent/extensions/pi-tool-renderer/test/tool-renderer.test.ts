@@ -5,7 +5,10 @@ import type {
   Theme,
   ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
-import { createEditToolDefinition } from "@earendil-works/pi-coding-agent";
+import {
+  createEditToolDefinition,
+  initTheme,
+} from "@earendil-works/pi-coding-agent";
 import { Box, Text, type Component } from "@earendil-works/pi-tui";
 import { StatusPrefixComponent } from "../src/status-component.js";
 import {
@@ -273,6 +276,46 @@ test("wrapper preserves Pi's text-result fallback for tools without a result ren
   assert.ok(component);
   assert.equal(plain(renderFirstLine(component)), "first");
   assert.equal(plain(component.render(80)[1] ?? "").trimEnd(), "second");
+});
+
+test("fallback renders numbered diff details from extension-provided edit tools", () => {
+  initTheme("dark");
+  const original = fakeDefinition("read");
+  original.name = "edit";
+  original.label = "edit";
+  delete original.renderResult;
+  const wrapped = wrapToolDefinition(original, "standard", new Set());
+  const component = wrapped.renderResult?.(
+    {
+      content: [{ type: "text" as const, text: "Edited demo.txt." }],
+      details: {
+        diff: [
+          " 9 unchanged",
+          "-10 before",
+          "+10 after",
+          " 11 unchanged",
+        ].join("\n"),
+        firstChangedLine: 10,
+      },
+    },
+    { expanded: false, isPartial: false },
+    theme,
+    context({
+      args: { path: "demo.txt" },
+      isPartial: false,
+    }) as never,
+  );
+
+  assert.ok(component);
+  const rendered = component.render(80).map((line) => plain(line).trimEnd());
+  assert.deepEqual(rendered, [
+    "Edited demo.txt.",
+    "",
+    " 9 unchanged",
+    "-10 before",
+    "+10 after",
+    " 11 unchanged",
+  ]);
 });
 
 test("spinner timer invalidates, stops, and is cleaned up idempotently", async () => {

@@ -8,7 +8,7 @@
   ],
   "packages": [
     "npm:@plannotator/pi-extension",
-    "npm:pi-mcp-adapter",
+    "npm:pi-mcp-adapter@2.16.0",
     {
       "source": "npm:mitsupi@1.6.0",
       "extensions": [
@@ -24,7 +24,7 @@
       "themes": [],
       "prompts": []
     },
-    "npm:pi-web-access",
+    "npm:pi-web-access@0.17.0",
     "npm:@yusukeshib/pi-stash",
     "./extensions/pi-tool-renderer"
   ],

@@ -244,11 +244,7 @@ export class CommandPaletteOverlay implements Component {
     if (!this.query.trim()) {
       return deduped;
     }
-    return fuzzyFilter(deduped, this.query, (item) => oneLine([
-      item.name,
-      item.description ?? "",
-      item.source,
-    ].join(" ")));
+    return fuzzyFilter(deduped, this.query, (item) => oneLine(item.name));
   }
 
   private renderItem(

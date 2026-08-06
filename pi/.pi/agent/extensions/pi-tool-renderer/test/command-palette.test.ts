@@ -169,6 +169,33 @@ test("filters, uses configured Ctrl-N navigation, and returns the selection", ()
   assert.deepEqual(navigated, [{ command: "beta", action: "insert" }]);
 });
 
+test("fuzzy-searches command names without matching descriptions or sources", () => {
+  const items: CommandPaletteItem[] = [
+    {
+      name: "reload",
+      description: "Refresh Pi resources",
+      source: "builtin",
+    },
+    {
+      name: "alpha",
+      description: "Deploy to production",
+      source: "extension",
+    },
+  ];
+  const renderQuery = (query: string) => new CommandPaletteOverlay(
+    items,
+    query,
+    { requestRender() {} } as TUI,
+    fakeTheme(),
+    fakeKeybindings(),
+    () => {},
+  ).render(72).join("\n");
+
+  assert.match(renderQuery("rld"), /reload/);
+  assert.match(renderQuery("production"), /No commands match/);
+  assert.match(renderQuery("extension"), /No commands match/);
+});
+
 test("keeps multi-line descriptions inside fixed-width palette rows", () => {
   const overlay = new CommandPaletteOverlay(
     [{

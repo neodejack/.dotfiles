@@ -24,7 +24,7 @@ const TITLE = " Command Palette ";
 export interface CommandPaletteItem {
   name: string;
   description?: string;
-  source: "builtin" | "extension" | "prompt" | "skill";
+  source: "builtin" | "extension" | "prompt";
 }
 
 export interface CommandPaletteResult {
@@ -80,20 +80,22 @@ function dedupeCommands(items: readonly CommandPaletteItem[]): CommandPaletteIte
 export function commandPaletteItems(pi: ExtensionAPI): CommandPaletteItem[] {
   return dedupeCommands([
     ...BUILTIN_COMMANDS,
-    ...pi.getCommands().map((command) => ({
-      name: command.name,
-      description: command.description,
-      source: command.source,
-    })),
+    ...pi.getCommands().flatMap((command): CommandPaletteItem[] => (
+      command.source === "skill"
+        ? []
+        : [{
+          name: command.name,
+          description: command.description,
+          source: command.source,
+        }]
+    )),
   ]);
 }
 
 export function defaultCommandAction(
   item: CommandPaletteItem,
 ): CommandPaletteResult["action"] {
-  return item.source === "prompt" || item.source === "skill"
-    ? "insert"
-    : "submit";
+  return item.source === "prompt" ? "insert" : "submit";
 }
 
 export class CommandPaletteOverlay implements Component {

@@ -32,6 +32,7 @@
   "theme": "dark",
   "treeFilterMode": "no-tools",
   "hideThinkingBlock": false,
+  "enableSkillCommands": false,
   "defaultProjectTrust": "always",
   "enabledModels": [
     "openai-codex/gpt-5.3-codex-spark",

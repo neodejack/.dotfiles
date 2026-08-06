@@ -78,7 +78,7 @@ function fakeEditor(): EditorComponent & {
   };
 }
 
-test("includes current Pi built-ins and deduplicates dynamic conflicts", () => {
+test("includes built-ins, deduplicates conflicts, and excludes skills", () => {
   assert.ok(BUILTIN_COMMANDS.some((command) => command.name === "trust"));
 
   const pi = {
@@ -95,6 +95,12 @@ test("includes current Pi built-ins and deduplicates dynamic conflicts", () => {
         source: "extension",
         sourceInfo: {},
       },
+      {
+        name: "skill:release",
+        description: "Release workflow",
+        source: "skill",
+        sourceInfo: {},
+      },
     ],
   } as unknown as ExtensionAPI;
   const items = commandPaletteItems(pi);
@@ -103,6 +109,7 @@ test("includes current Pi built-ins and deduplicates dynamic conflicts", () => {
   assert.ok(items.some((item) => (
     item.name === "review" && item.source === "extension"
   )));
+  assert.ok(!items.some((item) => item.name === "skill:release"));
 });
 
 test("uses native command-source semantics", () => {
@@ -114,7 +121,6 @@ test("uses native command-source semantics", () => {
   assert.equal(defaultCommandAction(item("builtin")), "submit");
   assert.equal(defaultCommandAction(item("extension")), "submit");
   assert.equal(defaultCommandAction(item("prompt")), "insert");
-  assert.equal(defaultCommandAction(item("skill")), "insert");
 });
 
 test("inserts editable commands and submits runnable commands", () => {
@@ -138,7 +144,7 @@ test("filters, uses configured Ctrl-N navigation, and returns the selection", ()
   const overlay = new CommandPaletteOverlay(
     [
       { name: "alpha", source: "extension" },
-      { name: "beta", source: "skill" },
+      { name: "beta", source: "prompt" },
     ],
     "",
     { requestRender: () => { renders += 1; } } as TUI,
@@ -156,7 +162,7 @@ test("filters, uses configured Ctrl-N navigation, and returns the selection", ()
   const secondOverlay = new CommandPaletteOverlay(
     [
       { name: "alpha", source: "extension" },
-      { name: "beta", source: "skill" },
+      { name: "beta", source: "prompt" },
     ],
     "",
     { requestRender() {} } as TUI,

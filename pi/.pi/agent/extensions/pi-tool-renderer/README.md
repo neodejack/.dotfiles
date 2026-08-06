@@ -13,8 +13,8 @@ submitted prompts, and the input editor an Amp-inspired appearance.
   working directory, and Git branch in an Amp-style responsive layout.
 - The built-in footer is reduced to extension statuses such as MCP connection
   state; those statuses remain visible below the editor.
-- `Ctrl-O` opens a centered command palette for built-in, extension, prompt,
-  and skill commands. Type to fuzzy-filter command names, use `Ctrl-P`/`Ctrl-N`
+- `Ctrl-O` opens a centered command palette for built-in, extension, and prompt
+  commands. Type to fuzzy-filter command names, use `Ctrl-P`/`Ctrl-N`
   or the arrow keys to navigate, press `Enter` to select, or press `Tab` to
   insert without running.
 - Other theme colors and editor behavior are delegated to Pi unchanged.
@@ -35,8 +35,8 @@ moves Pi's context-sensitive display actions together:
 | Session-tree filters | `Ctrl-L` | `Ctrl-Shift-B` |
 
 Slash-command autocomplete remains available as a fallback. Built-in and
-extension commands run when selected with `Enter`; prompt and skill commands
-are inserted into the editor for review. `Tab` always inserts the selected
+extension commands run when selected with `Enter`; prompt commands are inserted
+into the editor for review. `Tab` always inserts the selected
 command so arguments can be added before submission.
 
 ## Status markers

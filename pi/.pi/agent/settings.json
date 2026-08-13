@@ -26,7 +26,7 @@
     },
     "npm:pi-web-access@0.17.0",
     "npm:@yusukeshib/pi-stash",
-    "./extensions/pi-tool-renderer",
+    "./extensions/ui-tweak",
     "git:github.com/algal/pi-openai-server-compaction"
   ],
   "lastChangelogVersion": "0.84.1",

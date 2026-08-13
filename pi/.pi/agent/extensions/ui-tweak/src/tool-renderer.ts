@@ -31,7 +31,7 @@ export interface ToolRowState {
   wrappedCallComponent?: StatusPrefixComponent;
 }
 
-const ROW_STATE = Symbol("pi-amp-tool-renderer.row-state");
+const ROW_STATE = Symbol("ui-tweak.tool-renderer-row-state");
 
 type SharedRendererState = Record<PropertyKey, unknown> & {
   [ROW_STATE]?: ToolRowState;

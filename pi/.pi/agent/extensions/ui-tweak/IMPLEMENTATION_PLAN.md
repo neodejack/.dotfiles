@@ -1,4 +1,4 @@
-# Pi tool-call renderer: implementation notes
+# Pi UI tweak: implementation notes
 
 ## Objective
 
@@ -47,7 +47,8 @@ fallback. Image rendering remains Pi's responsibility.
 
 The theme proxy resets `toolPendingBg`, `toolSuccessBg`, and `toolErrorBg` to
 the terminal background. This also removes backgrounds created inside native
-self-rendering tools such as `edit`.
+self-rendering tools such as `edit`. User-message foreground and background
+tokens are delegated unchanged so submitted prompts retain Pi's default UI.
 
 ## Lifecycle and compatibility
 

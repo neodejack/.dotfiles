@@ -1,12 +1,12 @@
-# Pi Amp-style tool renderer
+# Pi UI tweak
 
-A small Pi extension that gives built-in and extension-provided tools,
-submitted prompts, and the input editor an Amp-inspired appearance.
+A small Pi extension that gives built-in and extension-provided tools and the
+input editor an Amp-inspired appearance while preserving Pi's default user
+message styling.
 
 ## Prompt and editor styling
 
-- Submitted prompts use green text on the terminal background instead of an
-  opaque message background.
+- Submitted prompts keep the active Pi theme's default text and background.
 - The input editor uses a white four-sided border with rounded corners and
   keeps at least three prompt rows visible.
 - The editor border is white and carries current context tokens, model, effort,
@@ -72,7 +72,7 @@ pnpm check
 From any working directory:
 
 ```sh
-pi -e ~/.pi/agent/extensions/pi-tool-renderer/src/index.ts
+pi -e ~/.pi/agent/extensions/ui-tweak/src/index.ts
 ```
 
 The extension is loaded only into that newly started process. This command does
@@ -95,6 +95,6 @@ process or use `/reload` after updating it.
 
 The automated checks cover the spinner state machine, timer cleanup,
 family-specific status markers, native-renderer delegation, injected-tool
-interception, fallback result rendering, prompt-theme delegation, rounded
+interception, fallback result rendering, tool-theme delegation, rounded
 editor layout, command-palette behavior, and a guard against package-internal
 imports.

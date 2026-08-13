@@ -12,10 +12,10 @@ import {
 type AnyToolDefinition = ToolDefinition<any, any, any>;
 
 const STYLED_TOOL_EXECUTION = Symbol.for(
-  "pi-tool-renderer.styled-execution",
+  "ui-tweak.styled-execution",
 );
 const INTERCEPTOR_STATE = Symbol.for(
-  "pi-tool-renderer.container-interceptor-state",
+  "ui-tweak.container-interceptor-state",
 );
 
 interface ToolExecutionComponent extends Component {

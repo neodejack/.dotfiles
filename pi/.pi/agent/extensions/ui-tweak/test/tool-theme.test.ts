@@ -5,10 +5,10 @@ import type {
   Theme,
 } from "@earendil-works/pi-coding-agent";
 import {
-  createAmpPromptTheme,
-  ensureAmpPromptTheme,
-  isAmpPromptTheme,
-} from "../src/prompt-theme.js";
+  createToolRendererTheme,
+  ensureToolRendererTheme,
+  isToolRendererTheme,
+} from "../src/tool-theme.js";
 
 function fakeTheme(name = "dark"): Theme {
   return {
@@ -31,20 +31,20 @@ function fakeTheme(name = "dark"): Theme {
   } as Theme;
 }
 
-test("removes submitted-prompt and tool-status backgrounds", () => {
+test("removes tool-status backgrounds while preserving user-message styling", () => {
   const base = fakeTheme();
-  const wrapped = createAmpPromptTheme(base);
+  const wrapped = createToolRendererTheme(base);
 
   assert.equal(
     wrapped.fg("userMessageText", "hello"),
-    "\u001b[38;5;2mhello\u001b[39m",
+    "dark:fg:userMessageText:hello",
   );
   assert.equal(
     wrapped.bg("userMessageBg", "hello"),
-    "\u001b[49mhello\u001b[49m",
+    "dark:bg:userMessageBg:hello",
   );
-  assert.equal(wrapped.getFgAnsi("userMessageText"), "\u001b[38;5;2m");
-  assert.equal(wrapped.getBgAnsi("userMessageBg"), "\u001b[49m");
+  assert.equal(wrapped.getFgAnsi("userMessageText"), "fg:userMessageText");
+  assert.equal(wrapped.getBgAnsi("userMessageBg"), "bg:userMessageBg");
 
   for (const color of [
     "toolPendingBg",
@@ -61,8 +61,8 @@ test("removes submitted-prompt and tool-status backgrounds", () => {
   assert.equal(wrapped.fg("accent", "hello"), "dark:fg:accent:hello");
   assert.equal(wrapped.bg("selectedBg", "hello"), "dark:bg:selectedBg:hello");
   assert.equal(wrapped.bold("hello"), "dark:bold:hello");
-  assert.ok(isAmpPromptTheme(wrapped));
-  assert.ok(!isAmpPromptTheme(base));
+  assert.ok(isToolRendererTheme(wrapped));
+  assert.ok(!isToolRendererTheme(base));
 });
 
 test("installs once and preserves the registered active theme as its base", () => {
@@ -86,11 +86,11 @@ test("installs once and preserves the registered active theme as its base", () =
   };
   const ctx = { ui } as unknown as ExtensionContext;
 
-  ensureAmpPromptTheme(ctx);
-  ensureAmpPromptTheme(ctx);
+  ensureToolRendererTheme(ctx);
+  ensureToolRendererTheme(ctx);
 
   assert.equal(setCalls, 1);
-  assert.ok(isAmpPromptTheme(active));
+  assert.ok(isToolRendererTheme(active));
   assert.equal(active.fg("border", "x"), "custom-purple:fg:border:x");
 });
 
@@ -110,6 +110,6 @@ test("leaves unnamed in-memory themes unchanged", () => {
     },
   } as unknown as ExtensionContext;
 
-  ensureAmpPromptTheme(ctx);
+  ensureToolRendererTheme(ctx);
   assert.equal(setCalls, 0);
 });

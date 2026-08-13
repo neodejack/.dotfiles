@@ -1,9 +1,9 @@
 {
-  "name": "pi-tool-renderer",
+  "name": "ui-tweak",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "A borderless Amp-inspired renderer for built-in and extension-provided Pi tools",
+  "description": "Amp-inspired UI tweaks for Pi's editor and tool rendering",
   "keywords": [
     "pi-package"
   ],

@@ -7,7 +7,7 @@ import {
   installStatusOnlyFooter,
   updatePromptChromeContext,
 } from "./prompt-chrome.js";
-import { ensureAmpPromptTheme } from "./prompt-theme.js";
+import { ensureToolRendererTheme } from "./tool-theme.js";
 import { installRoundedEditor } from "./rounded-editor.js";
 import {
   stopAllSpinners,
@@ -24,7 +24,7 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
   installToolRendererInterceptor(timers);
 
   pi.on("session_start", (_event, ctx) => {
-    ensureAmpPromptTheme(ctx);
+    ensureToolRendererTheme(ctx);
     updatePromptChromeContext(chrome, ctx);
     installStatusOnlyFooter(ctx, chrome);
     installRoundedEditor(
@@ -37,10 +37,8 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
     );
   });
 
-  pi.on("message_start", (event, ctx) => {
-    if (event.message.role === "user") {
-      ensureAmpPromptTheme(ctx);
-    }
+  pi.on("message_start", (_event, ctx) => {
+    ensureToolRendererTheme(ctx);
     updatePromptChromeContext(chrome, ctx);
   });
 

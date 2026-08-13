@@ -12,7 +12,7 @@ split_vertical = "prefix+|"
 [ui]
 agent_panel_sort = "spaces"
 show_agent_labels_on_pane_borders = false
-mouse_scroll_lines = 10
+mouse_scroll_lines = 30
 
 [ui.sound]
 enabled = true

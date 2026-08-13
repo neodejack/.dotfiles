@@ -25,6 +25,7 @@ config.send_composed_key_when_right_alt_is_pressed = false
 config.font_size = 18
 config.line_height = 1.1
 config.tab_max_width = 16
+config.alternate_buffer_wheel_scroll_speed = 10
 
 -- Bell/notification settings for Claude Code confirmations
 config.audible_bell = "SystemBeep"

@@ -6,5 +6,6 @@
   "app.tools.expand": ["ctrl+l"],
   "app.tree.filter.labeledOnly": [],
   "app.tree.filter.cycleForward": ["ctrl+l"],
-  "app.tree.filter.cycleBackward": ["ctrl+shift+b"]
+  "app.tree.filter.cycleBackward": ["ctrl+shift+b"],
+  "tui.altScreen.bottom": ["end", "ctrl+down"]
 }

@@ -4,7 +4,8 @@
   "defaultThinkingLevel": "high",
   "extensions": [
     "./extensions/herdr-agent-state.ts",
-    "./extensions/context.ts"
+    "./extensions/context.ts",
+    "./extensions/pi-harness-edit/index.ts"
   ],
   "packages": [
     "npm:@plannotator/pi-extension",
@@ -14,8 +15,7 @@
       "extensions": [
         "extensions/answer.ts",
         "extensions/files.ts",
-        "extensions/whimsical.ts",
-        "extensions/multi-edit.ts"
+        "extensions/whimsical.ts"
       ],
       "skills": [
         "skills/librarian",

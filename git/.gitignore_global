@@ -2,3 +2,6 @@ mise.local.toml
 .DS_Store
 
 **/.claude/settings.local.json
+
+.pi/schedule-prompts.json
+.pi/schedule-prompts-settings.json

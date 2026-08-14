@@ -160,3 +160,32 @@ export function resolveSessionRef(sessionId: string): SessionRef | null {
     modified: row.modified_at || "",
   };
 }
+
+export function resolveSessionPathById(
+  sessionIdOrPrefix: string,
+): { id: string; path: string } {
+  const exact = getDb()
+    .prepare("SELECT id, path FROM sessions WHERE id = ?")
+    .get(sessionIdOrPrefix) as { id: string; path: string } | undefined;
+  if (exact) return exact;
+
+  const matches = getDb()
+    .prepare(
+      `SELECT id, path FROM sessions
+       WHERE id LIKE ? ESCAPE '\\'
+       ORDER BY modified_at DESC LIMIT 2`,
+    )
+    .all(`${escapeLike(sessionIdOrPrefix)}%`) as Array<{
+      id: string;
+      path: string;
+    }>;
+  if (matches.length === 0) {
+    throw new Error(`No session found with id matching '${sessionIdOrPrefix}'`);
+  }
+  if (matches.length > 1) {
+    throw new Error(
+      `Ambiguous session id '${sessionIdOrPrefix}'. Provide a longer prefix.`,
+    );
+  }
+  return matches[0] as { id: string; path: string };
+}

@@ -43,9 +43,8 @@ pi/.pi/agent/extensions/harness-tools/
 3. Install the standalone Sesame `0.11.0` release binary rather than the stale
    Homebrew `0.9.0` formula.
 4. Configure Sesame to index `~/.pi/agent/sessions`.
-5. Run incremental indexing every five minutes through launchd. Keep indexing
-   external to Pi so multiple Pi processes share one writer and one SQLite
-   index safely.
+5. Run `sesame watch` through launchd. Keep indexing external to Pi so multiple
+   Pi processes share one writer and one SQLite index safely.
 
 ## Phase 2: reusable pi-harness foundation
 
@@ -66,8 +65,8 @@ The first model roster is:
   "read_session": [
     {
       "provider": "openai-codex",
-      "model": "gpt-5.6-sol",
-      "thinking": "medium",
+      "model": "gpt-5.6-luna",
+      "thinking": "high",
       "weight": 1
     }
   ]

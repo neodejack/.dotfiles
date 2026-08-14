@@ -2,8 +2,8 @@
   "read_session": [
     {
       "provider": "openai-codex",
-      "model": "gpt-5.6-terra",
-      "thinking": "low",
+      "model": "gpt-5.6-luna",
+      "thinking": "high",
       "weight": 1
     }
   ]

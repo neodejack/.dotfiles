@@ -7,14 +7,17 @@ a mirror of the full repository.
 
 - `find_sessions`: indexed discovery by topic, date, checkpoint, and cwd.
 - `list_sessions`: recent-session browsing by exact cwd or bounded child depth.
-- Local `agent-kit` foundation for the next `read_session` phase and a future
-  Oracle tool.
+- `read_session`: bounded, cited extraction from one past session.
+- Local `agent-kit` foundation for a future Oracle tool.
 
 ## Invariants
 
 - Session discovery is read-only. Sesame's external indexer owns DB writes.
 - Search snippets are discovery metadata, not evidence; use `read_session`
   before making claims about historical session contents.
+- `read_session` children receive only the nine bounded session-query tools.
+- Session targets must resolve to existing `.jsonl` files inside Pi's session
+  directory; reject the current session and ambiguous UUID prefixes.
 - Keep the SQLite connection process-local and close it on session shutdown.
 - Preserve match provenance (`matchedType`, entry id, and timestamp).
 - Exclude the current session from `find_sessions` results.

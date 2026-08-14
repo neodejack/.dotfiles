@@ -1,4 +1,4 @@
-# pi-harness edit extension
+# apply_patch extension
 
 Vendored from [`aliou/pi-harness`](https://github.com/aliou/pi-harness), commit `9072cea`.
 

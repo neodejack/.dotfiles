@@ -5,7 +5,8 @@
   "extensions": [
     "./extensions/herdr-agent-state.ts",
     "./extensions/context.ts",
-    "./extensions/apply_patch/index.ts"
+    "./extensions/apply_patch/index.ts",
+    "./extensions/harness-tools/index.ts"
   ],
   "packages": [
     "npm:@plannotator/pi-extension",

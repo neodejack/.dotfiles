@@ -1,10 +1,4 @@
-/**
- * Model-aware routing for the edit tool family.
- *
- * Pure predicates and a routing decision. All `pi.*` side effects live in
- * `index.ts`; this module only decides which edit interface a model should use
- * based on its provider / id.
- */
+/** Pure routing for the Codex `apply_patch` interface. */
 
 type ModelLike = { provider?: string; id?: string } | undefined;
 
@@ -23,26 +17,11 @@ export function isCodexModel(model: ModelLike): boolean {
   return model?.provider === "openai-codex";
 }
 
-/** Anthropic Claude models benefit from strict tool-use schema validation. */
-export function isAnthropicModel(model: ModelLike): boolean {
-  return model?.provider === "anthropic";
-}
-
-/** Kimi K2.7 Code is tuned for Moonshot's old_string/new_string edit shape. */
-export function isKimiCodeModel(model: ModelLike): boolean {
-  const id = model?.id?.toLowerCase();
-  return (
-    (model?.provider === "neuralwatt" && id === "kimi-k2.7-code") ||
-    (model?.provider === "synthetic" && id === "hf:moonshotai/kimi-k2.7-code")
-  );
-}
-
-export type EditToolChoice = "apply_patch" | "edit" | "kimi_edit";
+export type EditToolChoice = "apply_patch" | "edit";
 
 /** Which edit interface the active model should use. */
 export function pickEditTool(model: ModelLike): EditToolChoice {
   if (isCodexModel(model)) return "apply_patch";
-  if (isKimiCodeModel(model)) return "kimi_edit";
   return "edit";
 }
 
@@ -52,9 +31,7 @@ export function pickEditTool(model: ModelLike): EditToolChoice {
  * - `apply_patch` (Codex): drop `edit` and `write` (apply_patch's Add File
  *   covers creation), add `apply_patch`. `removedByUs` records what was dropped
  *   so it can be restored on exit.
- * - `edit` / `kimi_edit`: drop `apply_patch`, restore previously-removed
- *   tools, and ensure `edit` is present. The public tool name is still `edit`;
- *   `index.ts` swaps the registered definition for Kimi.
+ * - `edit`: drop `apply_patch` and restore tools removed when Codex was active.
  *
  * Pure: `index.ts` owns the `currentChoice` / `removedByUs` state and the
  * `pi.setActiveTools` side effect.
@@ -83,6 +60,5 @@ export function resolveActiveTools(
   for (const t of removedByUs) {
     if (!next.includes(t)) next = [...next, t];
   }
-  if (!next.includes("edit")) next = [...next, "edit"];
   return { active: next, removedByUs: [] };
 }

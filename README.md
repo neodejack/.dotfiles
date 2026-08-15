@@ -2,9 +2,9 @@
 
 Personal dotfiles managed with GNU Stow. Each top‑level folder here is a Stow “package” that mirrors its target location under `$HOME`.
 
-## how to use
+## Setup
 
-bootstrap by installing homebrew and stuff in brewbundle
+Install Homebrew and the dependencies declared in the repository's `Brewfile`:
 
 ```bash
 cd ~/.dotfiles
@@ -12,9 +12,9 @@ cd ~/.dotfiles
 brew bundle
 ```
 
-then run stow
-
-since `just` is managed by `mise`, and the `mise` shell integration only activates after the `zsh` package is stowed. Until then, run `just` via `mise exec --`:
+Then apply the Stow packages. Because `just` is managed by `mise` and the
+`mise` shell integration is installed by the `zsh` package, use
+`mise exec --` during initial setup:
 
 ```bash
 # dry run first (optional)
@@ -27,13 +27,12 @@ mise exec -- just apply
 mise exec -- just unstow <pkg>
 ```
 
-- Unstow with `stow -Dvt ~ <pkg>`.
+- Alternatively, unstow directly with `stow -Dvt ~ <pkg>`.
 
-### agents
+Work/personal GitHub account separation and new-machine setup are documented in
+[`git/README.md`](git/README.md).
 
-AI agent skills are in (`~/.agents`). Skills installed via `npx skills`are both managed here.
-
-### Atuin special case
+## Atuin special case
 
 Atuin recreates its config directory automatically. If stowing `atuin` fails or nests a symlink incorrectly, do:
 

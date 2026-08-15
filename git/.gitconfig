@@ -3,13 +3,20 @@
 [diff]
     external = difft
 [user]
-    name = zili
-    email = neodejack@gmail.com
+    useConfigOnly = true
 [fetch]
     prune = true
 [init]
 	defaultBranch = main
 [pull]
   rebase = true
-[include]
-    path = ~/.gitconfig.local
+[includeIf "gitdir/i:~/code/personal/"]
+    path = ~/.gitconfig-personal
+[includeIf "gitdir/i:~/code/work/"]
+    path = ~/.gitconfig-work
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !gh auth git-credential

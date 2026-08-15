@@ -52,7 +52,11 @@ selecting the personal key. Use SSH remotes for account separation; the `gh`
 HTTPS credential helper follows its active login rather than repository
 directory. Never commit private keys, tokens, or credential stores.
 
-## New-machine setup
+## Bootstrap a new machine
+
+Complete these steps before cloning the dotfiles repository.
+
+### 1. Create the canonical directories and keys
 
 ```bash
 mkdir -p ~/code/personal ~/code/work ~/.ssh
@@ -60,14 +64,55 @@ mkdir -p ~/code/personal ~/code/work ~/.ssh
 # Skip generation when securely transferring existing keys to the same names.
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_github_personal -C "neodejack@gmail.com"
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_github_work -C "insert_work_email_here"
-
-cd ~/.dotfiles
-stow -Rvt ~ git
 ```
 
-Add each `.pub` key to its corresponding GitHub account, add the SSH host
-configuration above to `~/.ssh/config`, and clone repositories beneath the
-appropriate root.
+The work key is optional on a machine that never accesses work repositories.
+
+### 2. Configure SSH
+
+Add the host configuration from [SSH accounts](#ssh-accounts) to
+`~/.ssh/config`, then enforce the expected permissions:
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/config ~/.ssh/id_ed25519_github_personal
+chmod 600 ~/.ssh/id_ed25519_github_work 2>/dev/null || true
+```
+
+### 3. Register and verify the keys
+
+Add each public key to its corresponding GitHub account. On macOS, copy a key
+for GitHub's **Settings → SSH and GPG keys** page with:
+
+```bash
+pbcopy < ~/.ssh/id_ed25519_github_personal.pub
+pbcopy < ~/.ssh/id_ed25519_github_work.pub
+```
+
+Verify that each alias authenticates as the expected account:
+
+```bash
+ssh -T git@github.com-personal
+ssh -T git@github.com
+```
+
+### 4. Clone the dotfiles into the personal root
+
+```bash
+git clone \
+  git@github.com-personal:neodejack/.dotfiles.git \
+  ~/code/personal/.dotfiles
+cd ~/code/personal/.dotfiles
+```
+
+Continue with the root [`README.md`](../README.md) to install Homebrew
+dependencies and apply all Stow packages. To apply only this package after GNU
+Stow is installed:
+
+```bash
+cd ~/code/personal/.dotfiles
+stow -Rvt ~ git
+```
 
 ## Verification
 

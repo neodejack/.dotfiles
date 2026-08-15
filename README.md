@@ -2,12 +2,23 @@
 
 Personal dotfiles managed with GNU Stow. Each top‑level folder here is a Stow “package” that mirrors its target location under `$HOME`.
 
-## Setup
+## New machine: configure Git and clone first
+
+Before installing these dotfiles, follow [`git/README.md`](git/README.md) to:
+
+1. create the canonical personal and work directories;
+2. configure the personal and work SSH keys;
+3. add the public keys to the corresponding GitHub accounts; and
+4. clone this repository to `~/code/personal/.dotfiles`.
+
+The remaining setup assumes the repository is at that path.
+
+## Install dependencies and dotfiles
 
 Install Homebrew and the dependencies declared in the repository's `Brewfile`:
 
 ```bash
-cd ~/.dotfiles
+cd ~/code/personal/.dotfiles
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew bundle
 ```
@@ -29,9 +40,6 @@ mise exec -- just unstow <pkg>
 
 - Alternatively, unstow directly with `stow -Dvt ~ <pkg>`.
 
-Work/personal GitHub account separation and new-machine setup are documented in
-[`git/README.md`](git/README.md).
-
 ## Atuin special case
 
 Atuin recreates its config directory automatically. If stowing `atuin` fails or nests a symlink incorrectly, do:
@@ -39,7 +47,7 @@ Atuin recreates its config directory automatically. If stowing `atuin` fails or 
 ```bash
 brew uninstall atuin
 rm -rf ~/.config/atuin/
-cd ~/.dotfiles && stow -vt ~ atuin
+cd ~/code/personal/.dotfiles && stow -vt ~ atuin
 brew install atuin
 ```
 

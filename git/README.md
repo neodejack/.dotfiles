@@ -70,8 +70,30 @@ The work key is optional on a machine that never accesses work repositories.
 
 ### 2. Configure SSH
 
-Add the host configuration from [SSH accounts](#ssh-accounts) to
-`~/.ssh/config`, then enforce the expected permissions:
+Create `~/.ssh/config` with both GitHub aliases. If the file already contains
+other hosts, merge these blocks into it instead of overwriting it.
+
+```bash
+cat > ~/.ssh/config <<'EOF'
+Host github.com
+  HostName github.com
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519_github_work
+  IdentitiesOnly yes
+
+Host github.com-personal
+  HostName github.com
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519_github_personal
+  IdentitiesOnly yes
+EOF
+```
+
+Enforce the expected permissions:
 
 ```bash
 chmod 700 ~/.ssh

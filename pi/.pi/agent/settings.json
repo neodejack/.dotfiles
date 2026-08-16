@@ -14,9 +14,7 @@
     {
       "source": "npm:mitsupi@1.6.0",
       "extensions": [
-        "extensions/answer.ts",
-        "extensions/files.ts",
-        "extensions/whimsical.ts"
+        "extensions/answer.ts"
       ],
       "skills": [
         "skills/librarian",

@@ -31,7 +31,7 @@
     "npm:pi-schedule-prompt"
   ],
   "lastChangelogVersion": "0.84.2",
-  "theme": "dark",
+  "theme": "ghostty",
   "treeFilterMode": "no-tools",
   "hideThinkingBlock": false,
   "enableSkillCommands": false,

@@ -7,7 +7,7 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/zili/.local/bin/sesame</string>
+    <string>/Users/zili/.local/share/mise/shims/sesame</string>
     <string>watch</string>
   </array>
 

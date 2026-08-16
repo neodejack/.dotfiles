@@ -1,3 +1,6 @@
+[tool_alias]
+sesame = "github:aliou/sesame"
+
 [tools]
 erlang = '28.3.1'
 elixir = "1.20.2-otp-28"
@@ -15,6 +18,12 @@ ruby = "latest"
 "npm:executor" = "latest"
 "npm:agent-browser" = "latest"
 crane = "latest"
+
+[tools.sesame]
+version = "0.12.0"
+version_prefix = "@aliou/sesame-cli@"
+matching_regex = "^sesame-"
+bin = "sesame"
 
 [settings]
 python.uv_venv_auto = "create|source"

@@ -31,7 +31,7 @@
     "git:github.com/algal/pi-openai-server-compaction",
     "npm:pi-schedule-prompt"
   ],
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.2",
   "theme": "dark",
   "treeFilterMode": "no-tools",
   "hideThinkingBlock": false,

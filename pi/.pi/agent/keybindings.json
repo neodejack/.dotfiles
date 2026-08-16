@@ -7,5 +7,7 @@
   "app.tree.filter.labeledOnly": [],
   "app.tree.filter.cycleForward": ["ctrl+l"],
   "app.tree.filter.cycleBackward": ["ctrl+shift+b"],
+  "tui.altScreen.previousPrompt": ["ctrl+p"],
+  "tui.altScreen.nextPrompt": ["ctrl+n"],
   "tui.altScreen.bottom": ["end", "ctrl+down"]
 }

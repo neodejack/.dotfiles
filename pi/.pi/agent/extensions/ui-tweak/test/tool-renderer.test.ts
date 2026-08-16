@@ -16,11 +16,12 @@ import {
   startIndicator,
   stopAllIndicators,
   stopIndicator,
+  TOOL_BLINK_BLANK_MS,
+  TOOL_BLINK_VISIBLE_MS,
   wrapToolDefinition,
   type TimerRegistry,
   type ToolRowState,
 } from "../src/tool-renderer.js";
-import { createRunningIndicator } from "../src/running-indicator.js";
 
 const ANSI_PATTERN = /\u001B\[[0-?]*[ -/]*[@-~]/g;
 
@@ -100,27 +101,25 @@ function fakeDefinition(
   };
 }
 
-test("renders family-specific colored terminal markers", () => {
+test("renders warm-white active markers and theme-red failures", () => {
   assert.match(
-    renderStatusIndicator("bash", "succeeded", "unused", theme),
-    /^\u001b\[32m\$/,
+    renderStatusIndicator("succeeded", true, theme),
+    /^\u001b\[38;2;240;233;224m■/,
   );
   assert.match(
-    renderStatusIndicator("bash", "failed", "unused", theme),
-    /^\u001b\[31m\$/,
-  );
-  assert.match(
-    renderStatusIndicator("standard", "succeeded", "unused", theme),
-    /^\u001b\[32m■/,
-  );
-  assert.match(
-    renderStatusIndicator("standard", "failed", "unused", theme),
+    renderStatusIndicator("failed", true, theme),
     /^\u001b\[31m■/,
   );
   assert.match(
-    renderStatusIndicator("standard", "running", "▁", theme),
-    /^\u001b\[34m▁/,
+    renderStatusIndicator("running", true, theme),
+    /^\u001b\[38;2;240;233;224m■/,
   );
+  assert.equal(renderStatusIndicator("running", false, theme), " ");
+});
+
+test("uses the agreed fast-blank square blink cadence", () => {
+  assert.equal(TOOL_BLINK_VISIBLE_MS, 300);
+  assert.equal(TOOL_BLINK_BLANK_MS, 50);
 });
 
 test("prefix component replaces bash's native prompt and aligns continuation lines", () => {
@@ -157,7 +156,7 @@ test("prefix component compacts a self-rendered padded shell", () => {
   );
 });
 
-test("bash uses the animated indicator while running and a dollar when settled", () => {
+test("bash uses the same blinking square and settled marker as other tools", () => {
   const timers: TimerRegistry = new Set();
   const wrapped = wrapToolDefinition(fakeDefinition("bash"), "bash", timers);
   const rendererState = {};
@@ -166,7 +165,7 @@ test("bash uses the animated indicator while running and a dollar when settled",
   const running = wrapped.renderCall?.({}, theme, runningContext as never);
   assert.ok(running);
   const runningText = plain(renderFirstLine(running));
-  assert.doesNotMatch(runningText, /^\$/);
+  assert.match(runningText, /^■/);
   assert.match(runningText, /echo native$/);
 
   const settledContext = context({
@@ -176,7 +175,7 @@ test("bash uses the animated indicator while running and a dollar when settled",
   });
   const settled = wrapped.renderCall?.({}, theme, settledContext as never);
   assert.ok(settled);
-  assert.equal(plain(renderFirstLine(settled)), "$ echo native");
+  assert.equal(plain(renderFirstLine(settled)), "■ echo native");
   assert.equal(timers.size, 0);
 });
 
@@ -322,7 +321,7 @@ test("indicator timer invalidates, stops, and is cleaned up idempotently", async
   const timers: TimerRegistry = new Set();
   const state: ToolRowState = {
     phase: "running",
-    indicator: createRunningIndicator(() => 0),
+    indicatorVisible: true,
   };
   let invalidations = 0;
 

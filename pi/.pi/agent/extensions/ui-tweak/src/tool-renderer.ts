@@ -11,21 +11,20 @@ import {
   type Component,
 } from "@earendil-works/pi-tui";
 import {
-  advanceRunningIndicator,
-  createRunningIndicator,
-  runningIndicatorDuration,
-  runningIndicatorGlyph,
-  type RunningIndicatorState,
-} from "./running-indicator.js";
+  activeIndicatorColor,
+} from "./colors.js";
 import { StatusPrefixComponent } from "./status-component.js";
 
 export type ToolFamily = "bash" | "standard";
 export type ToolPhase = "running" | "succeeded" | "failed";
 export type TimerRegistry = Set<ReturnType<typeof setTimeout>>;
 
+export const TOOL_BLINK_VISIBLE_MS = 300;
+export const TOOL_BLINK_BLANK_MS = 50;
+
 export interface ToolRowState {
   phase: ToolPhase;
-  indicator: RunningIndicatorState;
+  indicatorVisible: boolean;
   timer?: ReturnType<typeof setTimeout>;
   nativeCallComponent?: Component;
   nativeResultComponent?: Component;
@@ -44,7 +43,7 @@ type RenderContext = Parameters<NonNullable<AnyToolDefinition["renderCall"]>>[2]
 function getRowState(state: SharedRendererState): ToolRowState {
   state[ROW_STATE] ??= {
     phase: "running",
-    indicator: createRunningIndicator(),
+    indicatorVisible: true,
   };
   return state[ROW_STATE];
 }
@@ -60,17 +59,19 @@ function nativeContext(
 }
 
 export function renderStatusIndicator(
-  family: ToolFamily,
   phase: ToolPhase,
-  glyph: string,
+  indicatorVisible: boolean,
   theme: Theme,
 ): string {
-  if (phase === "running") {
-    return theme.fg("accent", glyph);
+  if (phase === "failed") {
+    return theme.fg("error", "■");
   }
 
-  const marker = family === "bash" ? "$" : "■";
-  return theme.fg(phase === "succeeded" ? "success" : "error", marker);
+  if (phase === "running" && !indicatorVisible) {
+    return " ";
+  }
+
+  return activeIndicatorColor("■");
 }
 
 export function startIndicator(
@@ -83,11 +84,12 @@ export function startIndicator(
     return;
   }
 
-  const durationMs = durationOverrideMs ?? runningIndicatorDuration(state.indicator);
+  const durationMs = durationOverrideMs
+    ?? (state.indicatorVisible ? TOOL_BLINK_VISIBLE_MS : TOOL_BLINK_BLANK_MS);
   const timer = setTimeout(() => {
     timers.delete(timer);
     state.timer = undefined;
-    state.indicator = advanceRunningIndicator(state.indicator);
+    state.indicatorVisible = !state.indicatorVisible;
     startIndicator(state, invalidate, timers, durationOverrideMs);
     invalidate();
   }, durationMs);
@@ -219,9 +221,8 @@ export function wrapToolDefinition(
       const nativeComponent = callNativeRenderer(original, args, theme, context, row);
       const getPrefix = () =>
         renderStatusIndicator(
-          family,
           row.phase,
-          runningIndicatorGlyph(row.indicator),
+          row.indicatorVisible,
           theme,
         );
 

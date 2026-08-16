@@ -8,6 +8,9 @@ export const JUMP_VISIBLE_MS = 200;
 export const JUMP_BLANK_MS = 50;
 export const LOOP_PAUSE_MS = 200;
 
+export const WORKING_INDICATOR_INTERVAL_MS = 50;
+export const WORKING_INDICATOR_PRECOMPUTED_LOOPS = 16;
+
 export const JUMP_GLYPHS = ["▁", "─", "▔"] as const;
 export type JumpGlyph = (typeof JUMP_GLYPHS)[number];
 
@@ -102,4 +105,31 @@ export function runningIndicatorDuration(state: RunningIndicatorState): number {
   }
 
   return LOOP_PAUSE_MS;
+}
+
+export function createWorkingIndicatorFrames(
+  colorize: (glyph: string) => string = (glyph) => glyph,
+  random: () => number = Math.random,
+  loopCount = WORKING_INDICATOR_PRECOMPUTED_LOOPS,
+): string[] {
+  const frames: string[] = [];
+  let state = createRunningIndicator(random);
+
+  for (
+    let index = 0;
+    index < RUNNING_INDICATOR_STEP_COUNT * loopCount;
+    index += 1
+  ) {
+    const glyph = colorize(runningIndicatorGlyph(state));
+    const frameCount = Math.max(
+      1,
+      Math.round(
+        runningIndicatorDuration(state) / WORKING_INDICATOR_INTERVAL_MS,
+      ),
+    );
+    frames.push(...Array.from({ length: frameCount }, () => glyph));
+    state = advanceRunningIndicator(state, random);
+  }
+
+  return frames;
 }

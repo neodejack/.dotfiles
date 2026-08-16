@@ -1,5 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import type { EditorComponent } from "@earendil-works/pi-tui";
+import { activeIndicatorColor } from "./colors.js";
 import { registerCommandPaletteShortcut } from "./command-palette.js";
 import {
   buildPromptBorderLabels,
@@ -9,6 +10,10 @@ import {
 } from "./prompt-chrome.js";
 import { ensureToolRendererTheme } from "./tool-theme.js";
 import { installRoundedEditor } from "./rounded-editor.js";
+import {
+  createWorkingIndicatorFrames,
+  WORKING_INDICATOR_INTERVAL_MS,
+} from "./running-indicator.js";
 import {
   stopAllIndicators,
   type TimerRegistry,
@@ -25,6 +30,10 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
 
   pi.on("session_start", (_event, ctx) => {
     ensureToolRendererTheme(ctx);
+    ctx.ui.setWorkingIndicator({
+      frames: createWorkingIndicatorFrames(activeIndicatorColor),
+      intervalMs: WORKING_INDICATOR_INTERVAL_MS,
+    });
     updatePromptChromeContext(chrome, ctx);
     installStatusOnlyFooter(ctx, chrome);
     installRoundedEditor(

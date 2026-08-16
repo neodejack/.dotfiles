@@ -5,10 +5,12 @@
 Apply one Amp-inspired visual contract to every Pi tool execution, including
 built-ins such as `edit` and tools injected by packages such as `web_search`:
 
-| Tool family | Running | Success | Failure |
+| Scope | Running | Success | Failure |
 | --- | --- | --- | --- |
-| `bash` | Accent blinking line/block indicator | Green `$` | Red `$` |
-| All other tools | Accent blinking line/block indicator | Green `■` | Red `■` |
+| Every tool | Blinking `#F0E9E0` `■` | Static `#F0E9E0` `■` | Static theme-error red `■` |
+
+The separate streaming `Working...` row uses the full line/square/random-line
+animation in `#F0E9E0`. Its label remains in Pi's muted theme color.
 
 All tool status backgrounds are reset to the terminal default. Native tool
 wording, arguments, results, diffs, expansion behavior, schemas, and execution

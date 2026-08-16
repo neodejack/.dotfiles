@@ -43,15 +43,17 @@ command so arguments can be added before submission.
 
 | Tools | Running | Success | Failure |
 | --- | --- | --- | --- |
-| `bash` | Animated accent-colored blinking indicator | Green `$` | Red `$` |
-| Every other tool, including `edit` and `web_search` | Animated accent-colored blinking indicator | Green `■` | Red `■` |
+| Every tool, including `bash`, `edit`, and `web_search` | Blinking `#F0E9E0` `■` | Static `#F0E9E0` `■` | Static theme-error red `■` |
 
-Each tool starts its own one-cell animation with four `▁`/blank/`■`/blank
-cycles. It then shows four independently randomized horizontal-line heights,
-with a blank between each height to preserve the blinking effect. Adjacent
-heights may repeat. The sequence pauses briefly and loops while the tool
-remains active. Lines and squares retain their original 300/200 ms visible
-durations, while ordinary blank transitions last 50 ms for a faster blink.
+Each running tool starts independently with a visible square for 300 ms,
+followed by a reserved blank cell for 50 ms. This repeats until the tool
+settles without shifting its text. Success immediately becomes a steady warm
+white square; failure immediately becomes a steady theme-error red square.
+
+Pi's streaming `Working...` row retains the full line/square/random-height
+animation, now colored `#F0E9E0` from its first frame. The extension supplies
+it through `ctx.ui.setWorkingIndicator` with a 50 ms base interval, repeating
+frames to preserve the animation's variable visible and blank durations.
 
 The extension styles the actual definition attached to each on-screen tool
 execution. It does not re-register tools, change schemas, or replace execution,

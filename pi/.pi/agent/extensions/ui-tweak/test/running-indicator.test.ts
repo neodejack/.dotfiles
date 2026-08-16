@@ -7,6 +7,7 @@ import {
   BLINK_CYCLE_COUNT,
   BLINK_VISIBLE_MS,
   createRunningIndicator,
+  createWorkingIndicatorFrames,
   JUMP_BLANK_MS,
   JUMP_GLYPHS,
   JUMP_VISIBLE_MS,
@@ -15,6 +16,7 @@ import {
   runningIndicatorDuration,
   runningIndicatorGlyph,
   TRANSITION_PAUSE_MS,
+  WORKING_INDICATOR_INTERVAL_MS,
 } from "../src/running-indicator.js";
 
 function repeatingRandom(values: readonly number[]): () => number {
@@ -125,4 +127,40 @@ test("uses only single-code-point, one-cell visible animation glyphs", () => {
     assert.equal([...glyph].length, 1);
     assert.equal(visibleWidth(glyph), 1);
   }
+});
+
+test("expands variable-duration steps into uniform working-indicator frames", () => {
+  const frames = createWorkingIndicatorFrames(
+    (glyph) => `<accent>${glyph}</accent>`,
+    repeatingRandom([0, 0.4, 0.9, 1]),
+    1,
+  );
+
+  assert.deepEqual(frames.slice(0, 14), [
+    ...Array(6).fill("<accent>▁</accent>"),
+    "<accent> </accent>",
+    ...Array(6).fill("<accent>■</accent>"),
+    "<accent> </accent>",
+  ]);
+  assert.equal(
+    frames.length * WORKING_INDICATOR_INTERVAL_MS,
+    4_300,
+  );
+});
+
+test("precomputed working-indicator loops resample jump heights", () => {
+  const frames = createWorkingIndicatorFrames(
+    undefined,
+    repeatingRandom([
+      0, 0, 0, 0,
+      0.9, 0.9, 0.9, 0.9,
+    ]),
+    2,
+  );
+  const framesPerLoop = 4_300 / WORKING_INDICATOR_INTERVAL_MS;
+  const jumpOffset = (BLINK_CYCLE_COUNT * 700 + TRANSITION_PAUSE_MS)
+    / WORKING_INDICATOR_INTERVAL_MS;
+
+  assert.equal(frames[jumpOffset], "▁");
+  assert.equal(frames[framesPerLoop + jumpOffset], "▔");
 });

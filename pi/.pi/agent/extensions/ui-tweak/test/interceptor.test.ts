@@ -97,6 +97,9 @@ test("extension does not re-register or execute tools", () => {
     | undefined;
   let registrations = 0;
   let activeToolReads = 0;
+  let workingIndicator: Parameters<
+    ExtensionContext["ui"]["setWorkingIndicator"]
+  >[0];
   const registeredShortcuts: string[] = [];
   const baseTheme = {
     name: "dark",
@@ -118,6 +121,9 @@ test("extension does not re-register or execute tools", () => {
         return { success: true };
       },
       setFooter() {},
+      setWorkingIndicator(options: typeof workingIndicator) {
+        workingIndicator = options;
+      },
       getEditorComponent() {
         return editorFactory;
       },
@@ -157,6 +163,11 @@ test("extension does not re-register or execute tools", () => {
   assert.equal(activeToolReads, 0);
   assert.equal(registrations, 0);
   assert.deepEqual(registeredShortcuts, ["ctrl+o"]);
+  assert.equal(workingIndicator?.intervalMs, 50);
+  assert.match(
+    workingIndicator?.frames?.[0] ?? "",
+    /^\u001b\[38;2;240;233;224m▁/,
+  );
 });
 
 test("source imports stay on public package entry points", async () => {

@@ -8,7 +8,6 @@ import {
   installStatusOnlyFooter,
   updatePromptChromeContext,
 } from "./prompt-chrome.js";
-import { ensureToolRendererTheme } from "./tool-theme.js";
 import { installRoundedEditor } from "./rounded-editor.js";
 import {
   createWorkingIndicatorFrames,
@@ -29,7 +28,6 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
   installToolRendererInterceptor(timers);
 
   pi.on("session_start", (_event, ctx) => {
-    ensureToolRendererTheme(ctx);
     ctx.ui.setWorkingIndicator({
       frames: createWorkingIndicatorFrames(activeIndicatorColor),
       intervalMs: WORKING_INDICATOR_INTERVAL_MS,
@@ -47,7 +45,6 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
   });
 
   pi.on("message_start", (_event, ctx) => {
-    ensureToolRendererTheme(ctx);
     updatePromptChromeContext(chrome, ctx);
   });
 

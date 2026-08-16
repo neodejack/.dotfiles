@@ -23,7 +23,7 @@ import {
   type ToolRowState,
 } from "../src/tool-renderer.js";
 
-const ANSI_PATTERN = /\u001B\[[0-?]*[ -/]*[@-~]/g;
+const ANSI_PATTERN = /\u001B(?:\[[0-?]*[ -/]*[@-~]|\][^\u0007\u001B]*(?:\u0007|\u001B\\))/g;
 
 function plain(value: string): string {
   return value.replace(ANSI_PATTERN, "");

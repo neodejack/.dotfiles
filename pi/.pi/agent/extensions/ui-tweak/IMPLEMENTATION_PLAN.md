@@ -47,11 +47,6 @@ renderers, and prefixes the call with the animated or settled status marker. If
 a tool has no result renderer, the wrapper preserves Pi's normal text-result
 fallback. Image rendering remains Pi's responsibility.
 
-The theme proxy resets `toolPendingBg`, `toolSuccessBg`, and `toolErrorBg` to
-the terminal background. This also removes backgrounds created inside native
-self-rendering tools such as `edit`. User-message foreground and background
-tokens are delegated unchanged so submitted prompts retain Pi's default UI.
-
 ## Lifecycle and compatibility
 
 - The interceptor uses only public package entry points; it has no `dist/` or

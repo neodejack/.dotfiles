@@ -104,6 +104,5 @@ process or use `/reload` after updating it.
 
 The automated checks cover the running-indicator state machine, timer cleanup,
 family-specific status markers, native-renderer delegation, injected-tool
-interception, fallback result rendering, tool-theme delegation, rounded
-editor layout, command-palette behavior, and a guard against package-internal
-imports.
+interception, fallback result rendering, rounded editor layout,
+command-palette behavior, and a guard against package-internal imports.

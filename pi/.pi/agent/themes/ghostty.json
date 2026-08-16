@@ -44,9 +44,9 @@
     "customMessageBg": "black",
     "customMessageText": "white",
     "customMessageLabel": "purple",
-    "toolPendingBg": "background",
-    "toolSuccessBg": "background",
-    "toolErrorBg": "background",
+    "toolPendingBg": "",
+    "toolSuccessBg": "",
+    "toolErrorBg": "",
     "toolTitle": "white",
     "toolOutput": "muted",
 

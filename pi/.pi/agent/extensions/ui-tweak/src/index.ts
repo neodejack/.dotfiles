@@ -32,6 +32,7 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
       frames: createWorkingIndicatorFrames(activeIndicatorColor),
       intervalMs: WORKING_INDICATOR_INTERVAL_MS,
     });
+    ctx.ui.setWorkingMessage("");
     updatePromptChromeContext(chrome, ctx);
     installStatusOnlyFooter(ctx, chrome);
     installRoundedEditor(

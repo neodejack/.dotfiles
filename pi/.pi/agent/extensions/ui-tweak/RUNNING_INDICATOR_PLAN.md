@@ -18,7 +18,7 @@ streams. Tool rows use a separate, simpler square blink.
 
 | Scope/state | Indicator |
 | --- | --- |
-| Working | Full `#F0E9E0` animation |
+| Working | Full `#F0E9E0` animation with a blank message |
 | Tool running | Independent `#F0E9E0` `■` for 300 ms, blank for 50 ms |
 | Tool success | Static `#F0E9E0` `■` |
 | Tool failure | Static theme-error red `■` |

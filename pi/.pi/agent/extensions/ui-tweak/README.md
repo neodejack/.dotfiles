@@ -53,7 +53,8 @@ white square; failure immediately becomes a steady theme-error red square.
 Pi's streaming `Working...` row retains the full line/square/random-height
 animation, now colored `#F0E9E0` from its first frame. The extension supplies
 it through `ctx.ui.setWorkingIndicator` with a 50 ms base interval, repeating
-frames to preserve the animation's variable visible and blank durations.
+frames to preserve the animation's variable visible and blank durations. Its
+message is explicitly empty, leaving only the animated glyph visible.
 
 The extension styles the actual definition attached to each on-screen tool
 execution. It does not re-register tools, change schemas, or replace execution,

@@ -100,6 +100,7 @@ test("extension does not re-register or execute tools", () => {
   let workingIndicator: Parameters<
     ExtensionContext["ui"]["setWorkingIndicator"]
   >[0];
+  let workingMessage: string | undefined;
   const registeredShortcuts: string[] = [];
   const baseTheme = {
     name: "dark",
@@ -123,6 +124,9 @@ test("extension does not re-register or execute tools", () => {
       setFooter() {},
       setWorkingIndicator(options: typeof workingIndicator) {
         workingIndicator = options;
+      },
+      setWorkingMessage(message?: string) {
+        workingMessage = message;
       },
       getEditorComponent() {
         return editorFactory;
@@ -168,6 +172,7 @@ test("extension does not re-register or execute tools", () => {
     workingIndicator?.frames?.[0] ?? "",
     /^\u001b\[38;2;240;233;224m▁/,
   );
+  assert.equal(workingMessage, "");
 });
 
 test("source imports stay on public package entry points", async () => {

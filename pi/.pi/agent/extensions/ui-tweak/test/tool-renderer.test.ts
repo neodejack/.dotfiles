@@ -13,14 +13,14 @@ import { Box, Text, type Component } from "@earendil-works/pi-tui";
 import { StatusPrefixComponent } from "../src/status-component.js";
 import {
   renderStatusIndicator,
-  startSpinner,
-  stopAllSpinners,
-  stopSpinner,
+  startIndicator,
+  stopAllIndicators,
+  stopIndicator,
   wrapToolDefinition,
   type TimerRegistry,
   type ToolRowState,
 } from "../src/tool-renderer.js";
-import { createBrailleSpinner } from "../src/braille-spinner.js";
+import { createRunningIndicator } from "../src/running-indicator.js";
 
 const ANSI_PATTERN = /\u001B\[[0-?]*[ -/]*[@-~]/g;
 
@@ -118,8 +118,8 @@ test("renders family-specific colored terminal markers", () => {
     /^\u001b\[31m×/,
   );
   assert.match(
-    renderStatusIndicator("standard", "running", "⠂", theme),
-    /^\u001b\[34m⠂/,
+    renderStatusIndicator("standard", "running", "▁", theme),
+    /^\u001b\[34m▁/,
   );
 });
 
@@ -157,7 +157,7 @@ test("prefix component compacts a self-rendered padded shell", () => {
   );
 });
 
-test("bash uses Braille while running and a single dollar marker when settled", () => {
+test("bash uses the animated indicator while running and a dollar when settled", () => {
   const timers: TimerRegistry = new Set();
   const wrapped = wrapToolDefinition(fakeDefinition("bash"), "bash", timers);
   const rendererState = {};
@@ -318,18 +318,18 @@ test("fallback renders numbered diff details from extension-provided edit tools"
   ]);
 });
 
-test("spinner timer invalidates, stops, and is cleaned up idempotently", async () => {
+test("indicator timer invalidates, stops, and is cleaned up idempotently", async () => {
   const timers: TimerRegistry = new Set();
   const state: ToolRowState = {
     phase: "running",
-    spinner: createBrailleSpinner(),
+    indicator: createRunningIndicator(() => 0),
   };
   let invalidations = 0;
 
-  startSpinner(state, () => {
+  startIndicator(state, () => {
     invalidations += 1;
   }, timers, 5);
-  startSpinner(state, () => {
+  startIndicator(state, () => {
     invalidations += 100;
   }, timers, 5);
 
@@ -337,13 +337,13 @@ test("spinner timer invalidates, stops, and is cleaned up idempotently", async (
   assert.equal(timers.size, 1);
   assert.ok(invalidations >= 2);
 
-  stopSpinner(state, timers);
+  stopIndicator(state, timers);
   const stoppedAt = invalidations;
   await delay(12);
   assert.equal(invalidations, stoppedAt);
   assert.equal(timers.size, 0);
 
-  stopSpinner(state, timers);
-  stopAllSpinners(timers);
+  stopIndicator(state, timers);
+  stopAllIndicators(timers);
   assert.equal(timers.size, 0);
 });

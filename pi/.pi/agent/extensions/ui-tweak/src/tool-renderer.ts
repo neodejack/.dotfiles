@@ -11,21 +11,22 @@ import {
   type Component,
 } from "@earendil-works/pi-tui";
 import {
-  advanceBrailleSpinner,
-  brailleGlyph,
-  createBrailleSpinner,
-  type BrailleSpinnerState,
-} from "./braille-spinner.js";
+  advanceRunningIndicator,
+  createRunningIndicator,
+  runningIndicatorDuration,
+  runningIndicatorGlyph,
+  type RunningIndicatorState,
+} from "./running-indicator.js";
 import { StatusPrefixComponent } from "./status-component.js";
 
 export type ToolFamily = "bash" | "standard";
 export type ToolPhase = "running" | "succeeded" | "failed";
-export type TimerRegistry = Set<ReturnType<typeof setInterval>>;
+export type TimerRegistry = Set<ReturnType<typeof setTimeout>>;
 
 export interface ToolRowState {
   phase: ToolPhase;
-  spinner: BrailleSpinnerState;
-  timer?: ReturnType<typeof setInterval>;
+  indicator: RunningIndicatorState;
+  timer?: ReturnType<typeof setTimeout>;
   nativeCallComponent?: Component;
   nativeResultComponent?: Component;
   wrappedCallComponent?: StatusPrefixComponent;
@@ -43,7 +44,7 @@ type RenderContext = Parameters<NonNullable<AnyToolDefinition["renderCall"]>>[2]
 function getRowState(state: SharedRendererState): ToolRowState {
   state[ROW_STATE] ??= {
     phase: "running",
-    spinner: createBrailleSpinner(),
+    indicator: createRunningIndicator(),
   };
   return state[ROW_STATE];
 }
@@ -72,26 +73,30 @@ export function renderStatusIndicator(
   return theme.fg(phase === "succeeded" ? "success" : "error", marker);
 }
 
-export function startSpinner(
+export function startIndicator(
   state: ToolRowState,
   invalidate: () => void,
   timers: TimerRegistry,
-  intervalMs = 200,
+  durationOverrideMs?: number,
 ): void {
   if (state.timer) {
     return;
   }
 
-  const timer = setInterval(() => {
-    state.spinner = advanceBrailleSpinner(state.spinner);
+  const durationMs = durationOverrideMs ?? runningIndicatorDuration(state.indicator);
+  const timer = setTimeout(() => {
+    timers.delete(timer);
+    state.timer = undefined;
+    state.indicator = advanceRunningIndicator(state.indicator);
+    startIndicator(state, invalidate, timers, durationOverrideMs);
     invalidate();
-  }, intervalMs);
+  }, durationMs);
   timer.unref?.();
   state.timer = timer;
   timers.add(timer);
 }
 
-export function stopSpinner(
+export function stopIndicator(
   state: ToolRowState,
   timers: TimerRegistry,
 ): void {
@@ -99,7 +104,7 @@ export function stopSpinner(
     return;
   }
 
-  clearInterval(state.timer);
+  clearTimeout(state.timer);
   timers.delete(state.timer);
   state.timer = undefined;
 }
@@ -110,12 +115,12 @@ export function settleRow(
   timers: TimerRegistry,
 ): void {
   state.phase = isError ? "failed" : "succeeded";
-  stopSpinner(state, timers);
+  stopIndicator(state, timers);
 }
 
-export function stopAllSpinners(timers: TimerRegistry): void {
+export function stopAllIndicators(timers: TimerRegistry): void {
   for (const timer of timers) {
-    clearInterval(timer);
+    clearTimeout(timer);
   }
   timers.clear();
 }
@@ -127,7 +132,7 @@ function syncRowPhase(
 ): void {
   if (context.isPartial) {
     row.phase = "running";
-    startSpinner(row, context.invalidate, timers);
+    startIndicator(row, context.invalidate, timers);
     return;
   }
 
@@ -216,7 +221,7 @@ export function wrapToolDefinition(
         renderStatusIndicator(
           family,
           row.phase,
-          brailleGlyph(row.spinner),
+          runningIndicatorGlyph(row.indicator),
           theme,
         );
 

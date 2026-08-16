@@ -7,8 +7,8 @@ built-ins such as `edit` and tools injected by packages such as `web_search`:
 
 | Tool family | Running | Success | Failure |
 | --- | --- | --- | --- |
-| `bash` | Accent Braille spinner | Green `$` | Red `$` |
-| All other tools | Accent Braille spinner | Green `✓` | Red `×` |
+| `bash` | Accent blinking line/block indicator | Green `$` | Red `$` |
+| All other tools | Accent blinking line/block indicator | Green `✓` | Red `×` |
 
 All tool status backgrounds are reset to the terminal default. Native tool
 wording, arguments, results, diffs, expansion behavior, schemas, and execution
@@ -56,7 +56,7 @@ tokens are delegated unchanged so submitted prompts retain Pi's default UI.
   `src/` imports from Pi packages.
 - Installation is idempotent across extension reloads. The shared interceptor
   adopts the newest timer registry.
-- Spinner timers stop on final results and are cleared on session shutdown.
+- Indicator timers stop on final results and are cleared on session shutdown.
 - Runtime shape detection is deliberately narrow: unrelated TUI components are
   left untouched.
 - The implementation is tested against Pi 0.83.0.
@@ -72,5 +72,5 @@ pnpm check
 
 The suite covers built-in and injected definition decoration, execution
 identity preservation, native and fallback result rendering, success/error
-markers, spinner cleanup, transparent tool backgrounds, and the public-import
+markers, indicator cleanup, transparent tool backgrounds, and the public-import
 boundary.

@@ -10,7 +10,7 @@ import {
 import { ensureToolRendererTheme } from "./tool-theme.js";
 import { installRoundedEditor } from "./rounded-editor.js";
 import {
-  stopAllSpinners,
+  stopAllIndicators,
   type TimerRegistry,
 } from "./tool-renderer.js";
 import { installToolRendererInterceptor } from "./tool-interceptor.js";
@@ -64,6 +64,6 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
 
   pi.on("session_shutdown", () => {
     activeEditor = undefined;
-    stopAllSpinners(timers);
+    stopAllIndicators(timers);
   });
 }

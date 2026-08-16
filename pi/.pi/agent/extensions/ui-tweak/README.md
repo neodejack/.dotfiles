@@ -43,8 +43,15 @@ command so arguments can be added before submission.
 
 | Tools | Running | Success | Failure |
 | --- | --- | --- | --- |
-| `bash` | Animated accent-colored Braille | Green `$` | Red `$` |
-| Every other tool, including `edit` and `web_search` | Animated accent-colored Braille | Green `✓` | Red `×` |
+| `bash` | Animated accent-colored blinking indicator | Green `$` | Red `$` |
+| Every other tool, including `edit` and `web_search` | Animated accent-colored blinking indicator | Green `✓` | Red `×` |
+
+Each tool starts its own one-cell animation with four `▁`/blank/`■`/blank
+cycles. It then shows four independently randomized horizontal-line heights,
+with a blank between each height to preserve the blinking effect. Adjacent
+heights may repeat. The sequence pauses briefly and loops while the tool
+remains active. Lines and squares retain their original 300/200 ms visible
+durations, while ordinary blank transitions last 50 ms for a faster blink.
 
 The extension styles the actual definition attached to each on-screen tool
 execution. It does not re-register tools, change schemas, or replace execution,
@@ -93,7 +100,7 @@ process or use `/reload` after updating it.
 
 ## Verification
 
-The automated checks cover the spinner state machine, timer cleanup,
+The automated checks cover the running-indicator state machine, timer cleanup,
 family-specific status markers, native-renderer delegation, injected-tool
 interception, fallback result rendering, tool-theme delegation, rounded
 editor layout, command-palette behavior, and a guard against package-internal

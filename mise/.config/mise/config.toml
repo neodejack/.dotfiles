@@ -18,6 +18,8 @@ ruby = "latest"
 "npm:executor" = "latest"
 "npm:agent-browser" = "latest"
 crane = "latest"
+"npm:tree-sitter-cli" = "latest"
+herdr = "latest"
 
 [tools.sesame]
 version = "0.12.0"

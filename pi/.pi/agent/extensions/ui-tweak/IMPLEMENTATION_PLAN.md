@@ -8,7 +8,7 @@ built-ins such as `edit` and tools injected by packages such as `web_search`:
 | Tool family | Running | Success | Failure |
 | --- | --- | --- | --- |
 | `bash` | Accent blinking line/block indicator | Green `$` | Red `$` |
-| All other tools | Accent blinking line/block indicator | Green `✓` | Red `×` |
+| All other tools | Accent blinking line/block indicator | Green `■` | Red `■` |
 
 All tool status backgrounds are reset to the terminal default. Native tool
 wording, arguments, results, diffs, expansion behavior, schemas, and execution

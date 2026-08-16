@@ -44,7 +44,7 @@ command so arguments can be added before submission.
 | Tools | Running | Success | Failure |
 | --- | --- | --- | --- |
 | `bash` | Animated accent-colored blinking indicator | Green `$` | Red `$` |
-| Every other tool, including `edit` and `web_search` | Animated accent-colored blinking indicator | Green `✓` | Red `×` |
+| Every other tool, including `edit` and `web_search` | Animated accent-colored blinking indicator | Green `■` | Red `■` |
 
 Each tool starts its own one-cell animation with four `▁`/blank/`■`/blank
 cycles. It then shows four independently randomized horizontal-line heights,

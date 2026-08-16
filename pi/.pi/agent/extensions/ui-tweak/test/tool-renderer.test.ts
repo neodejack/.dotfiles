@@ -111,11 +111,11 @@ test("renders family-specific colored terminal markers", () => {
   );
   assert.match(
     renderStatusIndicator("standard", "succeeded", "unused", theme),
-    /^\u001b\[32m✓/,
+    /^\u001b\[32m■/,
   );
   assert.match(
     renderStatusIndicator("standard", "failed", "unused", theme),
-    /^\u001b\[31m×/,
+    /^\u001b\[31m■/,
   );
   assert.match(
     renderStatusIndicator("standard", "running", "▁", theme),
@@ -147,13 +147,13 @@ test("prefix component compacts a self-rendered padded shell", () => {
   inner.addChild(new Text("edit src/index.ts", 0, 0));
   const component = new StatusPrefixComponent(
     inner,
-    () => "\u001b[32m✓\u001b[0m",
+    () => "\u001b[32m■\u001b[0m",
     { compactPaddedShell: true },
   );
 
   assert.equal(
     plain(renderFirstLine(component)),
-    "✓ edit src/index.ts",
+    "■ edit src/index.ts",
   );
 });
 
@@ -180,7 +180,7 @@ test("bash uses the animated indicator while running and a dollar when settled",
   assert.equal(timers.size, 0);
 });
 
-test("standard tools use tick on success and cross on failure", () => {
+test("standard tools use a square colored by outcome", () => {
   const timers: TimerRegistry = new Set();
   const success = wrapToolDefinition(fakeDefinition("read"), "standard", timers);
   const successComponent = success.renderCall?.(
@@ -191,7 +191,7 @@ test("standard tools use tick on success and cross on failure", () => {
   assert.ok(successComponent);
   assert.equal(
     plain(renderFirstLine(successComponent)),
-    "✓ read native.txt",
+    "■ read native.txt",
   );
 
   const failure = wrapToolDefinition(fakeDefinition("read"), "standard", timers);
@@ -203,7 +203,7 @@ test("standard tools use tick on success and cross on failure", () => {
   assert.ok(failureComponent);
   assert.equal(
     plain(renderFirstLine(failureComponent)),
-    "× read native.txt",
+    "■ read native.txt",
   );
 });
 
@@ -227,7 +227,7 @@ test("built-in edit is compacted and receives the standard status styling", () =
   );
 
   assert.ok(component);
-  assert.equal(plain(renderFirstLine(component)), "✓ edit demo.txt");
+  assert.equal(plain(renderFirstLine(component)), "■ edit demo.txt");
 });
 
 test("wrapper preserves execution metadata and delegates native result rendering", () => {

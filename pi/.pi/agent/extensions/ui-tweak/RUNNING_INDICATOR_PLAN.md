@@ -12,16 +12,16 @@ single-cell animation inspired by the supplied reference video:
    blank frame between positions.
 
 The animation starts at frame one for each tool, uses the active theme's
-`accent` color, and loops until the tool settles. Success and failure markers
-remain unchanged.
+`accent` color, and loops until the tool settles. Settled standard tools use a
+green or red square to communicate success or failure.
 
 ## Agreed visual contract
 
 | State | Bash | Other tools |
 | --- | --- | --- |
 | Running | Accent animated indicator | Accent animated indicator |
-| Success | Green `$` | Green `✓` |
-| Failure | Red `$` | Red `×` |
+| Success | Green `$` | Green `■` |
+| Failure | Red `$` | Red `■` |
 
 Every animation glyph occupies exactly one terminal cell, so the native tool
 call remains aligned and does not move horizontally.

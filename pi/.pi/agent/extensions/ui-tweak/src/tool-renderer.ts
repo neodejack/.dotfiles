@@ -69,7 +69,7 @@ export function renderStatusIndicator(
     return theme.fg("accent", glyph);
   }
 
-  const marker = family === "bash" ? "$" : phase === "succeeded" ? "✓" : "×";
+  const marker = family === "bash" ? "$" : "■";
   return theme.fg(phase === "succeeded" ? "success" : "error", marker);
 }
 

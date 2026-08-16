@@ -31,6 +31,9 @@ export VISUAL=nvim
 # rg configuration
 export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
+# Prevent pi-fff from indexing the entire home directory.
+export FFF_ENABLE_HOME_SCAN=0
+
 # change lazygit config location https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#user-config
 export XDG_CONFIG_HOME="$HOME/.config"
 

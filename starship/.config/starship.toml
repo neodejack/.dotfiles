@@ -1,7 +1,6 @@
 format = """
-$username\
-$hostname\
 $directory\
+$hostname\
 $git_branch\
 $git_state\
 $git_status\
@@ -13,6 +12,14 @@ $character"""
 style = "#D19C97"
 truncation_length = 2
 truncate_to_repo = false
+
+[hostname]
+ssh_only = true
+ssh_symbol = ""
+format = "[on $hostname]($style) "
+
+[hostname.aliases]
+"zilis-Mac-mini" = "mini"
 
 [character]
 success_symbol = "[■](#F0E9E0)"

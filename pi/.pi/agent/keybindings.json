@@ -4,9 +4,11 @@
   "app.model.cycleForward": [],
   "app.model.select": [],
   "app.tools.expand": ["ctrl+l"],
+  "app.message.followUp": ["enter"],
   "app.tree.filter.labeledOnly": [],
   "app.tree.filter.cycleForward": ["ctrl+l"],
   "app.tree.filter.cycleBackward": ["ctrl+shift+b"],
+  "tui.input.submit": ["enter", "alt+enter"],
   "tui.altScreen.previousPrompt": ["ctrl+p"],
   "tui.altScreen.nextPrompt": ["ctrl+n"],
   "tui.altScreen.bottom": ["end", "ctrl+down"]

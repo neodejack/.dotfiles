@@ -405,6 +405,7 @@ export function registerCommandPaletteShortcut(
               maxHeight: "80%",
               margin: 1,
             },
+            onHandle: (handle) => handle.focus(),
           },
         );
 

@@ -226,7 +226,11 @@ test("registers Ctrl-O and opens a centered overlay", async () => {
     description?: string;
     handler: (ctx: ExtensionContext) => Promise<void> | void;
   } | undefined;
-  let overlayOptions: unknown;
+  let overlayOptions: {
+    overlay: boolean;
+    overlayOptions: unknown;
+    onHandle: (handle: { focus(): void }) => void;
+  } | undefined;
   const editor = fakeEditor();
   const pi = {
     registerShortcut(key: string, options: typeof shortcut) {
@@ -244,7 +248,7 @@ test("registers Ctrl-O and opens a centered overlay", async () => {
     ui: {
       async custom(
         _factory: unknown,
-        options: unknown,
+        options: typeof overlayOptions,
       ): Promise<CommandPaletteResult> {
         overlayOptions = options;
         return { command: "settings", action: "submit" };
@@ -256,14 +260,16 @@ test("registers Ctrl-O and opens a centered overlay", async () => {
   await shortcut?.handler(ctx);
 
   assert.deepEqual(editor.submitted, ["/settings"]);
-  assert.deepEqual(overlayOptions, {
-    overlay: true,
-    overlayOptions: {
-      anchor: "center",
-      width: "90%",
-      minWidth: 42,
-      maxHeight: "80%",
-      margin: 1,
-    },
+  assert.deepEqual(overlayOptions?.overlayOptions, {
+    anchor: "center",
+    width: "90%",
+    minWidth: 42,
+    maxHeight: "80%",
+    margin: 1,
   });
+  assert.equal(overlayOptions?.overlay, true);
+
+  let focused = false;
+  overlayOptions?.onHandle({ focus: () => { focused = true; } });
+  assert.equal(focused, true);
 });

@@ -19,8 +19,8 @@ export type ToolFamily = "bash" | "standard";
 export type ToolPhase = "running" | "succeeded" | "failed";
 export type TimerRegistry = Set<ReturnType<typeof setTimeout>>;
 
-export const TOOL_BLINK_VISIBLE_MS = 300;
-export const TOOL_BLINK_BLANK_MS = 50;
+export const TOOL_BLINK_VISIBLE_MS = 400;
+export const TOOL_BLINK_BLANK_MS = 200;
 
 export interface ToolRowState {
   phase: ToolPhase;

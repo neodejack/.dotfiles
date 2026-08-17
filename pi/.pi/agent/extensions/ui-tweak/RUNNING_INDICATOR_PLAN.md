@@ -19,7 +19,7 @@ streams. Tool rows use a separate, simpler square blink.
 | Scope/state | Indicator |
 | --- | --- |
 | Working | Full `#F0E9E0` animation with a blank message |
-| Tool running | Independent `#F0E9E0` `■` for 300 ms, blank for 50 ms |
+| Tool running | Independent `#F0E9E0` `■` for 400 ms, blank for 200 ms |
 | Tool success | Static `#F0E9E0` `■` |
 | Tool failure | Static theme-error red `■` |
 
@@ -77,7 +77,7 @@ Keep the simpler tool blink timer in `tool-renderer.ts`:
 ```text
 render running tool
   start that row with a visible square
-  schedule 300 ms visible and 50 ms blank timeouts
+  schedule 400 ms visible and 200 ms blank timeouts
   when it fires
     toggle square visibility
     schedule the next timeout
@@ -147,7 +147,7 @@ Tests must prove:
 - a new set of line heights is sampled after the loop resets;
 - every visible frame is one Unicode code point and one terminal cell wide;
 - separate tool rows start with independent visible squares;
-- tool squares remain visible for 300 ms and blank for 50 ms;
+- tool squares remain visible for 400 ms and blank for 200 ms;
 - running and successful tools use `#F0E9E0`;
 - failed tools use the theme's error red;
 - only one timer is created per row;

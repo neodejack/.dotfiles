@@ -45,8 +45,8 @@ command so arguments can be added before submission.
 | --- | --- | --- | --- |
 | Every tool, including `bash`, `edit`, and `web_search` | Blinking `#F0E9E0` `■` | Static `#F0E9E0` `■` | Static theme-error red `■` |
 
-Each running tool starts independently with a visible square for 300 ms,
-followed by a reserved blank cell for 50 ms. This repeats until the tool
+Each running tool starts independently with a visible square for 400 ms,
+followed by a reserved blank cell for 200 ms. This repeats until the tool
 settles without shifting its text. Success immediately becomes a steady warm
 white square; failure immediately becomes a steady theme-error red square.
 

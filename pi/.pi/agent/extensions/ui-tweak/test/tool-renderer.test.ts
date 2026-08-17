@@ -118,8 +118,8 @@ test("renders warm-white active markers and theme-red failures", () => {
 });
 
 test("uses the agreed fast-blank square blink cadence", () => {
-  assert.equal(TOOL_BLINK_VISIBLE_MS, 300);
-  assert.equal(TOOL_BLINK_BLANK_MS, 50);
+  assert.equal(TOOL_BLINK_VISIBLE_MS, 400);
+  assert.equal(TOOL_BLINK_BLANK_MS, 200);
 });
 
 test("prefix component replaces bash's native prompt and aligns continuation lines", () => {

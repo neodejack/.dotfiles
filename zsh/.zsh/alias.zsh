@@ -32,5 +32,14 @@ alias c_chrome="codex -c mcp_servers.chrome-devtools=true --yolo"
 
 alias cc="claude"
 
+# Start a Herdr host whose Pi sessions advertise Plannotator over Tailscale.
+herdr_host() {
+  PLANNOTATOR_REMOTE=1 \
+    PLANNOTATOR_URL_HOST=auto \
+    PLANNOTATOR_PORT=19432 \
+    BROWSER=none \
+    command herdr "$@"
+}
+
 # wezterm features
 alias tab="wezterm cli set-tab-title"

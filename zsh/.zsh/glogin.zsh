@@ -6,7 +6,11 @@ _GLOGIN_STAMP="${XDG_CACHE_HOME:-$HOME/.cache}/glogin_last"
 zmodload -i zsh/datetime
 
 glogin() {
-  gcloud auth login && gcloud auth application-default login || return
+  local -a browser_args=()
+  [[ -n "$SSH_CONNECTION" ]] && browser_args=(--no-launch-browser)
+
+  gcloud auth login "${browser_args[@]}" &&
+    gcloud auth application-default login "${browser_args[@]}" || return
   local today; strftime -s today '%F' $EPOCHSECONDS
   mkdir -p "${_GLOGIN_STAMP:h}"
   print -r -- "$today" >| "$_GLOGIN_STAMP"

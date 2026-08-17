@@ -10,7 +10,7 @@ next_tab = ""
 split_vertical = "prefix+|"
 
 [ui]
-agent_panel_sort = "spaces"
+agent_panel_sort = "priority"
 show_agent_labels_on_pane_borders = false
 mouse_scroll_lines = 30
 

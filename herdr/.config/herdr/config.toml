@@ -8,6 +8,7 @@ next_agent = "prefix+n"
 previous_tab = ""
 next_tab = ""
 split_vertical = ["prefix+|", "prefix+\\"]
+split_horizontal = ["prefix+_", "prefix+-"]
 
 [ui]
 agent_panel_sort = "priority"

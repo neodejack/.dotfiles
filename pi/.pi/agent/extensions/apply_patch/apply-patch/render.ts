@@ -58,7 +58,7 @@ export function renderApplyPatchResult(
     content: Array<{ type: string; text?: string }>;
     details?: ApplyPatchDetails;
   },
-  options: { expanded: boolean },
+  _options: { expanded: boolean },
   theme: Theme,
   context: { isError: boolean; lastComponent?: Component },
 ) {
@@ -71,9 +71,8 @@ export function renderApplyPatchResult(
 
   const output = context.isError
     ? theme.fg("error", extractTextOutput(result))
-    : options.expanded
-      ? formatExpandedDiff(result.details, theme)
-      : formatApplyPatchSummary(result.details?.summary, result.details, theme);
+    : (formatExpandedDiff(result.details, theme) ??
+      formatApplyPatchSummary(result.details?.summary, result.details, theme));
 
   if (!output) return component;
 

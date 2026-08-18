@@ -15,6 +15,8 @@ This Pi extension gives models served by the `openai-codex` provider the V4A
   `withFileMutationQueue()`.
 - Report partial application when an earlier hunk committed before a later
   hunk failed; patch application is deliberately non-transactional.
+- Render successful text-file diffs directly in the transcript rather than
+  hiding them behind Pi's global tool-output expansion toggle.
 
 ## Code map
 

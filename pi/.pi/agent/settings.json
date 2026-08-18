@@ -44,5 +44,6 @@
   ],
   "tuiMode": "fullscreen",
   "fullscreenExitOutput": "resume-hint",
-  "fullscreenScrollbar": "auto"
+  "fullscreenScrollbar": "auto",
+  "followUpMode": "one-at-a-time"
 }

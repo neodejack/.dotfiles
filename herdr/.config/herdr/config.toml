@@ -20,3 +20,6 @@ enabled = true
 
 [ui.toast]
 delivery = "herdr"
+
+[experimental]
+kitty_graphics = true

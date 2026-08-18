@@ -21,6 +21,9 @@ alias lg="lazygit"
 # just global
 alias j="just -g"
 
+# plannotator
+alias ptt="plannotator"
+
 # kill zen
 alias killzen=" pkill -f '/Applications/Zen.app/Contents/MacOS/zen'"
 

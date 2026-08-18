@@ -35,5 +35,15 @@ alias c_chrome="codex -c mcp_servers.chrome-devtools=true --yolo"
 
 alias cc="claude"
 
+# Remote Herdr panes intentionally omit TERM_PROGRAM. Pi otherwise disables
+# inline images, so advertise a Kitty-compatible terminal only for that case.
+pi() {
+  if [[ "${HERDR_ENV:-}" == "1" && -z "${TERM_PROGRAM:-}" ]]; then
+    TERM_PROGRAM=WezTerm command pi "$@"
+  else
+    command pi "$@"
+  fi
+}
+
 # wezterm features
 alias tab="wezterm cli set-tab-title"

@@ -21,6 +21,9 @@ export interface PromptChromeState {
 }
 
 const MIN_BORDER_RUN = 6;
+const FAST_MODE_STATUS_KEY = "gpt-fast-mode";
+const FAST_MODE_STATUS_VALUE = "enabled";
+const FAST_MODE_ICON = "ϟ";
 
 export function createPromptChromeState(): PromptChromeState {
   return {};
@@ -101,6 +104,7 @@ function chooseFirstFitting(
 
 function buildTopLabel(
   ctx: ExtensionContext,
+  footerData: ReadonlyFooterDataProvider | undefined,
   availableWidth: number,
   theme: Theme,
 ): string | undefined {
@@ -113,11 +117,23 @@ function buildTopLabel(
   const coloredEffort = theme.fg("success", effort);
   const modelAndEffort = `${model} ${theme.fg("dim", "•")} ${coloredEffort}`;
   const separator = theme.fg("text", " ─ ");
-  return chooseFirstFitting([
+  const standardCandidates = [
     `${tokens}${separator}${modelAndEffort}`,
     `${tokens}${separator}${coloredEffort}`,
     tokens,
-  ], availableWidth);
+  ];
+  const fastModeEnabled = footerData
+    ?.getExtensionStatuses()
+    .get(FAST_MODE_STATUS_KEY) === FAST_MODE_STATUS_VALUE;
+  const candidates = fastModeEnabled
+    ? [
+      ...standardCandidates.map(
+        (candidate) => `${FAST_MODE_ICON}${separator}${candidate}`,
+      ),
+      FAST_MODE_ICON,
+    ]
+    : standardCandidates;
+  return chooseFirstFitting(candidates, availableWidth);
 }
 
 function buildBottomLabel(
@@ -151,7 +167,12 @@ export function buildPromptBorderLabels(
   }
 
   return {
-    top: buildTopLabel(ctx, availableWidth, ctx.ui.theme),
+    top: buildTopLabel(
+      ctx,
+      state.footerData,
+      availableWidth,
+      ctx.ui.theme,
+    ),
     bottom: buildBottomLabel(
       ctx,
       state.footerData,
@@ -186,7 +207,7 @@ export class StatusOnlyFooter implements Component {
 
   render(width: number): string[] {
     const statuses = Array.from(this.footerData.getExtensionStatuses().entries())
-      .filter(([key]) => key !== "mcp")
+      .filter(([key]) => key !== "mcp" && key !== FAST_MODE_STATUS_KEY)
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([, text]) => sanitizeStatusText(text));
 

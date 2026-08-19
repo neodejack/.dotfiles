@@ -69,6 +69,9 @@ test("builds full and responsive prompt-border labels", () => {
   const state = createPromptChromeState();
   state.footerData = {
     getGitBranch: () => "master",
+    getExtensionStatuses: () => new Map(),
+    getAvailableProviderCount: () => 1,
+    onBranchChange: () => () => {},
   } as ReadonlyFooterDataProvider;
   updatePromptChromeContext(state, ctx);
 
@@ -89,6 +92,27 @@ test("builds full and responsive prompt-border labels", () => {
   assert.equal(narrow.bottom, undefined);
 });
 
+test("shows a plain fast-mode icon with a separator in the prompt border", () => {
+  const state = createPromptChromeState();
+  state.footerData = {
+    getGitBranch: () => null,
+    getExtensionStatuses: () => new Map([["gpt-fast-mode", "enabled"]]),
+    getAvailableProviderCount: () => 1,
+    onBranchChange: () => () => {},
+  } as ReadonlyFooterDataProvider;
+  updatePromptChromeContext(state, fakeContext());
+
+  const wide = buildPromptBorderLabels(state, 100);
+  assert.equal(
+    wide.top,
+    "ϟ ─ 5.5k tok ─ gpt-5.6-sol • high",
+  );
+  assert.doesNotMatch(wide.top ?? "", /\u001b\[[0-9;]*mϟ/);
+
+  const narrow = buildPromptBorderLabels(state, 12);
+  assert.equal(narrow.top, "ϟ");
+});
+
 test("status-only footer hides MCP while preserving other statuses and branch updates", () => {
   let branchListener: (() => void) | undefined;
   let unsubscribed = false;
@@ -98,6 +122,7 @@ test("status-only footer hides MCP while preserving other statuses and branch up
     getExtensionStatuses: () => new Map([
       ["stash", "stash:2"],
       ["mcp", "MCP: 1 server enabled"],
+      ["gpt-fast-mode", "enabled"],
     ]),
     getAvailableProviderCount: () => 1,
     onBranchChange(listener: () => void) {

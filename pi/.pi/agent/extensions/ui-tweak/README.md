@@ -11,6 +11,9 @@ message styling.
   keeps at least three prompt rows visible.
 - The editor border is white and carries current context tokens, model, effort,
   working directory, and Git branch in an Amp-style responsive layout.
+- When the local `gpt-fast-mode` extension is enabled, the top border prefixes
+  that metadata with a monochrome `ϟ ─` indicator. At narrow widths the `ϟ`
+  remains visible after the other metadata is removed.
 - The built-in footer is reduced to extension statuses such as MCP connection
   state; those statuses remain visible below the editor.
 - `Ctrl-O` opens a centered command palette for built-in, extension, and prompt

@@ -27,11 +27,11 @@
     "npm:pi-web-access@0.17.0",
     "npm:@yusukeshib/pi-stash",
     "./extensions/ui-tweak",
+    "./extensions/gpt-fast-mode",
     "git:github.com/algal/pi-openai-server-compaction",
     "npm:@ff-labs/pi-fff@0.10.3",
     "npm:pi-schedule-prompt",
-    "npm:pi-subagents",
-    "npm:@tunnckocore/pi-gpt-fast-mode"
+    "npm:pi-subagents"
   ],
   "lastChangelogVersion": "0.84.2",
   "theme": "ghostty",

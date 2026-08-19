@@ -30,7 +30,8 @@
     "git:github.com/algal/pi-openai-server-compaction",
     "npm:@ff-labs/pi-fff@0.10.3",
     "npm:pi-schedule-prompt",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:@tunnckocore/pi-gpt-fast-mode"
   ],
   "lastChangelogVersion": "0.84.2",
   "theme": "ghostty",

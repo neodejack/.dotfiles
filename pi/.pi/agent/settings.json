@@ -29,7 +29,8 @@
     "./extensions/ui-tweak",
     "git:github.com/algal/pi-openai-server-compaction",
     "npm:@ff-labs/pi-fff@0.10.3",
-    "npm:pi-schedule-prompt"
+    "npm:pi-schedule-prompt",
+    "npm:pi-subagents"
   ],
   "lastChangelogVersion": "0.84.2",
   "theme": "ghostty",
@@ -45,5 +46,16 @@
   "tuiMode": "fullscreen",
   "fullscreenExitOutput": "resume-hint",
   "fullscreenScrollbar": "auto",
-  "followUpMode": "one-at-a-time"
+  "followUpMode": "one-at-a-time",
+  "subagents": {
+    "agentOverrides": {
+      "scout": {
+        "model": "openai-codex/gpt-5.6-terra"
+      },
+      "oracle": {
+        "model": "openai-codex/gpt-5.6-sol",
+        "thinking": "xhigh"
+      }
+    }
+  }
 }

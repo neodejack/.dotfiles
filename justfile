@@ -2,6 +2,7 @@ set shell := ["bash", "-uc"]
 
 exclude := ".git"
 no_folding := "herdr pi sesame"
+ignore := "(^|/)node_modules($|/)"
 
 # List available recipes
 [default]
@@ -24,9 +25,9 @@ test:
         fi
     done
     echo "Packages: ${regular[*]}"
-    ((${#regular[@]} == 0)) || stow -nvt ~ "${regular[@]}"
+    ((${#regular[@]} == 0)) || stow -nvt ~ --ignore='{{ ignore }}' "${regular[@]}"
     echo "Packages (no folding): ${no_folding[*]}"
-    stow -nRvt ~ --no-folding "${no_folding[@]}"
+    stow -nRvt ~ --no-folding --ignore='{{ ignore }}' "${no_folding[@]}"
 
 # Stow all packages into ~
 [script('bash')]
@@ -44,9 +45,9 @@ apply:
         fi
     done
     echo "Packages: ${regular[*]}"
-    ((${#regular[@]} == 0)) || stow -vt ~ "${regular[@]}"
+    ((${#regular[@]} == 0)) || stow -vt ~ --ignore='{{ ignore }}' "${regular[@]}"
     echo "Packages (no folding): ${no_folding[*]}"
-    stow -Rvt ~ --no-folding "${no_folding[@]}"
+    stow -Rvt ~ --no-folding --ignore='{{ ignore }}' "${no_folding[@]}"
 
 # Unstow a package from ~
 unstow pkg:

@@ -3,6 +3,9 @@
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
+  "pi-gpt-fast-mode": {
+    "enabled": true
+  },
   "extensions": [
     "./extensions/herdr-agent-state.ts",
     "./extensions/context.ts",

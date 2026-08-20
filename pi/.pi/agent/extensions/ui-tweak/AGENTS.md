@@ -15,5 +15,9 @@
   prompt border exactly.
 - Filter `gpt-fast-mode` from the status-only footer because prompt chrome owns
   its visual representation and it must not appear twice.
+- Run the extension command `fast` from the command palette with the
+  `submit-preserving-prompt` action. Prompt preservation belongs here because
+  this palette owns command insertion; do not require fast mode to wrap Pi's
+  editor.
 - Cover enabled, absent, narrow-width, uncolored-glyph, and footer-filtering
   behavior in `test/prompt-chrome.test.ts`. Run `pnpm check` after changes.

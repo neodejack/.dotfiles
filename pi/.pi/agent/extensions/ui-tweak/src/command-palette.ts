@@ -29,7 +29,7 @@ export interface CommandPaletteItem {
 
 export interface CommandPaletteResult {
   command: string;
-  action: "insert" | "submit";
+  action: "insert" | "submit" | "submit-preserving-prompt";
 }
 
 // Pi's public getCommands() deliberately omits interactive built-ins. Keep this
@@ -95,7 +95,12 @@ export function commandPaletteItems(pi: ExtensionAPI): CommandPaletteItem[] {
 export function defaultCommandAction(
   item: CommandPaletteItem,
 ): CommandPaletteResult["action"] {
-  return item.source === "prompt" ? "insert" : "submit";
+  if (item.source === "prompt") {
+    return "insert";
+  }
+  return item.source === "extension" && item.name === "fast"
+    ? "submit-preserving-prompt"
+    : "submit";
 }
 
 export class CommandPaletteOverlay implements Component {
@@ -353,23 +358,41 @@ export function applyCommandPaletteResult(
   result: CommandPaletteResult,
 ): void {
   const commandText = `/${result.command}`;
-  editor.setText(result.action === "insert" ? `${commandText} ` : commandText);
-
   if (result.action === "insert") {
+    editor.setText(`${commandText} `);
     return;
   }
 
+  const preservedPrompt = result.action === "submit-preserving-prompt"
+    ? editor.getExpandedText?.() ?? editor.getText()
+    : undefined;
+  if (preservedPrompt !== undefined && editor.onSubmit) {
+    editor.onSubmit(commandText);
+    const currentPrompt = editor.getExpandedText?.() ?? editor.getText();
+    if (currentPrompt !== preservedPrompt) {
+      editor.setText(preservedPrompt);
+    }
+    return;
+  }
+
+  editor.setText(commandText);
   const submitValue = (editor as EditorComponent & {
     submitValue?: () => void;
   }).submitValue;
   if (typeof submitValue === "function") {
     submitValue.call(editor);
+    if (preservedPrompt !== undefined) {
+      editor.setText(preservedPrompt);
+    }
     return;
   }
 
   editor.setText("");
   editor.onChange?.("");
   editor.onSubmit?.(commandText);
+  if (preservedPrompt !== undefined) {
+    editor.setText(preservedPrompt);
+  }
 }
 
 export function registerCommandPaletteShortcut(

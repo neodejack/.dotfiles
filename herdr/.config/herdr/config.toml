@@ -12,14 +12,18 @@ split_horizontal = ["prefix+_", "prefix+-"]
 
 [ui]
 agent_panel_sort = "priority"
-show_agent_labels_on_pane_borders = false
+show_agent_labels_on_pane_borders = true
 mouse_scroll_lines = 5
 
 [ui.sound]
 enabled = true
 
 [ui.toast]
-delivery = "herdr"
+delivery = "system"
 
 [experimental]
 kitty_graphics = true
+
+[theme]
+name = "tokyo-night"
+auto_switch = false

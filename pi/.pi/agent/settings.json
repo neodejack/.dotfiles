@@ -9,6 +9,7 @@
   "extensions": [
     "./extensions/herdr-agent-state.ts",
     "./extensions/context.ts",
+    "./extensions/gpt-fast-mode.ts",
     "./extensions/apply_patch/index.ts",
     "./extensions/harness-tools/index.ts"
   ],
@@ -30,7 +31,6 @@
     "npm:pi-web-access@0.17.0",
     "npm:@yusukeshib/pi-stash",
     "./extensions/ui-tweak",
-    "./extensions/gpt-fast-mode",
     "git:github.com/algal/pi-openai-server-compaction",
     "npm:@ff-labs/pi-fff@0.10.3",
     "npm:pi-schedule-prompt",

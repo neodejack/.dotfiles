@@ -1,8 +1,10 @@
 import {
   CustomEditor,
   type ExtensionContext,
+  type KeybindingsManager,
 } from "@earendil-works/pi-coding-agent";
 import {
+  Editor,
   truncateToWidth,
   visibleWidth,
   type EditorComponent,
@@ -25,7 +27,16 @@ export type EditorReadyHandler = (editor: EditorComponent) => void;
 
 const ANSI_PATTERN = /\u001B(?:\[[0-?]*[ -/]*[@-~]|\][^\u0007]*(?:\u0007|\u001B\\))/g;
 const DECORATED_EDITORS = new WeakSet<EditorComponent>();
+const INPUT_DECORATED_EDITORS = new WeakSet<EditorComponent>();
 const ROUNDED_FACTORIES = new WeakSet<EditorFactory>();
+
+const AUTOCOMPLETE_INPUT_ACTIONS = [
+  "tui.select.cancel",
+  "tui.select.up",
+  "tui.select.down",
+  "tui.input.tab",
+  "tui.select.confirm",
+] as const;
 
 export const MIN_PROMPT_ROWS = 3;
 
@@ -184,6 +195,36 @@ export function decorateEditorRender(
   return editor;
 }
 
+export function decorateAutocompleteInput(
+  editor: EditorComponent,
+  keybindings: KeybindingsManager,
+): EditorComponent {
+  if (INPUT_DECORATED_EDITORS.has(editor) || !(editor instanceof Editor)) {
+    return editor;
+  }
+
+  const originalHandleInput = editor.handleInput.bind(editor);
+  editor.handleInput = (data: string): void => {
+    const autocompleteOwnsInput = editor.isShowingAutocomplete()
+      && AUTOCOMPLETE_INPUT_ACTIONS.some((action) => (
+        keybindings.matches(data, action)
+      ));
+
+    if (autocompleteOwnsInput) {
+      // CustomEditor checks app actions before Editor's autocomplete handling.
+      // Enter is also bound to app.message.followUp, so route menu-owned keys
+      // directly to the base editor while the picker is visible.
+      Editor.prototype.handleInput.call(editor, data);
+      return;
+    }
+
+    originalHandleInput(data);
+  };
+
+  INPUT_DECORATED_EDITORS.add(editor);
+  return editor;
+}
+
 export function createRoundedEditorFactory(
   previous: EditorFactory | undefined,
   getLabels: BorderLabelProvider = () => ({}),
@@ -194,6 +235,7 @@ export function createRoundedEditorFactory(
     const editor = previous
       ? previous(tui, theme, keybindings)
       : new CustomEditor(tui, theme, keybindings);
+    decorateAutocompleteInput(editor, keybindings);
     const decorated = decorateEditorRender(
       editor,
       theme.borderColor,

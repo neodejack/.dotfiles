@@ -20,6 +20,9 @@ message styling.
   commands. Type to fuzzy-filter command names, use `Ctrl-P`/`Ctrl-N`
   or the arrow keys to navigate, press `Enter` to select, or press `Tab` to
   insert without running.
+- Slash autocomplete gives its visible selection first priority for `Enter`,
+  `Ctrl-P`, and `Ctrl-N`. Outside autocomplete, `Enter` retains its configured
+  follow-up behavior.
 - Other theme colors and editor behavior are delegated to Pi unchanged.
 
 Amp's short `┃` beside submitted prompts is intentionally not included. Pi
@@ -34,8 +37,16 @@ moves Pi's context-sensitive display actions together:
 
 | Context | Forward | Backward |
 | --- | --- | --- |
+| Selection menus | `Ctrl-N` | `Ctrl-P` |
+| Fullscreen transcript prompts | `Ctrl-D` | `Ctrl-U` |
 | Tool output expansion | `Ctrl-L` | Toggle only |
 | Session-tree filters | `Ctrl-L` | `Ctrl-Shift-B` |
+
+In the resume selector, `Ctrl-Shift-P` toggles paths, `Ctrl-Shift-N` toggles
+the named-only filter, `Alt-D` deletes the selected session, and
+`Ctrl-Backspace` keeps Pi's non-invasive delete behavior. In the session tree,
+`Ctrl-Shift-U` selects the user-only filter. The unused default filter is
+unbound, and Pi's global `Ctrl-Shift-D` debug shortcut remains unchanged.
 
 Slash-command autocomplete remains available as a fallback. Built-in and
 extension commands run when selected with `Enter`; prompt commands are inserted

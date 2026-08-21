@@ -1,9 +1,21 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import type { ExtensionContext } from "@earendil-works/pi-coding-agent";
-import { visibleWidth, type EditorComponent } from "@earendil-works/pi-tui";
+import {
+  CustomEditor,
+  type ExtensionContext,
+  type KeybindingsManager,
+} from "@earendil-works/pi-coding-agent";
+import {
+  SelectList,
+  visibleWidth,
+  type AutocompleteProvider,
+  type EditorComponent,
+  type SelectListTheme,
+  type TUI,
+} from "@earendil-works/pi-tui";
 import {
   createRoundedEditorFactory,
+  decorateAutocompleteInput,
   decorateEditorRender,
   ensureMinimumPromptRows,
   frameEditorLines,
@@ -30,6 +42,73 @@ function fakeEditor(render: (width: number) => string[]): EditorComponent {
     invalidate() {},
     render,
   };
+}
+
+function plainSelectListTheme(): SelectListTheme {
+  return {
+    selectedPrefix: (text) => text,
+    selectedText: (text) => text,
+    description: (text) => text,
+    scrollInfo: (text) => text,
+    noMatch: (text) => text,
+  };
+}
+
+function enterKeybindings(): KeybindingsManager {
+  return {
+    matches(data: string, action: string) {
+      return data === "\r" && [
+        "app.message.followUp",
+        "tui.select.confirm",
+        "tui.input.submit",
+      ].includes(action);
+    },
+  } as KeybindingsManager;
+}
+
+function customEditor(): CustomEditor {
+  return new CustomEditor(
+    {
+      terminal: { rows: 24 },
+      requestRender() {},
+    } as TUI,
+    {
+      borderColor: (text: string) => text,
+      selectList: plainSelectListTheme(),
+    },
+    enterKeybindings(),
+  );
+}
+
+function showTreeAutocomplete(editor: CustomEditor): void {
+  const provider: AutocompleteProvider = {
+    async getSuggestions() {
+      return null;
+    },
+    applyCompletion(_lines, _line, _col, item) {
+      return {
+        lines: [item.value],
+        cursorLine: 0,
+        cursorCol: item.value.length,
+      };
+    },
+  };
+  const internal = editor as unknown as {
+    autocompleteState: "regular";
+    autocompleteList: SelectList;
+    autocompletePrefix: string;
+    autocompleteProvider: AutocompleteProvider;
+  };
+
+  editor.setText("/tre");
+  internal.autocompleteState = "regular";
+  internal.autocompleteList = new SelectList(
+    [{ value: "/tree", label: "tree" }],
+    5,
+    plainSelectListTheme(),
+  );
+  internal.autocompletePrefix = "/tre";
+  internal.autocompleteProvider = provider;
 }
 
 test("adds rounded corners and vertical borders at the requested width", () => {
@@ -138,6 +217,37 @@ test("decorates the existing editor in place with a three-row prompt", () => {
   assert.equal(plain(lines[3] ?? ""), "│          │");
   assert.equal(plain(lines[4] ?? ""), "╰──────────╯");
   assert.match(lines[0] ?? "", /\u001b\[38;5;15m╭/);
+});
+
+test("submits the selected slash completion before the Enter follow-up action", () => {
+  const editor = customEditor();
+  const submitted: string[] = [];
+  let followUps = 0;
+  editor.onSubmit = (text) => submitted.push(text);
+  editor.onAction("app.message.followUp", () => {
+    followUps += 1;
+  });
+  showTreeAutocomplete(editor);
+  decorateAutocompleteInput(editor, enterKeybindings());
+
+  editor.handleInput("\r");
+
+  assert.deepEqual(submitted, ["/tree"]);
+  assert.equal(followUps, 0);
+});
+
+test("keeps the Enter follow-up action when autocomplete is closed", () => {
+  const editor = customEditor();
+  let followUps = 0;
+  editor.onAction("app.message.followUp", () => {
+    followUps += 1;
+  });
+  editor.setText("continue after the current response");
+  decorateAutocompleteInput(editor, enterKeybindings());
+
+  editor.handleInput("\r");
+
+  assert.equal(followUps, 1);
 });
 
 test("composes with a previous editor factory and installs idempotently", () => {

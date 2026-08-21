@@ -166,7 +166,7 @@ test("extension does not re-register or execute tools", () => {
 
   assert.equal(activeToolReads, 0);
   assert.equal(registrations, 0);
-  assert.deepEqual(registeredShortcuts, ["ctrl+o"]);
+  assert.deepEqual(registeredShortcuts, ["ctrl+o", "alt+l"]);
   assert.equal(workingIndicator?.intervalMs, 50);
   assert.match(
     workingIndicator?.frames?.[0] ?? "",

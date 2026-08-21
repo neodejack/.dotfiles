@@ -457,3 +457,28 @@ export function registerCommandPaletteShortcut(
     },
   });
 }
+
+export function registerPlannotatorLastShortcut(
+  pi: ExtensionAPI,
+  getEditor: () => EditorComponent | undefined,
+): void {
+  pi.registerShortcut("alt+l", {
+    description: "Annotate the last assistant message",
+    handler: (ctx: ExtensionContext) => {
+      if (!ctx.hasUI) {
+        return;
+      }
+
+      const editor = getEditor();
+      if (!editor) {
+        ctx.ui.notify("Plannotator shortcut editor is unavailable", "error");
+        return;
+      }
+
+      applyCommandPaletteResult(editor, {
+        command: "plannotator-last",
+        action: "submit-preserving-prompt",
+      });
+    },
+  });
+}

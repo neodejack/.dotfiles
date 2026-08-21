@@ -18,6 +18,7 @@ import {
   CommandPaletteOverlay,
   defaultCommandAction,
   registerCommandPaletteShortcut,
+  registerPlannotatorLastShortcut,
   type CommandPaletteItem,
   type CommandPaletteResult,
 } from "../src/command-palette.js";
@@ -321,4 +322,34 @@ test("registers Ctrl-O and opens a centered overlay", async () => {
   let focused = false;
   overlayOptions?.onHandle({ focus: () => { focused = true; } });
   assert.equal(focused, true);
+});
+
+test("registers Alt-L for plannotator-last and preserves the editor", () => {
+  let shortcut: {
+    description?: string;
+    handler: (ctx: ExtensionContext) => Promise<void> | void;
+  } | undefined;
+  const editor = fakeEditor();
+  editor.text = "Keep this draft";
+  editor.onSubmit = (text) => {
+    editor.submitted.push(text);
+    editor.text = "";
+  };
+  const pi = {
+    registerShortcut(key: string, options: typeof shortcut) {
+      assert.equal(key, "alt+l");
+      shortcut = options;
+    },
+  } as unknown as ExtensionAPI;
+
+  registerPlannotatorLastShortcut(pi, () => editor);
+  assert.equal(shortcut?.description, "Annotate the last assistant message");
+
+  shortcut?.handler({
+    hasUI: true,
+    ui: { notify() {} },
+  } as unknown as ExtensionContext);
+
+  assert.deepEqual(editor.submitted, ["/plannotator-last"]);
+  assert.equal(editor.text, "Keep this draft");
 });

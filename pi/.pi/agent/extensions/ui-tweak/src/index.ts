@@ -1,7 +1,10 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import type { EditorComponent } from "@earendil-works/pi-tui";
 import { activeIndicatorColor } from "./colors.js";
-import { registerCommandPaletteShortcut } from "./command-palette.js";
+import {
+  registerCommandPaletteShortcut,
+  registerPlannotatorLastShortcut,
+} from "./command-palette.js";
 import {
   buildPromptBorderLabels,
   createPromptChromeState,
@@ -25,6 +28,7 @@ export default function piRenderExtension(pi: ExtensionAPI): void {
   let activeEditor: EditorComponent | undefined;
 
   registerCommandPaletteShortcut(pi, () => activeEditor);
+  registerPlannotatorLastShortcut(pi, () => activeEditor);
   installToolRendererInterceptor(timers);
 
   pi.on("session_start", (_event, ctx) => {

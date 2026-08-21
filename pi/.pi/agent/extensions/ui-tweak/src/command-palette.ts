@@ -25,6 +25,7 @@ const PROMPT_PRESERVING_COMMANDS = new Set([
   "plannotator-last",
   "plannotator-review",
   "ship",
+  "down",
   "ship-vm-service",
 ]);
 
@@ -127,7 +128,7 @@ export class CommandPaletteOverlay implements Component {
     this.query = initialQuery.replace(/^\//, "");
   }
 
-  invalidate(): void {}
+  invalidate(): void { }
 
   handleInput(data: string): void {
     const filtered = this.filteredItems();
@@ -288,7 +289,7 @@ export class CommandPaletteOverlay implements Component {
 
     return truncateToWidth(
       `${padVisible(`${marker}${source}`, sourceWidth + 2)}`
-        + `${padVisible(name, nameWidth + 2)}${description}`,
+      + `${padVisible(name, nameWidth + 2)}${description}`,
       width,
       "",
       true,

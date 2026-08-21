@@ -127,6 +127,22 @@ test("uses native command-source semantics", () => {
     defaultCommandAction(item("extension", "fast")),
     "submit-preserving-prompt",
   );
+  assert.equal(
+    defaultCommandAction(item("extension", "plannotator-last")),
+    "submit-preserving-prompt",
+  );
+  assert.equal(
+    defaultCommandAction(item("extension", "plannotator-review")),
+    "submit-preserving-prompt",
+  );
+  assert.equal(
+    defaultCommandAction(item("prompt", "ship")),
+    "submit-preserving-prompt",
+  );
+  assert.equal(
+    defaultCommandAction(item("prompt", "ship-vm-service")),
+    "submit-preserving-prompt",
+  );
   assert.equal(defaultCommandAction(item("prompt")), "insert");
 });
 
@@ -145,22 +161,30 @@ test("inserts editable commands and submits runnable commands", () => {
   assert.deepEqual(editor.submitted, ["/settings"]);
 });
 
-test("runs fast mode without replacing the current prompt", () => {
-  const editor = fakeEditor();
-  const prompt = "Keep this long prompt\nincluding all of its details";
-  editor.text = prompt;
-  editor.onSubmit = (text) => {
-    editor.submitted.push(text);
-    editor.text = "";
-  };
+test("runs prompt-preserving commands without replacing the current prompt", () => {
+  for (const command of [
+    "fast",
+    "plannotator-last",
+    "plannotator-review",
+    "ship",
+    "ship-vm-service",
+  ]) {
+    const editor = fakeEditor();
+    const prompt = "Keep this long prompt\nincluding all of its details";
+    editor.text = prompt;
+    editor.onSubmit = (text) => {
+      editor.submitted.push(text);
+      editor.text = "";
+    };
 
-  applyCommandPaletteResult(editor, {
-    command: "fast",
-    action: "submit-preserving-prompt",
-  });
+    applyCommandPaletteResult(editor, {
+      command,
+      action: "submit-preserving-prompt",
+    });
 
-  assert.deepEqual(editor.submitted, ["/fast"]);
-  assert.equal(editor.text, prompt);
+    assert.deepEqual(editor.submitted, [`/${command}`]);
+    assert.equal(editor.text, prompt);
+  }
 });
 
 test("filters, uses configured Ctrl-N navigation, and returns the selection", () => {

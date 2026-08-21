@@ -39,9 +39,11 @@ moves Pi's context-sensitive display actions together:
 
 Slash-command autocomplete remains available as a fallback. Built-in and
 extension commands run when selected with `Enter`; prompt commands are inserted
-into the editor for review. `Tab` always inserts the selected
-command so arguments can be added before submission. Selecting `/fast` with
-`Enter` toggles Fast mode without replacing text already in the editor.
+into the editor for review, except for the `/ship` and `/ship-vm-service` prompt
+commands. `Tab` always inserts the selected command so arguments can be added
+before submission. Selecting `/fast`, `/plannotator-last`,
+`/plannotator-review`, `/ship`, or `/ship-vm-service` with `Enter` runs the
+command without replacing text already in the editor.
 
 ## Status markers
 

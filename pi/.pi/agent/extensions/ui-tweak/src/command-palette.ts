@@ -20,6 +20,13 @@ const MAX_VISIBLE_COMMANDS = 12;
 const MIN_PALETTE_WIDTH = 40;
 const SIDE_PADDING = 1;
 const TITLE = " Command Palette ";
+const PROMPT_PRESERVING_COMMANDS = new Set([
+  "fast",
+  "plannotator-last",
+  "plannotator-review",
+  "ship",
+  "ship-vm-service",
+]);
 
 export interface CommandPaletteItem {
   name: string;
@@ -95,12 +102,13 @@ export function commandPaletteItems(pi: ExtensionAPI): CommandPaletteItem[] {
 export function defaultCommandAction(
   item: CommandPaletteItem,
 ): CommandPaletteResult["action"] {
+  if (PROMPT_PRESERVING_COMMANDS.has(item.name)) {
+    return "submit-preserving-prompt";
+  }
   if (item.source === "prompt") {
     return "insert";
   }
-  return item.source === "extension" && item.name === "fast"
-    ? "submit-preserving-prompt"
-    : "submit";
+  return "submit";
 }
 
 export class CommandPaletteOverlay implements Component {

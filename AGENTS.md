@@ -7,14 +7,15 @@ user's home directory.
 
 Before adding a package, determine whether its application writes generated
 state, logs, caches, sockets, sessions, credentials, or other unmanaged files
-beside the versioned configuration. Such packages must be stowed with
-`--no-folding` so their destination directories remain real directories and
-only package files are symlinked into them.
+beside the versioned configuration. Add the shared destination directory to
+the `anchor_dirs` variable in `justfile` so it remains a real directory while
+Stow can still fold managed subdirectories beneath it.
 
-The `no_folding` variable in `justfile` is the source of truth for these
-packages. Add any package that needs this behavior to that variable. Keep the
-`test` and `apply` recipes driven by the variable rather than adding
-package-specific Stow commands.
+The `anchor_dirs` variable is the source of truth for these boundaries. The
+`ensure_dirs` recipe creates missing path components and refuses to continue
+if any component is a symlink or non-directory. Keep `test` and `apply`
+dependent on that recipe rather than adding package-specific Stow commands or
+using package-wide `--no-folding`.
 
 Run `just test` before `just apply`. Do not use Git ignore rules as a substitute
 for the correct Stow layout; generated application files must live outside the

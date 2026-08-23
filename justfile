@@ -1,7 +1,7 @@
 set shell := ["bash", "-uc"]
 
 exclude := ".git"
-no_folding := "herdr pi sesame"
+anchor_dirs := ".pi/agent .config/herdr .config/sesame Library/LaunchAgents"
 ignore := "(^|/)node_modules($|/)"
 
 # List available recipes
@@ -9,45 +9,61 @@ ignore := "(^|/)node_modules($|/)"
 list:
     @just --list
 
+# Ensure generated-state boundaries are real directories
+[script('bash')]
+ensure_dirs:
+    set -euo pipefail
+
+    ensure_real_dir() {
+        local relative="$1"
+        local current="$HOME"
+        local parts=()
+        local part
+
+        IFS="/" read -r -a parts <<< "$relative"
+        for part in "${parts[@]}"; do
+            [[ -z "$part" ]] && continue
+            current="$current/$part"
+
+            if [[ -L "$current" ]]; then
+                echo "Directory boundary must not be a symlink: $current" >&2
+                exit 1
+            fi
+            if [[ -e "$current" && ! -d "$current" ]]; then
+                echo "Directory boundary is not a directory: $current" >&2
+                exit 1
+            fi
+
+            [[ -d "$current" ]] || mkdir "$current"
+        done
+    }
+
+    read -r -a anchors <<< "{{ anchor_dirs }}"
+    for anchor in "${anchors[@]}"; do
+        ensure_real_dir "$anchor"
+    done
+
 # Dry-run stow against all packages
 [script('bash')]
-test:
+test: ensure_dirs
     set -euo pipefail
-    all_dirs=()
+    packages=()
     while IFS= read -r dir; do
-        all_dirs+=("$dir")
+        packages+=("$dir")
     done < <(find . -maxdepth 1 -mindepth 1 -type d ! -name '{{ exclude }}' | sed 's|^\./||' | sort)
-    read -r -a no_folding <<< "{{ no_folding }}"
-    regular=()
-    for dir in "${all_dirs[@]}"; do
-        if [[ " ${no_folding[*]} " != *" $dir "* ]]; then
-            regular+=("$dir")
-        fi
-    done
-    echo "Packages: ${regular[*]}"
-    ((${#regular[@]} == 0)) || stow -nvt ~ --ignore='{{ ignore }}' "${regular[@]}"
-    echo "Packages (no folding): ${no_folding[*]}"
-    stow -nRvt ~ --no-folding --ignore='{{ ignore }}' "${no_folding[@]}"
+    echo "Packages: ${packages[*]}"
+    ((${#packages[@]} == 0)) || stow -nvt "$HOME" --ignore='{{ ignore }}' "${packages[@]}"
 
 # Stow all packages into ~
 [script('bash')]
-apply:
+apply: ensure_dirs
     set -euo pipefail
-    all_dirs=()
+    packages=()
     while IFS= read -r dir; do
-        all_dirs+=("$dir")
+        packages+=("$dir")
     done < <(find . -maxdepth 1 -mindepth 1 -type d ! -name '{{ exclude }}' | sed 's|^\./||' | sort)
-    read -r -a no_folding <<< "{{ no_folding }}"
-    regular=()
-    for dir in "${all_dirs[@]}"; do
-        if [[ " ${no_folding[*]} " != *" $dir "* ]]; then
-            regular+=("$dir")
-        fi
-    done
-    echo "Packages: ${regular[*]}"
-    ((${#regular[@]} == 0)) || stow -vt ~ --ignore='{{ ignore }}' "${regular[@]}"
-    echo "Packages (no folding): ${no_folding[*]}"
-    stow -Rvt ~ --no-folding --ignore='{{ ignore }}' "${no_folding[@]}"
+    echo "Packages: ${packages[*]}"
+    ((${#packages[@]} == 0)) || stow -vt "$HOME" --ignore='{{ ignore }}' "${packages[@]}"
 
 # Unstow a package from ~
 unstow pkg:

@@ -2,6 +2,13 @@
 # Org policy requires re-running `gcloud auth login` ~once a day. `glogin`
 # records the date on success; the startup check nudges when it wasn't today.
 # `strftime` (zsh/datetime) gives the date with no `date` fork, keeping startup free.
+# Keep both the command and its reminder off personal machines. Strip `.local`
+# so the allowlist works whether macOS returns the short or mDNS hostname.
+case "${HOST%.local}" in
+  ziliwork|zilis-Mac-mini) ;;
+  *) return ;;
+esac
+
 _GLOGIN_STAMP="${XDG_CACHE_HOME:-$HOME/.cache}/glogin_last"
 zmodload -i zsh/datetime
 

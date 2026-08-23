@@ -15,11 +15,12 @@ agent_panel_sort = "priority"
 show_agent_labels_on_pane_borders = true
 mouse_scroll_lines = 5
 
+status_indicators = "dots"
 [ui.sound]
 enabled = true
 
 [ui.toast]
-delivery = "system"
+delivery = "terminal"
 
 [experimental]
 kitty_graphics = true

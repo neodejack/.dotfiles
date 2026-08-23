@@ -1,7 +1,7 @@
 # Justfile Conventions
 
 This is a **global justfile** (`just -g`) for commands available everywhere, aliased as `j`.
-It is managed via GNU Stow from `~/.dotfiles/just/` and symlinked to `~/.config/just/justfile`.
+It is managed via GNU Stow from `~/code/personal/.dotfiles/just/` and symlinked to `~/.config/just/justfile`.
 
 ## Recipe Rules
 

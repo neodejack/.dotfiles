@@ -7,7 +7,7 @@ Personal dotfiles managed with GNU Stow. Each top‑level folder here is a Stow 
 Before installing these dotfiles, follow [`git/README.md`](git/README.md) to:
 
 1. create the canonical personal and work directories;
-2. configure the personal and work SSH keys;
+2. configure the personal SSH key and, when needed, the work SSH key;
 3. add the public keys to the corresponding GitHub accounts; and
 4. clone this repository to `~/code/personal/.dotfiles`.
 

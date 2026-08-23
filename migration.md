@@ -24,7 +24,7 @@ mv ~/.gitconfig ~/.gitconfig.bak
 ## Create new symlinks with Stow
 
 ```
-cd ~/.dotfiles
+cd ~/code/personal/.dotfiles
 stow -vt ~ aerospace
 stow -vt ~ wezterm
 stow -vt ~ zsh
@@ -50,6 +50,7 @@ it always recreates the config file itself, so we need to uninstall it first
 ```bash
 brew uninstall atuin
 rm -rf ~/.config/atuin/
+cd ~/code/personal/.dotfiles
 stow -vt ~ atuin
 brew install atuin
 ```

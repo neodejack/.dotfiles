@@ -18,7 +18,11 @@ The package installs three configuration files:
 
 - `~/.gitconfig` selects an account according to repository location.
 - `~/.gitconfig-personal` contains the personal commit identity and URL rewrite.
-- `~/.gitconfig-work` contains the work commit identity.
+- `~/.gitconfig-work` contains the work commit identity when one is configured.
+
+On a personal-only machine, leave `~/.gitconfig-work` without a `[user]`
+section. Commits under `~/code/work/` will then fail until a work identity is
+deliberately configured.
 
 `user.useConfigOnly = true` makes commits outside the two roots fail instead of
 silently using the wrong identity. Commit identity and GitHub authentication
@@ -52,6 +56,9 @@ selecting the personal key. Use SSH remotes for account separation; the `gh`
 HTTPS credential helper follows its active login rather than repository
 directory. Never commit private keys, tokens, or credential stores.
 
+On a personal-only machine, configure only `github.com-personal`. Add the
+`github.com` work block when the machine is provisioned with a work account.
+
 ## Bootstrap a new machine
 
 Complete these steps before cloning the dotfiles repository.
@@ -70,19 +77,11 @@ The work key is optional on a machine that never accesses work repositories.
 
 ### 2. Configure SSH
 
-Create `~/.ssh/config` with both GitHub aliases. If the file already contains
-other hosts, merge these blocks into it instead of overwriting it.
+Create `~/.ssh/config` with the personal GitHub alias. If the file already
+contains other hosts, merge this block into it instead of overwriting it.
 
 ```bash
 cat > ~/.ssh/config <<'EOF'
-Host github.com
-  HostName github.com
-  User git
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_ed25519_github_work
-  IdentitiesOnly yes
-
 Host github.com-personal
   HostName github.com
   User git
@@ -91,6 +90,18 @@ Host github.com-personal
   IdentityFile ~/.ssh/id_ed25519_github_personal
   IdentitiesOnly yes
 EOF
+```
+
+On a machine with a work account, also add:
+
+```sshconfig
+Host github.com
+  HostName github.com
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519_github_work
+  IdentitiesOnly yes
 ```
 
 Enforce the expected permissions:

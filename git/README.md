@@ -18,11 +18,7 @@ The package installs three configuration files:
 
 - `~/.gitconfig` selects an account according to repository location.
 - `~/.gitconfig-personal` contains the personal commit identity and URL rewrite.
-- `~/.gitconfig-work` contains the work commit identity when one is configured.
-
-On a personal-only machine, leave `~/.gitconfig-work` without a `[user]`
-section. Commits under `~/code/work/` will then fail until a work identity is
-deliberately configured.
+- `~/.gitconfig-work` contains the work commit identity.
 
 `user.useConfigOnly = true` makes commits outside the two roots fail instead of
 silently using the wrong identity. Commit identity and GitHub authentication

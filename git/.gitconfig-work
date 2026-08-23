@@ -1,2 +1,3 @@
-# Intentionally empty on machines without a configured work identity.
-# Add a [user] section only when this machine is provisioned for work.
+[user]
+    name = zili-simular
+    email = zili@simular.ai

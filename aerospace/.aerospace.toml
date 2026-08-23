@@ -118,13 +118,13 @@ alt-minus = 'resize smart -50'
 alt-equal = 'resize smart +50'
 
 # see: https://nikitabobko.github.io/aerospace/commands#workspace
-cmd-ctrl-alt-shift-g = 'workspace ai_dev'
-cmd-ctrl-alt-shift-o = 'workspace obsidian'
-cmd-ctrl-alt-shift-l = 'workspace work_com'
-cmd-ctrl-alt-shift-a = 'workspace browser'
-cmd-ctrl-alt-shift-t = 'workspace terminal'
+cmd-ctrl-alt-shift-g = 'workspace ai'
+cmd-ctrl-alt-shift-o = 'workspace note'
+cmd-ctrl-alt-shift-l = 'workspace com'
+cmd-ctrl-alt-shift-a = 'workspace web'
+cmd-ctrl-alt-shift-t = 'workspace pty'
 cmd-ctrl-alt-shift-r = 'workspace read'
-cmd-ctrl-alt-shift-d = 'workspace default'
+cmd-ctrl-alt-shift-d = 'workspace misc'
 
 # commenting this out since now i use AI stuff in zen-browser
 # cmd-ctrl-alt-shift-c = 'workspace ai'
@@ -133,7 +133,7 @@ cmd-ctrl-alt-shift-d = 'workspace default'
 alt-f = 'fullscreen'
 
 # see: https://nikitabobko.github.io/aerospace/commands#move-node-to-workspace
-alt-shift-d = 'move-node-to-workspace default'
+alt-shift-d = 'move-node-to-workspace misc'
 # alt-shift-c = 'move-node-to-workspace ai'
 
 
@@ -161,33 +161,33 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
-run = "move-node-to-workspace obsidian"
+run = "move-node-to-workspace note"
 
 [[on-window-detected]]
 if.app-id = 'com.larksuite.larkApp'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 [[on-window-detected]]
 if.app-id = 'com.larksuite.larkApp.iron'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 [[on-window-detected]]
 if.app-id = 'com.electron.lark'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = "move-node-to-workspace work_com"
+run = "move-node-to-workspace com"
 
 [[on-window-detected]]
 if.app-id = 'app.zen-browser.zen'
-run = "move-node-to-workspace browser"
+run = "move-node-to-workspace web"
 
 [[on-window-detected]]
 if.app-id = 'com.figma.Desktop'
@@ -195,55 +195,55 @@ run = "move-node-to-workspace figma"
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
-run = "move-node-to-workspace terminal"
+run = "move-node-to-workspace pty"
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-# run = ["layout floating", "move-node-to-workspace terminal"]
-run = ["layout floating", "move-node-to-workspace terminal"]
+# run = ["layout floating", "move-node-to-workspace pty"]
+run = ["layout floating", "move-node-to-workspace pty"]
 
 [[on-window-detected]]
 if.app-id = 'com.hamishbultitude.ampcode'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.google.antigravity'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.apple.freeform'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.tldraw.desktop'
-run = ["move-node-to-workspace ai_dev"]
+run = ["move-node-to-workspace ai"]
 [[on-window-detected]]
 if.app-name-regex-substring = 'Cursor'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.apple.Safari'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.conductor.app'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.openai.codex'
 if.window-title-regex-substring = 'Codex'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-id = 'com.openai.codex'
 if.window-title-regex-substring = 'ChatGPT'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-name-regex-substring = 'Codex'
 if.window-title-regex-substring = 'Dictation'
 run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 [[on-window-detected]]
 if.app-name-regex-substring = 'Paper'
-run = "move-node-to-workspace ai_dev"
+run = "move-node-to-workspace ai"
 
 [[on-window-detected]]
 if.app-id = 'com.reederapp.5.macOS'
@@ -263,37 +263,37 @@ run = "move-node-to-workspace live"
 if.app-id = 'com.ikmultimedia.AmpliTube5'
 run = "layout floating"
 
-## default apps to go to default workspace
+## default apps go to the misc workspace
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.apple.Music'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.tencent.xinWeChat'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.apple.mail'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
-run = "move-node-to-workspace obsidian"
+run = "move-node-to-workspace note"
 [[on-window-detected]]
 if.app-id = 'com.apple.FaceTime'
-run = ["layout floating", "move-node-to-workspace default"]
+run = ["layout floating", "move-node-to-workspace misc"]
 [[on-window-detected]]
 if.app-id = 'com.apple.Preview'
-run = "move-node-to-workspace default"
+run = "move-node-to-workspace misc"
 
 
 ## fix lark screen share

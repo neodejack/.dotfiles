@@ -8,6 +8,7 @@
   },
   "extensions": [
     "./extensions/herdr-agent-state.ts",
+    "./extensions/herdr-session-title.ts",
     "./extensions/context.ts",
     "./extensions/gpt-fast-mode.ts",
     "./extensions/apply_patch/index.ts",

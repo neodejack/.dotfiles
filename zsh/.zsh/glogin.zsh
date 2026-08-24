@@ -5,7 +5,7 @@
 # Keep both the command and its reminder off personal machines. Strip `.local`
 # so the allowlist works whether macOS returns the short or mDNS hostname.
 case "${HOST%.local}" in
-  ziliwork|zilis-Mac-mini) ;;
+  zilis-MacBook-Pro|zilis-Mac-mini) ;;
   *) return ;;
 esac
 

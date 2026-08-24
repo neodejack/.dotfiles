@@ -1,7 +1,7 @@
 /** Pure naming, privacy, language, and dialogue helpers. */
 
 export const MIN_NAME_LENGTH = 3;
-export const MAX_NAME_LENGTH = 30;
+export const MAX_NAME_LENGTH = 60;
 
 export const RAW_SLICE_RE =
   /^(?:我|你|他|她|它|请|帮|能|可|可以|能不能|请帮|感觉|突然|我想|我想知道|有没有|是不是|为什么|怎么|如何|What|Can|Could|Please|Help|I want|I need|Is there|Why|How)/;
@@ -23,6 +23,31 @@ export interface DialoguePart {
 }
 
 export type NamingLanguage = "Chinese" | "English" | "Japanese" | "Korean";
+
+export type NameRejectionReason =
+  | "missing_output"
+  | "empty_after_cleaning"
+  | "too_short"
+  | "too_long"
+  | "raw_sentence_prefix"
+  | "sentence_punctuation"
+  | "too_much_punctuation"
+  | "no_alphanumeric";
+
+export interface NameResponseDiagnostic {
+  stopReason?: string;
+  rawStopReason?: string;
+  contentTypes: string[];
+  textChars: number;
+  thinkingChars: number;
+  cleanedChars: number;
+  rejection?: NameRejectionReason;
+}
+
+export interface NameExtractionResult {
+  name?: string;
+  diagnostic: NameResponseDiagnostic;
+}
 
 function naturalLanguageText(text: string): string {
   return text
@@ -103,12 +128,18 @@ export function redactSensitiveText(text: string): { text: string; redacted: boo
   return { text: output, redacted };
 }
 
+export function getNameRejectionReason(name: string): NameRejectionReason | undefined {
+  if (name.length < MIN_NAME_LENGTH) return "too_short";
+  if (name.length > MAX_NAME_LENGTH) return "too_long";
+  if (RAW_SLICE_RE.test(name)) return "raw_sentence_prefix";
+  if (SENTENCE_END_RE.test(name)) return "sentence_punctuation";
+  if ((name.match(/[，,。！？!?]/g) || []).length > 1) return "too_much_punctuation";
+  if (!/[\p{L}\p{N}]/u.test(name)) return "no_alphanumeric";
+  return undefined;
+}
+
 export function isHighQualityName(name: string): boolean {
-  if (name.length < MIN_NAME_LENGTH || name.length > MAX_NAME_LENGTH) return false;
-  if (RAW_SLICE_RE.test(name)) return false;
-  if (SENTENCE_END_RE.test(name)) return false;
-  if ((name.match(/[，,。！？!?]/g) || []).length > 1) return false;
-  return /[\p{L}\p{N}]/u.test(name);
+  return getNameRejectionReason(name) === undefined;
 }
 
 export function blockText(content: unknown): string {
@@ -178,7 +209,7 @@ export function buildNamingPrompt(
 ): { prompt: string; redacted: boolean } {
   const prompt = [
     getNamingLanguageInstruction(parts, fallbackLocale),
-    "Think privately, then output only one concise session-name label (5-15 characters or words).",
+    `Think privately, then output only one concise session-name label (${MIN_NAME_LENGTH}-${MAX_NAME_LENGTH} total characters including spaces; prefer 2-8 words for English).`,
     "Generate the best label afresh from the supplied conversation.",
     "The label must describe the current coding task, not repeat a conversational sentence.",
     "No punctuation, quotes, explanation, commas, or multiple clauses.",
@@ -195,13 +226,14 @@ export function buildNamingPrompt(
   return { prompt: prompt.join("\n\n"), redacted };
 }
 
-export function extractCleanName(response: any): string | undefined {
-  const text = response?.content
+export function inspectNameResponse(response: any): NameExtractionResult {
+  const content = Array.isArray(response?.content) ? response.content : [];
+  const text = content
     ?.filter((block: any) => block.type === "text")
     .map((block: any) => block.text)
     .join("")
     .trim();
-  const fallbackThinking = response?.content
+  const fallbackThinking = content
     ?.filter((block: any) => block.type === "thinking")
     .map((block: any) => block.thinking)
     .join("")
@@ -211,5 +243,25 @@ export function extractCleanName(response: any): string | undefined {
     ?.replace(/^['"`\u201c\u201d\u3001]+|['"`\u201c\u201d\u3001]+$/g, "")
     .replace(/[^\p{L}\p{N}\s\-_/.#+]/gu, "")
     .trim();
-  return cleaned && isHighQualityName(cleaned) ? cleaned : undefined;
+
+  const rejection = !candidate
+    ? "missing_output"
+    : !cleaned
+      ? "empty_after_cleaning"
+      : getNameRejectionReason(cleaned);
+  const diagnostic: NameResponseDiagnostic = {
+    ...(typeof response?.stopReason === "string" ? { stopReason: response.stopReason } : {}),
+    ...(typeof response?.rawStopReason === "string" ? { rawStopReason: response.rawStopReason } : {}),
+    contentTypes: content.map((block: any) => typeof block?.type === "string" ? block.type : "unknown"),
+    textChars: text.length,
+    thinkingChars: fallbackThinking.length,
+    cleanedChars: cleaned?.length ?? 0,
+    ...(rejection ? { rejection } : {}),
+  };
+
+  return rejection ? { diagnostic } : { name: cleaned, diagnostic };
+}
+
+export function extractCleanName(response: any): string | undefined {
+  return inspectNameResponse(response).name;
 }

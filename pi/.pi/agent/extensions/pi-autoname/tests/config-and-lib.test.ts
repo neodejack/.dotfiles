@@ -9,6 +9,7 @@ import {
   detectDominantUserLanguage,
   extractCleanName,
   getInitialDialogue,
+  inspectNameResponse,
   getNamingLanguageInstruction,
   getRecentDialogue,
   isFreshSession,
@@ -68,6 +69,33 @@ describe("privacy and naming quality", () => {
     assert.equal(extractCleanName({ content: [{ type: "text", text: "\"Naming Refactor\"" }] }), "Naming Refactor");
     assert.equal(extractCleanName({ content: [{ type: "text", text: "I need help fixing this bug" }] }), undefined);
   });
+
+  it("accepts useful multi-word titles up to 60 characters", () => {
+    const title = "Draft issue for fullscreen prompt replay bug";
+    assert.equal(title.length, 44);
+    assert.equal(extractCleanName({ content: [{ type: "text", text: title }] }), title);
+  });
+
+  it("reports privacy-safe rejection metadata without title text", () => {
+    const title = "a".repeat(MAX_NAME_LENGTH + 1);
+    const result = inspectNameResponse({
+      stopReason: "stop",
+      rawStopReason: "completed",
+      content: [{ type: "text", text: title }],
+    });
+
+    assert.equal(result.name, undefined);
+    assert.deepEqual(result.diagnostic, {
+      stopReason: "stop",
+      rawStopReason: "completed",
+      contentTypes: ["text"],
+      textChars: MAX_NAME_LENGTH + 1,
+      thinkingChars: 0,
+      cleanedChars: MAX_NAME_LENGTH + 1,
+      rejection: "too_long",
+    });
+    assert.doesNotMatch(JSON.stringify(result.diagnostic), new RegExp(title));
+  });
 });
 
 describe("language and prompt construction", () => {
@@ -92,6 +120,7 @@ describe("language and prompt construction", () => {
     assert.equal(built.redacted, true);
     assert.doesNotMatch(built.prompt, /API_KEY=secret/);
     assert.match(built.prompt, /afresh/);
+    assert.match(built.prompt, /3-60 total characters/);
   });
 });
 

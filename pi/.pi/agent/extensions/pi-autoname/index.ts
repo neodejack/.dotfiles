@@ -11,9 +11,9 @@ import {
 } from "./controller.ts";
 import {
   buildNamingPrompt,
-  extractCleanName,
   getInitialDialogue,
   getRecentDialogue,
+  inspectNameResponse,
   isFreshSession,
 } from "./lib.ts";
 import { completeNamingModel } from "./model.ts";
@@ -134,8 +134,12 @@ async function generateName(
     return { status: "failed", reason: completion.message };
   }
 
-  const name = extractCleanName(completion.response);
-  if (!name) return { status: "failed", reason: "Naming model returned no valid session name" };
+  const extraction = inspectNameResponse(completion.response);
+  if (!extraction.name) {
+    debugLog("naming response rejected", extraction.diagnostic);
+    return { status: "failed", reason: "Naming model returned no valid session name" };
+  }
+  const name = extraction.name;
   return { status: "renamed", name };
 }
 

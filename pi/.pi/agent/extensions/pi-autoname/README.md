@@ -86,7 +86,10 @@ text and generated titles are never written to debug logs.
 Title language is inferred from user-authored natural language, not assistant
 messages, paths, URLs, or code. The optional `pi-di18n` locale is consulted only
 when user language cannot be detected. Model output must be a short semantic
-label and pass the inherited quality checks before it can rename the session.
+label of 3-60 total characters and pass the inherited quality checks before it
+can rename the session. With debugging enabled, rejected responses log only
+privacy-safe metadata such as content-block types, character counts, and the
+rejection reason; generated titles are never logged.
 
 ## Files
 

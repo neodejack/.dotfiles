@@ -6,11 +6,11 @@ import {
   MAX_NAME_LENGTH,
   blockText,
   buildNamingPrompt,
-  detectDominantUserLanguage,
   extractCleanName,
   getInitialDialogue,
+  getNameRejectionMessage,
+  getNameRejectionReason,
   inspectNameResponse,
-  getNamingLanguageInstruction,
   getRecentDialogue,
   isFreshSession,
   isHighQualityName,
@@ -57,12 +57,14 @@ describe("privacy and naming quality", () => {
   });
 
   it("accepts concise labels and rejects sentences", () => {
-    assert.equal(isHighQualityName("API重构"), true);
+    assert.equal(isHighQualityName("API refactor"), true);
     assert.equal(isHighQualityName("Session naming fix"), true);
-    assert.equal(isHighQualityName("我想知道如何修复"), false);
     assert.equal(isHighQualityName("Good job!"), false);
     assert.equal(isHighQualityName("ab"), false);
     assert.equal(isHighQualityName("a".repeat(MAX_NAME_LENGTH + 1)), false);
+    assert.equal(isHighQualityName("windows screenshot capture service errors"), false);
+    assert.equal(getNameRejectionReason("how auth works"), "raw_sentence_prefix");
+    assert.equal(isHighQualityName("canary release"), true);
   });
 
   it("extracts and validates model output", () => {
@@ -70,10 +72,17 @@ describe("privacy and naming quality", () => {
     assert.equal(extractCleanName({ content: [{ type: "text", text: "I need help fixing this bug" }] }), undefined);
   });
 
-  it("accepts useful multi-word titles up to 60 characters", () => {
-    const title = "Draft issue for fullscreen prompt replay bug";
-    assert.equal(title.length, 44);
-    assert.equal(extractCleanName({ content: [{ type: "text", text: title }] }), title);
+  it("accepts Amp-style keyword labels and rejects more than four words", () => {
+    assert.equal(
+      extractCleanName({ content: [{ type: "text", text: "windows screenshot errors" }] }),
+      "windows screenshot errors",
+    );
+    const result = inspectNameResponse({
+      content: [{ type: "text", text: "windows screenshot capture service errors" }],
+    });
+    assert.equal(result.name, undefined);
+    assert.equal(result.diagnostic.rejection, "too_many_words");
+    assert.equal(getNameRejectionMessage("too_many_words"), "Name is too long");
   });
 
   it("reports privacy-safe rejection metadata without title text", () => {
@@ -98,29 +107,14 @@ describe("privacy and naming quality", () => {
   });
 });
 
-describe("language and prompt construction", () => {
-  it("uses user-authored language rather than assistant language", () => {
-    const parts = [
-      { role: "user" as const, text: "请修复自动命名的语言" },
-      { role: "assistant" as const, text: "I will return an English summary." },
-    ];
-    assert.equal(detectDominantUserLanguage(parts), "Chinese");
-    assert.match(getNamingLanguageInstruction(parts), /Chinese/);
-  });
-
-  it("uses locale only when no natural-language user text exists", () => {
-    assert.match(
-      getNamingLanguageInstruction([{ role: "user", text: "const title = makeName();" }], "ja"),
-      /Japanese/,
-    );
-  });
-
+describe("prompt construction", () => {
   it("redacts prompt content and requests a fresh label", () => {
     const built = buildNamingPrompt([{ role: "user", text: "API_KEY=secret fix naming" }]);
     assert.equal(built.redacted, true);
     assert.doesNotMatch(built.prompt, /API_KEY=secret/);
-    assert.match(built.prompt, /afresh/);
     assert.match(built.prompt, /3-60 total characters/);
+    assert.doesNotMatch(built.prompt, /2-4 words|topic-first|lowercase/);
+    assert.match(built.prompt, /untrusted data/);
   });
 });
 

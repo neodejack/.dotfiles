@@ -3,12 +3,13 @@ import { describe, it } from "node:test";
 
 import {
   completeNamingModel,
+  NAMING_SYSTEM_PROMPT,
   supportsReasoningEffort,
   type ModelRegistryLike,
 } from "../model.ts";
 
 function createRegistry(modelOverrides: Record<string, unknown> = {}) {
-  const seen: { options?: any; findCalls: number } = { findCalls: 0 };
+  const seen: { context?: any; options?: any; findCalls: number } = { findCalls: 0 };
   const model = {
     provider: "openai-codex",
     id: "gpt-5.6-luna",
@@ -26,7 +27,8 @@ function createRegistry(modelOverrides: Record<string, unknown> = {}) {
     },
     getProvider() {
       return {
-        streamSimple(_model, _context, options) {
+        streamSimple(_model, context, options) {
+          seen.context = context;
           seen.options = options;
           return {
             async result() {
@@ -62,6 +64,11 @@ describe("reasoning support", () => {
     });
     assert.equal(result.ok, true);
     assert.equal(seen.findCalls, 1);
+    assert.equal(seen.context.systemPrompt, NAMING_SYSTEM_PROMPT);
+    assert.match(seen.context.systemPrompt, /concise English topic labels/);
+    assert.match(seen.context.systemPrompt, /2-4 word name/);
+    assert.match(seen.context.systemPrompt, /audit or investigate/);
+    assert.doesNotMatch(seen.context.systemPrompt, /Cocoon|Windows|Redis|Firebase/);
     assert.equal(seen.options.reasoning, "low");
     assert.equal(seen.options.cacheRetention, "none");
   });

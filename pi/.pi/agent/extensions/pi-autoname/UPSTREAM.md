@@ -8,9 +8,8 @@
 
 The local implementation was derived from upstream `extensions/index.ts`,
 `extensions/controller.ts`, `extensions/lib.ts`, and their tests. The privacy
-redaction, language detection, dialogue extraction, title validation, bounded
-request handling, cancellation, and explicit `/autoname` command were retained
-and adapted.
+redaction, dialogue extraction, title validation, bounded request handling,
+cancellation, and explicit `/autoname` command were retained and adapted.
 
 ## Intentional differences
 
@@ -20,6 +19,7 @@ and adapted.
 - `/autoname` asks for a fresh title rather than preserving a fitting old one.
 - `reasoningEffort` is configured and validated exactly.
 - Fallback models, session-model fallback, and local extraction fallback are removed.
+- Names are always English; upstream language detection and locale integration are removed.
 - Configuration is strict and never auto-generated.
 - The modern provider `streamSimple` path is used instead of the deprecated
   global `@earendil-works/pi-ai/compat` completion function.
@@ -28,6 +28,6 @@ and adapted.
 ## Updating
 
 Do not overwrite this directory blindly. Review upstream changes to the copied
-privacy patterns, language detection, title validation, Pi lifecycle events,
-and provider APIs. Port useful changes deliberately, adapt the tests and README,
-then update the version and commit above.
+privacy patterns, title validation, Pi lifecycle events, and provider APIs. Port
+useful changes deliberately, adapt the tests and README, then update the version
+and commit above.

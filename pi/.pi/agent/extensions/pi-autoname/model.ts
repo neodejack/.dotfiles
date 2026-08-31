@@ -3,6 +3,13 @@ import type { ReasoningEffort } from "./config.ts";
 export const AI_TOTAL_BUDGET_MS = 30_000;
 export const AI_ATTEMPT_TIMEOUT_MS = 12_000;
 export const MAX_NAME_TOKENS = 64;
+export const NAMING_SYSTEM_PROMPT = [
+  "Name coding-agent threads with concise English topic labels.",
+  "Output only one 2-4 word name and prefer 3 words.",
+  "Use a compressed, topic-first keyword phrase in lowercase, except for canonical product or identifier casing.",
+  "Keep distinctive technical terms and omit filler, sentence grammar, and generic task framing such as audit or investigate.",
+  "Do not use quotes, explanations, sentence punctuation, or multiple clauses.",
+].join("\n");
 
 export type ModelFailureCode =
   | "invalid_model"
@@ -91,7 +98,7 @@ export async function completeNamingModel(options: {
     const stream = provider.streamSimple(
       requestModel,
       {
-        systemPrompt: "You produce concise semantic labels for coding sessions.",
+        systemPrompt: NAMING_SYSTEM_PROMPT,
         messages: [{
           role: "user",
           content: [{ type: "text", text: options.prompt }],

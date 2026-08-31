@@ -83,11 +83,13 @@ AWS access keys, private keys, and token/secret/password assignments. It sends
 only short excerpts (up to 700 characters per selected message). Conversation
 text and generated titles are never written to debug logs.
 
-Title language is inferred from user-authored natural language, not assistant
-messages, paths, URLs, or code. The optional `pi-di18n` locale is consulted only
-when user language cannot be detected. Model output must be a short semantic
-label of 3-60 total characters and pass the inherited quality checks before it
-can rename the session. With debugging enabled, rejected responses log only
+Titles are always English. They use an Amp-style, topic-first keyword phrase of
+two to four words (preferably three), omit generic intent framing such as
+“audit” and “investigate,” and use lowercase except for canonical product or
+identifier casing. Model output must be 3-60 total characters and pass the
+quality checks before it can rename the session. Rejected output produces a
+specific reason where possible—for example, `Name is too long` for a character
+or word-count violation. With debugging enabled, rejected responses log only
 privacy-safe metadata such as content-block types, character counts, and the
 rejection reason; generated titles are never logged.
 
@@ -97,7 +99,7 @@ rejection reason; generated titles are never logged.
 - `controller.ts` — one-shot state machine and request cancellation
 - `model.ts` — exact reasoning validation and provider request
 - `config.ts` — strict configuration schema
-- `lib.ts` — redaction, language, dialogue, prompt, and title helpers
+- `lib.ts` — redaction, dialogue, prompt, and title helpers
 - `tests/` — pure unit tests requiring no live model
 - `UPSTREAM.md` — provenance and deliberate differences
 

@@ -12,6 +12,7 @@ import {
 import {
   buildNamingPrompt,
   getInitialDialogue,
+  getNameRejectionMessage,
   getRecentDialogue,
   inspectNameResponse,
   isFreshSession,
@@ -83,27 +84,11 @@ function notifyInvalidConfig(ctx: ExtensionContext, result: ConfigResult): void 
   if (!result.ok && ctx.hasUI) ctx.ui.notify(`pi-autoname disabled: ${result.error}`, "warning");
 }
 
-function getI18nLocale(pi: ExtensionAPI): string | undefined {
-  let locale: string | undefined;
-  try {
-    pi.events.emit("pi-core/i18n/requestApi", {
-      reply: (api: { getLocale?: () => unknown }) => {
-        const value = api?.getLocale?.();
-        if (typeof value === "string" && value.trim()) locale = value;
-      },
-    });
-  } catch {
-    // pi-di18n is optional.
-  }
-  return locale;
-}
-
 function hasLocalStateMarker(branch: any[]): boolean {
   return branch.some((entry) => entry?.type === "custom" && entry.customType === STATE_ENTRY_TYPE);
 }
 
 async function generateName(
-  pi: ExtensionAPI,
   ctx: ExtensionContext,
   mode: NamingMode,
   signal: AbortSignal,
@@ -120,7 +105,7 @@ async function generateName(
   const parts = mode === "initial" ? getInitialDialogue(branch) : getRecentDialogue(branch);
   if (parts.length === 0) return { status: "failed", reason: "No conversation text is available to name" };
 
-  const built = buildNamingPrompt(parts, getI18nLocale(pi));
+  const built = buildNamingPrompt(parts);
   if (built.redacted) debugLog("redacted sensitive content before naming request");
   const completion = await completeNamingModel({
     modelName: config.model,
@@ -137,7 +122,13 @@ async function generateName(
   const extraction = inspectNameResponse(completion.response);
   if (!extraction.name) {
     debugLog("naming response rejected", extraction.diagnostic);
-    return { status: "failed", reason: "Naming model returned no valid session name" };
+    const reason = extraction.diagnostic.rejection;
+    return {
+      status: "failed",
+      reason: reason
+        ? getNameRejectionMessage(reason)
+        : "Naming model returned no valid session name",
+    };
   }
   const name = extraction.name;
   return { status: "renamed", name };
@@ -164,7 +155,7 @@ export default function extension(pi: ExtensionAPI): void {
       getCurrentName: () => pi.getSessionName(),
       appendMarker: (marker) => pi.appendEntry(STATE_ENTRY_TYPE, marker),
       setSessionName: (name) => pi.setSessionName(name),
-      generateName: ({ mode, signal }) => generateName(pi, ctx, mode, signal),
+      generateName: ({ mode, signal }) => generateName(ctx, mode, signal),
       debug: debugLog,
     });
     controller.initialize(initialEligible);

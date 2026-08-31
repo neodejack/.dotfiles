@@ -36,7 +36,7 @@
     "npm:@ff-labs/pi-fff@0.10.3",
     "npm:pi-schedule-prompt"
   ],
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.4",
   "theme": "ghostty",
   "treeFilterMode": "no-tools",
   "hideThinkingBlock": false,

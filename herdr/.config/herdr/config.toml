@@ -10,6 +10,24 @@ next_tab = ""
 split_vertical = ["prefix+|", "prefix+\\"]
 split_horizontal = ["prefix+_", "prefix+-"]
 
+[[keys.command]]
+key = "prefix+a"
+type = "plugin_action"
+command = "annotate.capture"
+description = "annotate text"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "annotate.copy-context"
+description = "copy annotations as context"
+
+[[keys.command]]
+key = "prefix+m"
+type = "plugin_action"
+command = "annotate.manage"
+description = "manage annotations"
+
 [ui]
 agent_panel_sort = "priority"
 show_agent_labels_on_pane_borders = true
@@ -19,8 +37,13 @@ status_indicators = "dots"
 
 [ui.sidebar.agents.rows_by_agent]
 pi = [
-  ["state_icon", { token = "$session_title", fg = "#a9b1d6", bold = true, dim = false }],
-  ["agent"],
+  [
+    "state_icon",
+    { token = "$session_title", fg = "#a9b1d6", bold = true, dim = false },
+  ],
+  [
+    "agent",
+  ],
 ]
 
 [ui.sound]

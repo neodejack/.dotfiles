@@ -5,8 +5,8 @@ new_workspace = "prefix+t"
 rename_workspace = "prefix+$"
 previous_agent = "prefix+p"
 next_agent = "prefix+n"
-previous_tab = ""
-next_tab = ""
+previous_tab = "alt+,"
+next_tab = "alt+."
 split_vertical = ["prefix+|", "prefix+\\"]
 split_horizontal = ["prefix+_", "prefix+-"]
 

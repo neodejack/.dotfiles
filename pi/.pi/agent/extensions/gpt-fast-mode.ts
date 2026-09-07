@@ -11,6 +11,7 @@ const SUPPORTED_MODELS = new Set([
   "openai-codex/gpt-5.6-luna",
   "openai-codex/gpt-5.6-sol",
   "openai-codex/gpt-5.6-terra",
+  "openai-codex/gpt-6-astra",
 ]);
 
 type PiModel = { provider?: string; id?: string };
@@ -39,7 +40,16 @@ function defaultEnabled(): boolean {
 }
 
 function publishStatus(ctx: ExtensionContext, enabled: boolean): void {
-  ctx.ui.setStatus("gpt-fast-mode", enabled ? "enabled" : undefined);
+  ctx.ui.setStatus("gpt-fast-mode", enabled && isSupported(ctx.model) ? "enabled" : undefined);
+}
+
+function warnUnsupported(ctx: ExtensionContext): void {
+  const model = ctx.model;
+  const label = model?.provider && model.id ? modelKey(model) : "unknown model";
+  ctx.ui.notify(
+    `FAST is not active: ${label} is not supported by this extension. The toggle is on, but requests will not use FAST.`,
+    "warning",
+  );
 }
 
 export default function (pi: ExtensionAPI): void {
@@ -56,12 +66,7 @@ export default function (pi: ExtensionAPI): void {
       } else if (isSupported(ctx.model)) {
         ctx.ui.notify("GPT Fast mode enabled (service_tier: priority).");
       } else {
-        const model = ctx.model;
-        const label = model?.provider && model.id ? modelKey(model) : "unknown model";
-        ctx.ui.notify(
-          `GPT Fast mode enabled, but ${label} is not supported.`,
-          "warning",
-        );
+        warnUnsupported(ctx);
       }
     },
   });
@@ -69,6 +74,12 @@ export default function (pi: ExtensionAPI): void {
   pi.on("session_start", (_event, ctx) => {
     enabled = defaultEnabled();
     publishStatus(ctx, enabled);
+    if (enabled && !isSupported(ctx.model)) warnUnsupported(ctx);
+  });
+
+  pi.on("model_select", (_event, ctx) => {
+    publishStatus(ctx, enabled);
+    if (enabled && !isSupported(ctx.model)) warnUnsupported(ctx);
   });
 
   pi.on("before_provider_request", (event, ctx) => {

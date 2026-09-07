@@ -1,8 +1,8 @@
 {
   "quietStartup": true,
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
-  "defaultThinkingLevel": "xhigh",
+  "defaultModel": "gpt-6-astra",
+  "defaultThinkingLevel": "medium",
   "pi-gpt-fast-mode": {
     "enabled": true
   },
@@ -36,7 +36,7 @@
     "npm:@ff-labs/pi-fff@0.10.3",
     "npm:pi-schedule-prompt"
   ],
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "0.85.1",
   "theme": "ghostty",
   "treeFilterMode": "no-tools",
   "hideThinkingBlock": false,
@@ -45,7 +45,8 @@
   "enabledModels": [
     "openai-codex/gpt-5.3-codex-spark",
     "openai-codex/gpt-5.6-sol",
-    "openai-codex/gpt-5.6-terra"
+    "openai-codex/gpt-5.6-terra",
+    "openai-codex/gpt-6-astra"
   ],
   "tuiMode": "fullscreen",
   "fullscreenExitOutput": "resume-hint",

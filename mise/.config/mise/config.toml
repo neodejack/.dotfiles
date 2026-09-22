@@ -20,6 +20,7 @@ ruby = "latest"
 crane = "latest"
 "npm:tree-sitter-cli" = "latest"
 herdr = "latest"
+"github:neodejack/rtv" = "0.0.0"
 
 [tools.sesame]
 version = "0.12.0"
@@ -29,6 +30,9 @@ bin = "sesame"
 
 [settings]
 python.uv_venv_auto = "create|source"
+
+[settings.github]
+credential_command = 'gh auth token --hostname "$MISE_CREDENTIAL_HOST" --user neodejack'
 
 [settings.npm]
 package_manager = "bun"

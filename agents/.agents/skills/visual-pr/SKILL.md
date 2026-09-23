@@ -39,14 +39,13 @@ Create or update the pull request for the current task with a concise descriptio
    - Keep each view focused on what a reviewer needs. Omit categories that did not change.
    - optionaL: if you are aware of a ticket id/url, a humanlayer task url, or related plan/document urls, or other relevant links, include them in the header, otherwise omit the header
 
-5. Save and publish the description:
-   - Use `.humanlayer/tasks/{task-slug}/pr-description.md` when the task directory exists; otherwise use `.humanlayer/tasks/pr-{number}/description.md`.
-   - Update the PR with `gh pr edit {number} --body-file {output-path}`.
+5. Publish the description without adding it to the repository:
+   - Create a temporary file with `mktemp` outside the repository, write the completed description to it, and pass it to `gh pr edit {number} --body-file {temp-path}`.
    - Confirm the update succeeded.
 
 6. Report completion:
    - Read `{SKILLBASE}/references/describe_pr_final_answer.md`.
-   - Respond using that final answer template with the PR URL, saved description URL, and concise list of changed files.
+   - Respond using that final answer template with the PR URL and concise list of changed files. Do not report a saved-description URL; the description is available in the PR.
 
 Always read and follow `{SKILLBASE}/references/pr_description_template.md`. Do not expand the PR body beyond that template.
 

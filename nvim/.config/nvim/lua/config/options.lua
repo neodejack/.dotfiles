@@ -3,6 +3,7 @@
 -- Add any additional options here
 vim.g.snacks_animate = false
 vim.opt.conceallevel = 0
+vim.opt.tabstop = 4
 
 -- Remote SSH sessions have no direct route to the laptop clipboard: their
 -- native provider would write to the remote machine. Emit OSC 52 instead —

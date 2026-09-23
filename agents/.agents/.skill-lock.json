@@ -6,9 +6,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/neodejack/skills.git",
       "skillPath": "skills/writing-justfiles/SKILL.md",
-      "skillFolderHash": "980017853a89970e01c55d700ac2ddf3b5f5ae28",
+      "skillFolderHash": "b1f41de852c6ed00426f488ee83a8cba83297450",
       "installedAt": "2026-02-26T09:02:50.567Z",
-      "updatedAt": "2026-02-27T11:33:39.702Z"
+      "updatedAt": "2026-09-22T08:04:58.815Z"
     },
     "writing-elixir-docs": {
       "source": "neodejack/skills",
@@ -18,33 +18,6 @@
       "skillFolderHash": "50c9eadbdfd6d49c8821851c2c88e871382159b7",
       "installedAt": "2026-03-10T10:07:29.791Z",
       "updatedAt": "2026-03-10T10:07:29.791Z"
-    },
-    "harness-bootstrap": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/harness-bootstrap/SKILL.md",
-      "skillFolderHash": "aceac865a1ddc7a6a471623e7154efc1f73172ec",
-      "installedAt": "2026-03-20T08:13:43.921Z",
-      "updatedAt": "2026-03-31T06:14:14.265Z"
-    },
-    "create-architecture-md": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/create-architecture-md/SKILL.md",
-      "skillFolderHash": "66bc2843bebc1cff843a6581a54593d95359d9ca",
-      "installedAt": "2026-03-26T06:58:15.750Z",
-      "updatedAt": "2026-03-26T06:58:15.750Z"
-    },
-    "frontend-skill": {
-      "source": "openai/plugins",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/openai/plugins.git",
-      "skillPath": "plugins/build-web-apps/skills/frontend-skill/SKILL.md",
-      "skillFolderHash": "2f54cd89c6b5478290ab54e33a773ffbded09655",
-      "installedAt": "2026-03-27T10:07:46.080Z",
-      "updatedAt": "2026-03-27T10:07:46.080Z"
     },
     "react-best-practices": {
       "source": "openai/plugins",
@@ -64,42 +37,23 @@
       "installedAt": "2026-03-27T10:07:48.275Z",
       "updatedAt": "2026-03-27T10:07:48.275Z"
     },
-    "web-design-guidelines": {
-      "source": "openai/plugins",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/openai/plugins.git",
-      "skillPath": "plugins/build-web-apps/skills/web-design-guidelines/SKILL.md",
-      "skillFolderHash": "73cabb012012732acb8e1feb77de4fe0498c328e",
-      "installedAt": "2026-03-27T10:07:49.923Z",
-      "updatedAt": "2026-03-27T10:07:49.923Z"
-    },
     "grilling": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/grilling/SKILL.md",
-      "skillFolderHash": "0d40d978f1a588971a11ea7ae85b208e78102dc3",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "f0732035b8b1b60ae39454e4191caef32fa91903",
       "installedAt": "2026-06-30T09:40:28.508Z",
-      "updatedAt": "2026-08-17T14:30:34.992Z"
-    },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "9b31e495b887e4ca123960415eca69fc7e1bba28",
-      "installedAt": "2026-07-18T05:17:52.836Z",
-      "updatedAt": "2026-07-18T05:17:52.836Z"
+      "updatedAt": "2026-09-22T08:05:04.034Z"
     },
     "hunk-review": {
       "source": "modem-dev/hunk",
       "sourceType": "github",
       "sourceUrl": "https://github.com/modem-dev/hunk.git",
-      "skillPath": "skills/hunk-review/SKILL.md",
-      "skillFolderHash": "f955a7b7c2808b57cb72c5facd3fa9579af1ca1c",
+      "skillPath": "packages/hunk/skills/hunk-review/SKILL.md",
+      "skillFolderHash": "6f018e1100adad770c86dfcf64a03151b51d6251",
       "installedAt": "2026-07-20T08:03:11.364Z",
-      "updatedAt": "2026-07-20T08:03:11.364Z"
+      "updatedAt": "2026-09-22T08:05:15.137Z"
     },
     "to-tickets": {
       "source": "neodejack/skills",
@@ -115,9 +69,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/humanlayer/skills.git",
       "skillPath": "plugins/show-me/skills/show-me/SKILL.md",
-      "skillFolderHash": "a8eda6381157e27b067400b46cdf395da68b8670",
+      "skillFolderHash": "362200ac2fb3c17b765049444e88de73767e6d08",
       "installedAt": "2026-08-13T06:20:54.332Z",
-      "updatedAt": "2026-08-13T06:20:54.332Z"
+      "updatedAt": "2026-09-22T08:05:17.346Z"
     },
     "grill-me": {
       "source": "mattpocock/skills",
@@ -134,10 +88,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/teach/SKILL.md",
-      "skillFolderHash": "15f8c86d39ef834e643d092733ca899b59049067",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "2ab11f2f51f3c29771edb5d4258d807a49462491",
       "installedAt": "2026-08-17T14:30:58.234Z",
-      "updatedAt": "2026-08-17T14:30:58.234Z"
+      "updatedAt": "2026-09-22T08:05:06.292Z"
     },
     "writing-for-agents": {
       "source": "mattpocock/skills",
@@ -148,6 +101,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-08-21T09:06:25.383Z",
       "updatedAt": "2026-08-21T09:06:25.383Z"
+    },
+    "visual-pr": {
+      "source": "humanlayer/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/humanlayer/skills.git",
+      "skillPath": "plugins/visual-pr/skills/visual-pr/SKILL.md",
+      "skillFolderHash": "2104d685d33ba9594a4dfe13241f0f7f02190401",
+      "installedAt": "2026-09-23T04:00:06.525Z",
+      "updatedAt": "2026-09-23T04:00:06.525Z"
     }
   },
   "dismissed": {
@@ -155,14 +117,13 @@
   },
   "lastSelectedAgents": [
     "amp",
-    "antigravity",
-    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
-    "deepagents",
+    "droid",
     "gemini-cli",
     "github-copilot",
+    "kilo",
     "kimi-code-cli",
     "opencode",
     "warp",

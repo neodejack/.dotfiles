@@ -159,16 +159,16 @@ Declare settings at the top of the justfile:
 
 ```just
 # load .env file automatically
-set dotenv-load
+set dotenv-load := true
 
 # use bash instead of sh
 set shell := ["bash", "-cu"]
 
 # suppress command echoing by default
-set quiet
+set quiet := true
 
 # search parent directories for recipes not found locally
-set fallback
+set fallback := true
 ```
 
 ## Variables & Expressions
@@ -195,8 +195,8 @@ Make the first recipe a help/list command so bare `just` shows available recipes
 ```just
 # list available recipes
 [default]
-list:
-    @just --list --list-heading $'just what?\n' --list-prefix '~> '
+default:
+    @just --list --list-heading $'just do what?\n' --list-prefix '~> '
 ```
 
 Always use this exact default recipe to provide a friendly listing.
@@ -292,6 +292,7 @@ version:
 
 - Use 4-space indentation (required by `just --fmt`).
 - Run `just --fmt --unstable` to auto-format the justfile.
+- **After editing a justfile, always run `just --fmt --check --unstable` to verify formatting.** If it reports errors, run `just --fmt --unstable` to fix them automatically.
 - Keep recipes short; extract complex logic into shell scripts.
 - Add a blank line between recipes for readability.
 

@@ -20,7 +20,8 @@ ruby = "latest"
 crane = "latest"
 "npm:tree-sitter-cli" = "latest"
 herdr = "latest"
-"github:neodejack/rtv" = "0.0.0"
+hunk = "latest"
+"github:neodejack/rtv" = "0.0.1"
 
 [tools.sesame]
 version = "0.12.0"

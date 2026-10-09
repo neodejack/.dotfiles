@@ -22,6 +22,7 @@ crane = "latest"
 herdr = "latest"
 hunk = "latest"
 "github:neodejack/rtv" = "0.0.1"
+tmux = "latest"
 
 [tools.sesame]
 version = "0.12.0"

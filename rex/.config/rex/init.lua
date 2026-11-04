@@ -33,7 +33,7 @@ rex.bind("ctrl+f", "pane.send_key", { key = "ctrl+right" })
 -- Ghostty-only shortcut; cmd+t and WezTerm's cmd+w are Rex defaults.
 rex.bind("alt+enter", "client.window.fullscreen.toggle")
 
-rex.bind("ctrl+s", "client.sidebar.activity.toggle")
+rex.bind("ctrl+s", "client.sidebar.toggle")
 rex.bind("ctrl+t", "client.tab.new")
 rex.bind("cmd+p", "client.palette.toggle")
 rex.bind("cmd+n", "session.new")

@@ -1,7 +1,7 @@
 set shell := ["bash", "-uc"]
 
 exclude := ".git"
-anchor_dirs := ".pi/agent .config/herdr .config/sesame Library/LaunchAgents"
+anchor_dirs := ".pi/agent .config/herdr .config/rex .config/sesame Library/LaunchAgents"
 ignore := "(^|/)node_modules($|/)"
 
 # List available recipes

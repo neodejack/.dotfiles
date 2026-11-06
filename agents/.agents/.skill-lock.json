@@ -1,42 +1,6 @@
 {
   "version": 3,
   "skills": {
-    "writing-justfiles": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/writing-justfiles/SKILL.md",
-      "skillFolderHash": "b1f41de852c6ed00426f488ee83a8cba83297450",
-      "installedAt": "2026-02-26T09:02:50.567Z",
-      "updatedAt": "2026-09-22T08:04:58.815Z"
-    },
-    "writing-elixir-docs": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/writing-elixir-docs/SKILL.md",
-      "skillFolderHash": "50c9eadbdfd6d49c8821851c2c88e871382159b7",
-      "installedAt": "2026-03-10T10:07:29.791Z",
-      "updatedAt": "2026-03-10T10:07:29.791Z"
-    },
-    "react-best-practices": {
-      "source": "openai/plugins",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/openai/plugins.git",
-      "skillPath": "plugins/build-web-apps/skills/react-best-practices/SKILL.md",
-      "skillFolderHash": "5adcf22a1163c8af5825ef292a3b4c96188b421a",
-      "installedAt": "2026-03-27T10:07:46.962Z",
-      "updatedAt": "2026-03-27T10:07:46.962Z"
-    },
-    "shadcn": {
-      "source": "openai/plugins",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/openai/plugins.git",
-      "skillPath": "plugins/build-web-apps/skills/shadcn-best-practices/SKILL.md",
-      "skillFolderHash": "99b7a12bd3523ba5d76b4bebb0c5b9090c5cd2af",
-      "installedAt": "2026-03-27T10:07:48.275Z",
-      "updatedAt": "2026-03-27T10:07:48.275Z"
-    },
     "grilling": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -45,33 +9,6 @@
       "skillFolderHash": "f0732035b8b1b60ae39454e4191caef32fa91903",
       "installedAt": "2026-06-30T09:40:28.508Z",
       "updatedAt": "2026-09-22T08:05:04.034Z"
-    },
-    "hunk-review": {
-      "source": "modem-dev/hunk",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/modem-dev/hunk.git",
-      "skillPath": "packages/hunk/skills/hunk-review/SKILL.md",
-      "skillFolderHash": "6f018e1100adad770c86dfcf64a03151b51d6251",
-      "installedAt": "2026-07-20T08:03:11.364Z",
-      "updatedAt": "2026-09-22T08:05:15.137Z"
-    },
-    "to-tickets": {
-      "source": "neodejack/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/neodejack/skills.git",
-      "skillPath": "skills/to-tickets/SKILL.md",
-      "skillFolderHash": "c116346892195024d41a41bcc35ca2f71f56b365",
-      "installedAt": "2026-07-29T08:15:23.950Z",
-      "updatedAt": "2026-07-29T08:15:23.950Z"
-    },
-    "show-me": {
-      "source": "humanlayer/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/humanlayer/skills.git",
-      "skillPath": "plugins/show-me/skills/show-me/SKILL.md",
-      "skillFolderHash": "362200ac2fb3c17b765049444e88de73767e6d08",
-      "installedAt": "2026-08-13T06:20:54.332Z",
-      "updatedAt": "2026-09-22T08:05:17.346Z"
     },
     "grill-me": {
       "source": "mattpocock/skills",
@@ -102,14 +39,15 @@
       "installedAt": "2026-08-21T09:06:25.383Z",
       "updatedAt": "2026-08-21T09:06:25.383Z"
     },
-    "visual-pr": {
-      "source": "humanlayer/skills",
+    "pr": {
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/humanlayer/skills.git",
-      "skillPath": "plugins/visual-pr/skills/visual-pr/SKILL.md",
-      "skillFolderHash": "2104d685d33ba9594a4dfe13241f0f7f02190401",
-      "installedAt": "2026-09-23T04:00:06.525Z",
-      "updatedAt": "2026-09-23T04:00:06.525Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/pr/SKILL.md",
+      "skillFolderHash": "00b896d811adffad747c7ca30078d909d60c7f93",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-11-04T05:41:27.925Z",
+      "updatedAt": "2026-11-04T05:41:27.925Z"
     }
   },
   "dismissed": {
@@ -121,11 +59,13 @@
     "codex",
     "cursor",
     "droid",
+    "fx",
     "gemini-cli",
     "github-copilot",
     "kilo",
     "kimi-code-cli",
     "opencode",
+    "pi",
     "warp",
     "zed",
     "claude-code"

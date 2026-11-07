@@ -1,5 +1,5 @@
 -- Herdr prefix and tab navigation.
-rex.bind("ctrl+x>t", "session.new")
+rex.bind("ctrl+x>t", "client.tab.new")
 rex.bind("ctrl+x>shift+4", "session.rename")
 rex.bind("alt+,", "client.tab.previous")
 rex.bind("alt+.", "client.tab.next")

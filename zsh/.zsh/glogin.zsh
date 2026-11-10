@@ -14,7 +14,19 @@ zmodload -i zsh/datetime
 
 glogin() {
   local -a browser_args=()
-  [[ -n "$SSH_CONNECTION" ]] && browser_args=(--no-launch-browser)
+  if [[ -n "$SSH_CONNECTION" || -n "$AMP_RUNNER_PORTALS_RUNNER_ID" ]]; then
+    browser_args=(--no-launch-browser)
+  elif [[ -n "$REX_SESSION" && -n "$REX_BLOCK" ]]; then
+    # Check this pane's current owner, not other clients viewing the session.
+    # Only a confirmed local connection should launch a browser on this host.
+    local transport
+    transport=$(rex --autostart=false --timeout 2s session inspect "$REX_SESSION" --json 2>/dev/null |
+      jq -r --arg block "$REX_BLOCK" '
+        ([.windows[].layers[].blocks[] | select(.block_id == $block) | .owner][0]) as $owner
+        | .clients[] | select(.client_id == $owner) | .principal.transport
+      ' 2>/dev/null)
+    [[ "$transport" == unix || "$transport" == named_pipe ]] || browser_args=(--no-launch-browser)
+  fi
 
   gcloud auth login "${browser_args[@]}" &&
     gcloud auth application-default login "${browser_args[@]}" || return

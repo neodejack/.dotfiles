@@ -14,7 +14,7 @@ zmodload -i zsh/datetime
 
 glogin() {
   local -a browser_args=()
-  if [[ -n "$SSH_CONNECTION" || -n "$AMP_RUNNER_PORTALS_RUNNER_ID" ]]; then
+  if [[ -n "$SSH_CONNECTION" || "$AMP_WEB_TERMINAL" == 1 || -n "$AMP_RUNNER_PORTALS_RUNNER_ID" ]]; then
     browser_args=(--no-launch-browser)
   elif [[ -n "$REX_SESSION" && -n "$REX_BLOCK" ]]; then
     # Check this pane's current owner, not other clients viewing the session.
